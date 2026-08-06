@@ -15,6 +15,7 @@ Contrôle : `admission_commit` doit être ancêtre du commit évalué; `git show
 | delta `894b585` | `4b920b4` | `docs/fusion/CONTRADICTOIRE_DELTA_894B585.md` | `db87ec2a649c3f88cc46b38a7f26e9ea66575b49658181e5bef75186f3e0e74d` | opérateur, 2026-08-06 |
 | delta `ca8de4f` | `f8f0a2e` | `docs/fusion/CONTRADICTOIRE_DELTA_CA8DE4F.md` | `ef29e9dbd87e411a75f17955ded3b53f121ffe19b0552fa40afae80690bb73d0` | opérateur, 2026-08-06 |
 | delta `58e11cb` | `1fdc5eb` | `docs/fusion/CONTRADICTOIRE_DELTA_58E11CB.md` | `1ba611239e075910603a10d70a40b762a7b2f595e443dfdcdc467ba42cce1e99` | opérateur, 2026-08-06 |
+| delta `decbb42` | `02775ce` | `docs/fusion/CONTRADICTOIRE_DELTA_DECBB42.md` | `97cb352468a4e828b78ce6af5078f50ee2c54e71200f0b1a9cc6781183cfb2d1` | opérateur, 2026-08-06 |
 
 ## Mutations bloquantes
 
