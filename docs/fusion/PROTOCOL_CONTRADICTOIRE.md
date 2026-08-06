@@ -110,6 +110,8 @@ scripts/watch_fusion_reviews.sh stop
 
 Le watcher n'exécute aucun heartbeat, ne fait aucun accès réseau et ne committe rien. Il détecte l'artefact; l'admission reste une décision explicite de l'opérateur.
 
+Après émission d'une demande de revue, le Producteur maintient son tour agent actif, lance `watch 10` dans une session persistante et contrôle les détections sans rendre la main. Terminer le tour interrompt cette garantie. À toute reprise, le Producteur exécute immédiatement `check` et lit le journal avant une autre action. Une détection n'autorise jamais admission ou commit sans décision explicite de l'opérateur.
+
 ## Limite du protocole
 
 Deux IA peuvent partager les mêmes biais, données périmées ou erreurs de raisonnement. Le protocole augmente la contradiction documentée; il ne remplace ni oracle indépendant, ni test mécanique, ni revue humaine pour les décisions à conséquence financière.
