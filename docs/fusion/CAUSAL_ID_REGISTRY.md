@@ -14,6 +14,7 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 | symbole | `SYM-NNN-slug` | `SYM-001-apply-fee` | contrat canonique accepté nommant le symbole |
 | mode d'échec | `FM-NNN-slug` | `FM-001-fee-not-applied` | oracle ou mutation accepté avant exécution |
 | groupe racine | `RCG-NNN-slug` | `RCG-001-fee-policy-drift` | décision opérateur versionnée |
+| occurrence | `OCC-NNNNNN` | `OCC-000001` | contrôleur NO-GO, allocation monotone dans le registre machine |
 
 ## Registre initial
 
@@ -40,5 +41,15 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 6. L'activation cite le commit d'autorité, la décision Critique/Contradictoire applicable et la date.
 7. Un ID `RESERVED`, `DEPRECATED` ou `RETIRED` utilisé dans une nouvelle occurrence rend le résultat `NON_TESTABLE` avec raison `INVALID_CAUSAL_ID_STATE`; il compte comme cycle bloqué de la famille. L'ID n'est jamais activé/réactivé rétroactivement pour faire passer le même run.
 8. Les lignes initiales restent `RESERVED` jusqu'à acceptation des RFC/gates qui les autorisent.
-9. Une occurrence possède un `occurrence_id` unique, un `first_recorded_commit` et un `cycle_id`. Elle est **historique** uniquement si le même `occurrence_id` existe déjà dans un commit ancêtre antérieur au commit qui a rendu l'ID causal non actif. Toute création d'`occurrence_id`, ou toute réutilisation du contenu sous un nouvel `occurrence_id`, est une **nouvelle occurrence**. Le temps mural et l'appréciation de l'opérateur ne participent pas à cette décision.
-10. Le contrôleur résout le statut de l'ID au `first_recorded_commit`. Un historique peut être relu après dépréciation sans nouvelle sanction; modifier ses champs causaux crée obligatoirement un nouvel `occurrence_id`. Un ancêtre absent, un ID dupliqué ou une chronologie indécidable produit `NON_TESTABLE` avec raison `INVALID_OCCURRENCE_HISTORY` et compte comme cycle bloqué.
+9. Une occurrence possède un `occurrence_id` unique, un `first_recorded_commit`, un `cycle_id` et `causal_payload_sha256`. Ce hash est calculé sur le JSON canonique `{cause_family_key,failure_signature,cause_key,root_cause_group_id,cycle_id}` : clés triées, UTF-8, séparateurs `,`/`:` sans espaces, valeurs absentes encodées `null`. Elle est **historique** uniquement si le même `occurrence_id` et le même `causal_payload_sha256` existent dans un commit ancêtre antérieur au commit qui a rendu l'ID causal non actif. Toute création d'identité ou divergence de hash est une **nouvelle occurrence**. Le temps mural et l'appréciation de l'opérateur ne participent pas à cette décision.
+10. Le contrôleur recalcule le hash courant et le compare au registre au `first_recorded_commit`. Un historique inchangé peut être relu après dépréciation sans sanction. Hash divergent, ancêtre absent, ID dupliqué ou chronologie indécidable produit `NON_TESTABLE` avec raison `INVALID_OCCURRENCE_HISTORY` et compte comme cycle bloqué; le contenu modifié ne peut jamais hériter du statut historique.
+
+## Codes de raison fermés
+
+| Code | Condition mécanique |
+|---|---|
+| `INVALID_CAUSAL_ID_STATE` | ID causal non actif utilisé par une nouvelle occurrence |
+| `INVALID_OCCURRENCE_HISTORY` | identité, hash causal ou ascendance d'occurrence invalide |
+| `INCOMPLETE_GROUP_HISTORY` | cycles ou prédécesseurs connus absents d'un groupe |
+
+Tout autre code est `UNKNOWN_REASON_CODE` et rend le résultat `NON_TESTABLE`; l'ajout d'un code exige une révision normative préalable.

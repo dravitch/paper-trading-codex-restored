@@ -120,3 +120,14 @@ Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTO
 | L4 | preuve de protection distante ou archive signée obligatoire avant P6 | `RESOLVED_SPEC_OPEN_PROOF_EXTERNAL` |
 
 Les contre-exemples et tests de non-régression attendus sont consignés dans [`REV06.md`](../../REV06.md). Cette réponse Producteur ne ferme pas la revue Contradictoire et ne franchit aucun gate.
+
+## Constats M1–M4 sur la réponse L1–L4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| M1 | ligne `Oracle-Review` unique, ancrée, syntaxe et verdict fermés | `RESOLVED_SPEC_PENDING_REVIEW` |
+| M2 | hash canonique des champs causaux comparé au premier enregistrement | `RESOLVED_SPEC_PENDING_REVIEW` |
+| M3 | registre JSON versionné déclaré source autoritaire des cycles | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| M4 | espace `OCC-NNNNNN` et codes de raison fermés | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+La preuve externe d'immuabilité demeure ouverte. Voir [`REV07.md`](../../REV07.md).

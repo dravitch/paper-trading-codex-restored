@@ -6,6 +6,8 @@ Statuts de cause : `OPEN`, `CONTINUE`, `ATTRIBUTION_BLOCKED`, `REDUCE_SCOPE`, `S
 
 ## Registre
 
+La source machine autoritaire est [`NO_GO_CYCLE_REGISTRY.json`](NO_GO_CYCLE_REGISTRY.json). Ce tableau Markdown est une projection humaine et ne peut ajouter ni retirer un cycle. Le contrôleur valide le schéma, recalcule chaque `causal_payload_sha256`, vérifie l'unicité des `occurrence_id` et recompose les unions uniquement depuis ce JSON versionné.
+
 | Cause ID | Family key | Failure signature | Cause key | Critère §12.1 | Gate | Cycle | Décision opérateur | Statut |
 |---|---|---|---|---|---|---:|---|---|
 | — | — | — | — | aucun critère déclenché à ce jour | — | — | — | — |
@@ -44,4 +46,4 @@ Les identifiants stables proviennent de [`CAUSAL_ID_REGISTRY.md`](CAUSAL_ID_REGI
 
 Le seuil du groupe candidat est exactement trois cycles bloqués, identique au seuil familial. Tout résultat `NON_TESTABLE`, notamment `INVALID_CAUSAL_ID_STATE`, compte comme cycle bloqué de sa famille et de son groupe candidat. Au troisième cycle, attribution/scission ou `STOP` devient obligatoire; répéter un ID non actif ne remet ni compteur ni échéance à zéro.
 
-Créer, fusionner, scinder ou renommer un groupe ne remet jamais son compteur à zéro. Un nouveau `RCG-NNN` couvrant au moins une cause déjà comptée hérite de l'union de tous les `cycle_id` bloqués de ces causes et de leurs groupes antérieurs. Le compteur est la cardinalité de cette union : un même `cycle_id` n'est compté qu'une fois. La décision versionnée doit enregistrer `predecessor_group_ids`, `member_cause_ids`, `inherited_cycle_ids` et le hash de leur représentation JSON canonique. Omettre un prédécesseur ou un cycle connu produit `NON_TESTABLE` avec raison `INCOMPLETE_GROUP_HISTORY` et compte comme cycle bloqué; l'opérateur ne peut pas substituer un compteur manuel.
+Créer, fusionner, scinder ou renommer un groupe ne remet jamais son compteur à zéro. Un nouveau `RCG-NNN` couvrant au moins une cause déjà comptée hérite de l'union de tous les `cycle_id` bloqués de ces causes et de leurs groupes antérieurs. Le compteur est la cardinalité de cette union : un même `cycle_id` n'est compté qu'une fois. L'entrée machine enregistre `predecessor_group_ids`, `member_cause_ids`, `inherited_cycle_ids` et `history_sha256` de leur JSON canonique. Omettre un prédécesseur ou un cycle présent dans la source machine produit `NON_TESTABLE` avec raison `INCOMPLETE_GROUP_HISTORY` et compte comme cycle bloqué; l'opérateur ne peut pas substituer un compteur manuel.

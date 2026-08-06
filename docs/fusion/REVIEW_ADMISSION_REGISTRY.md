@@ -8,7 +8,7 @@ Contrôle : `admission_commit` doit être ancêtre du commit évalué; `git show
 
 ## Admissions
 
-`Oracle scope` est un ensemble fermé d'identifiants (`O2`, `O4`, `O7`) explicitement nommés par le rapport. `—` signifie que la revue historique ne constitue aucune preuve d'oracle. Une preuve P6 n'est admissible que si son `oracle_id` appartient exactement à cette colonne et si le blob admis contient le marqueur normatif `Oracle scope: <oracle_id>`. Le contrôleur extrait ce marqueur du blob au commit d'admission; une valeur fournie par la preuve courante ne fait pas autorité. Un même rapport peut couvrir plusieurs oracles seulement si chaque marqueur et chaque verdict propre à l'oracle sont explicites.
+`Oracle scope` est un ensemble fermé d'identifiants (`O2`, `O4`, `O7`) explicitement nommés par le rapport. `—` signifie que la revue historique ne constitue aucune preuve d'oracle. Une preuve P6 n'est admissible que si son `oracle_id` appartient exactement à cette colonne et si le blob admis contient exactement une ligne normative ancrée de forme `Oracle-Review: oracle_id=O2; verdict=ACCEPT`, où l'ID appartient à `{O2,O4,O7}` et le verdict à `{ACCEPT,ACCEPT_WITH_LIMITS,REJECT,NON_TESTABLE}`. L'expression complète est `^Oracle-Review: oracle_id=(O2|O4|O7); verdict=(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)$`, en ASCII, sans espaces supplémentaires. Une phrase, citation ou sous-chaîne ne correspond pas. Le verdict extrait doit être celui indexé pour cet oracle. Le contrôleur lit le blob au commit d'admission; la preuve courante ne fait pas autorité.
 
 | Objet revu | Oracle scope | Commit d'admission | Rapport | SHA-256 admis | Décision |
 |---|---|---|---|---|---|
@@ -28,6 +28,6 @@ Contrôle : `admission_commit` doit être ancêtre du commit évalué; `git show
 - hash indexé différent du blob;
 - admission et réponse Producteur dans le même commit;
 - verdict/statut enregistré différent du rapport ancré.
-- `oracle_id` absent du scope indexé ou du marqueur normatif du rapport.
+- `oracle_id` absent du scope indexé ou de l'unique ligne normative exacte du rapport.
 
 Toute réécriture d'historique invalide les admissions jusqu'à nouvelle décision opérateur. **Avant toute exécution ou revendication de P6**, le Producteur doit fournir l'une des preuves suivantes : règle de protection distante interdisant force-push et suppression sur la branche contenant les admissions, exportée et hashée; ou archive Git signée couvrant les commits d'admission, avec identité du signataire et commande de vérification. Sans artefact vérifiable, P6 est `BLOCKED_IMMUTABILITY`, même si tous les hashes concordent. La même preuve reste obligatoire pour la publication finale.
