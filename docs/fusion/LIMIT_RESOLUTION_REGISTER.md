@@ -89,3 +89,13 @@ Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTO
 | H3 | `REVIEWED_NON_TESTABLE` et transitions depuis superseded ajoutés | `RESOLVED_DOC_PENDING_REVIEW` |
 | H4 | troisième cycle familial non attribué force `ATTRIBUTION_BLOCKED` | `RESOLVED_SPEC_PENDING_USE` |
 | H5 | registre d'IDs stables et groupe de cause racine ajoutés | `RESOLVED_SPEC_PENDING_USE` |
+
+## Constats J1–J5 sur la réponse H1–H5
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| J1 | contrat `Clock`, `InstantNs`, emplacement et implémentations autorisées définis | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| J2 | preuve P6 lie statut, commit, rapport, hash et verdict; mutations d'élévation ajoutées | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| J3 | `ATTRIBUTION_BLOCKED` et statuts d'occurrence ajoutés au vocabulaire | `RESOLVED_DOC_PENDING_REVIEW` |
+| J4 | `UNKNOWN` compte dans les seuils; seuls `RESOLVED`/`STOP` clôturent | `RESOLVED_SPEC_PENDING_USE` |
+| J5 | cycle `RESERVED→ACTIVE→DEPRECATED→RETIRED` et autorités alignées | `RESOLVED_SPEC_PENDING_REVIEW` |

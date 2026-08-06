@@ -12,6 +12,8 @@ Champs obligatoires : `instrument_id`, type, base, quote, settlement, multiplica
 
 Champs : `event_id`, `source_id`, instrument, type, event_time, receive_time optionnel, séquence, payload canonique, hash brut, niveau F0–F4. Ordre canonique : `(event_time, sequence, source_id, event_id)`. Rejet : duplicate ID au contenu différent, temps absent, niveau supérieur aux données.
 
+Les temps canoniques utilisent `InstantNs` et le port interne définis dans [`CLOCK_CONTRACT.md`](CLOCK_CONTRACT.md). Toute lecture du temps système reste dans un adaptateur live.
+
 ## RFC-003 — `StrategySpec` et `OrderIntent`
 
 La stratégie reçoit état public + événements et retourne une intention sans effet de bord. Intentions : `OPEN_LONG`, `CLOSE_LONG`, `OPEN_SHORT`, `CLOSE_SHORT`, `CANCEL`, `HOLD`. Champs : instrument, direction, quantité ou règle de taille, type d'ordre, contraintes, hypothesis IDs. Rejet : `SELL` ambigu, appel provider, mutation ledger.

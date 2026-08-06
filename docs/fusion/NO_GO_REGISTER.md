@@ -2,7 +2,7 @@
 
 ## Statuts
 
-`OPEN`, `CONTINUE`, `REDUCE_SCOPE`, `STOP`, `RESOLVED`. Une absence d'entrée ne signifie jamais qu'un critère a été testé.
+Statuts de cause : `OPEN`, `CONTINUE`, `ATTRIBUTION_BLOCKED`, `REDUCE_SCOPE`, `STOP`, `RESOLVED`. Statuts d'occurrence : `ATTRIBUTED`, `UNATTRIBUTED`. `UNKNOWN` est un classement de relation causale, pas un statut terminal. Une absence d'entrée ne signifie jamais qu'un critère a été testé.
 
 ## Registre
 
@@ -40,4 +40,4 @@ La signature utilise des identifiants stables préenregistrés : jamais texte li
 
 Une occurrence encore non diagnostiquée reçoit `UNATTRIBUTED` sous la famille. Elle ne compte pas comme répétition d'une cause précise, mais compte dans le compteur de cycles bloqués de la **famille**. Au troisième cycle familial comportant une occurrence non attribuée, le statut devient obligatoirement `ATTRIBUTION_BLOCKED` : aucun quatrième cycle, `CONTINUE` ou `REDUCE_SCOPE` n'est permis. L'opérateur attribue/scinde rétroactivement les occurrences avec liens historiques, ou choisit immédiatement `STOP` si l'attribution reste impossible.
 
-Les identifiants stables proviennent de [`CAUSAL_ID_REGISTRY.md`](CAUSAL_ID_REGISTRY.md). Une même cause racine observée sur plusieurs composants reçoit un `root_cause_group_id`; le seuil de répétition est évalué également sur ce groupe. Au plus tard au troisième cycle d'une famille, l'opérateur recherche obligatoirement les signatures partageant preuves ou dépendance causale et décide leur fusion, séparation ou classement `UNKNOWN`, sans effacer leurs clés. Toute fusion, scission ou requalification exige une décision versionnée.
+Les identifiants stables proviennent de [`CAUSAL_ID_REGISTRY.md`](CAUSAL_ID_REGISTRY.md). Une même cause racine observée sur plusieurs composants reçoit un `root_cause_group_id`; le seuil de répétition est évalué également sur ce groupe. Au plus tard au troisième cycle d'une famille, l'opérateur recherche obligatoirement les signatures partageant preuves ou dépendance causale et décide leur fusion, séparation ou classement `UNKNOWN`, sans effacer leurs clés. `UNKNOWN` compte toujours comme cycle bloqué de la famille et du groupe candidat; il ne suspend aucun compteur ni obligation. Seuls `RESOLVED` et `STOP` clôturent. Toute fusion, scission ou requalification exige une décision versionnée.

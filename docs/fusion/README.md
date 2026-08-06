@@ -21,6 +21,7 @@ Ce dossier transforme le corpus historique Codex en propositions réfutables ava
 13. [Provenance des composants](COMPONENT_PROVENANCE.md) — licence, décisions de portage et blocages.
 14. [Registre NO-GO](NO_GO_REGISTER.md) — causes, cycles et décisions d'arrêt ou réduction.
 15. [Registre des identifiants causaux](CAUSAL_ID_REGISTRY.md) — composants, symboles, modes d'échec et groupes racines.
+16. [Contrat Clock](CLOCK_CONTRACT.md) — temps canonique, horloges replay/test/live et invariants.
 
 ## Hiérarchie des preuves
 
