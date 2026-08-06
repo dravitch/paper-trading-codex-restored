@@ -30,12 +30,12 @@ Le nom `PROPOSITON` est conservé tel que reçu afin de ne pas altérer l'artefa
 2. Les commandes ne sont pas regroupées avec leurs codes de sortie et environnement.
 3. La Critique déclare avoir lu le rapport Contradictoire avant de conclure. Le protocole interdit explicitement la lecture inverse et exige deux sessions distinctes; cette asymétrie ne rend pas le rapport nul, mais réduit l'indépendance épistémique recherchée.
 4. L'indisponibilité future de Bitget pour les utilisateurs canadiens est rapportée comme contexte utilisateur sans source ni date complète dans le dossier reçu : statut `UNKNOWN`, sans incidence sur le constat statique concernant la chaîne `40099`.
-5. Aucun heartbeat Critique séparé n'accompagne l'artefact.
+5. Un [heartbeat/addendum](HEARTBEAT_CRITIQUE_ADDENDUM.md) a ensuite été reçu. Il confirme honnêtement que la révision, l'exécution et l'indépendance stricte ne peuvent pas être attestées.
 
 ## Décision d'admission
 
 `ADMITTED_AS_REVIEW_WITH_LIMITS`, mais **pas encore comptée comme seconde validation conforme** au Protocole Contradictoire.
 
-Pour devenir recevable comme seconde validation, un heartbeat/addendum immuable doit fournir au minimum : modèle/version disponible, date, révision Git effectivement examinée, session distincte, mandat, commandes et codes de sortie. Il doit confirmer que ces métadonnées décrivent la revue déjà produite et ne réécrit pas son verdict a posteriori.
+L'addendum est admis comme clarification, sans changer cette décision. Pour devenir recevable comme seconde validation, une nouvelle Critique doit disposer du dépôt, figer la révision, exécuter les contrôles pertinents et former son premier verdict sans recevoir la conclusion Contradictoire.
 
 Cette admission ne franchit aucun gate et ne valide aucune branche `hypothesis/HNNN-*`.
