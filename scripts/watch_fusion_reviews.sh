@@ -2,7 +2,7 @@
 # watch_fusion_reviews.sh - surveillance locale des heartbeats de l'IA Contradictoire
 # Usage :
 #   baseline                       amorce l'état connu sans signaler les fichiers existants
-#   watch [interval_sec]           boucle de surveillance (défaut INTERVAL=60)
+#   watch [interval_sec]           boucle de surveillance (défaut : 10 secondes)
 #   check                          état courant (PID, log, nombre de fichiers connus)
 #   stop                           arrête le watcher enregistré
 set -uo pipefail
