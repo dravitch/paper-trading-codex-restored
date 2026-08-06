@@ -99,3 +99,13 @@ Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTO
 | J3 | `ATTRIBUTION_BLOCKED` et statuts d'occurrence ajoutés au vocabulaire | `RESOLVED_DOC_PENDING_REVIEW` |
 | J4 | `UNKNOWN` compte dans les seuils; seuls `RESOLVED`/`STOP` clôturent | `RESOLVED_SPEC_PENDING_USE` |
 | J5 | cycle `RESERVED→ACTIVE→DEPRECATED→RETIRED` et autorités alignées | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+## Constats K1–K5 sur la réponse J1–J5
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| K1 | hash recalculé depuis le blob du commit d'admission distinct et ancêtre | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| K2 | mutants construction implicite et déplacement `SystemClock` ajoutés à P1 | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| K3 | usages nouveaux RESERVED/DEPRECATED/RETIRED → `NON_TESTABLE INVALID_CAUSAL_ID_STATE` | `RESOLVED_SPEC_PENDING_REVIEW` |
+| K4 | seuil du groupe candidat fixé à trois cycles bloqués | `RESOLVED_DOC_PENDING_USE` |
+| K5 | tout `NON_TESTABLE` compte comme cycle bloqué, sans remise à zéro | `RESOLVED_SPEC_PENDING_USE` |

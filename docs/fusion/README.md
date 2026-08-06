@@ -22,6 +22,7 @@ Ce dossier transforme le corpus historique Codex en propositions réfutables ava
 14. [Registre NO-GO](NO_GO_REGISTER.md) — causes, cycles et décisions d'arrêt ou réduction.
 15. [Registre des identifiants causaux](CAUSAL_ID_REGISTRY.md) — composants, symboles, modes d'échec et groupes racines.
 16. [Contrat Clock](CLOCK_CONTRACT.md) — temps canonique, horloges replay/test/live et invariants.
+17. [Registre d'admission](REVIEW_ADMISSION_REGISTRY.md) — commits et hashes immuables des revues acceptées.
 
 ## Hiérarchie des preuves
 

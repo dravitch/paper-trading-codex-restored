@@ -38,5 +38,5 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 4. Une fusion/scission de groupe cite preuves, anciennes et nouvelles clés.
 5. Aucun message libre, ligne de code ou traceback ne devient un ID.
 6. L'activation cite le commit d'autorité, la décision Critique/Contradictoire applicable et la date.
-7. Un ID `RESERVED` utilisé dans un résultat observé rend ce résultat `NON_TESTABLE` jusqu'à activation; il n'est jamais activé rétroactivement pour faire passer le même run.
+7. Un ID `RESERVED`, `DEPRECATED` ou `RETIRED` utilisé dans une nouvelle occurrence rend le résultat `NON_TESTABLE` avec raison `INVALID_CAUSAL_ID_STATE`; il compte comme cycle bloqué de la famille. L'ID n'est jamais activé/réactivé rétroactivement pour faire passer le même run.
 8. Les lignes initiales restent `RESERVED` jusqu'à acceptation des RFC/gates qui les autorisent.

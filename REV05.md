@@ -48,3 +48,5 @@ La revue du delta `4225bc5` a produit G1–G4. La réponse Producteur précise l
 La revue du delta `894b585` a produit H1–H5. La réponse Producteur fixe une allowlist d'import P1, rend le statut des oracles obligatoire dans P6, ferme les transitions `NON_TESTABLE`, impose l'attribution au troisième cycle familial et crée un registre d'identifiants causaux avec groupes racines. Ces mécanismes restent documentaires tant que P1/P6 ne sont pas implémentés.
 
 La revue du delta `ca8de4f` a produit J1–J5. La réponse Producteur définit le port `Clock`, lie cryptographiquement les statuts P6 aux rapports, complète le vocabulaire NO-GO, rend `UNKNOWN` non suspensif et ferme le cycle de vie des identifiants causaux. Aucun contrôle exécutable n'est encore livré.
+
+La revue du delta `58e11cb` a produit K1–K5. La réponse Producteur ancre les rapports sur leurs blobs aux commits d'admission, ajoute les mutants `Clock`, sanctionne tous les IDs non actifs, fixe le seuil des groupes candidats à trois et compte `NON_TESTABLE` comme cycle bloqué.
