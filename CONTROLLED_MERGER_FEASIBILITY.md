@@ -40,7 +40,7 @@ Ces traces sont des **preuves d'intention**, pas des preuves de fonctionnement. 
 | stratégie | grid short SOL | RSI et moyenne mobile | convertir les trois en plugins `Strategy` |
 | données | CSV/synthétique et connecteur public limité | mock et Bitget ccxt | définir un port `MarketDataSource` neutre |
 | exécution | simulateur local testé | orchestration simulate/backtest/paper | conserver un moteur unique piloté par une horloge injectable |
-| positions | short à levier explicite | portefeuille spot long | séparer `SpotAccountModel` et `IsolatedMarginModel` |
+| positions | short à levier explicite | portefeuille spot long | séparer `SpotAccountModel` et `IsolatedLinearShortAccountModel` |
 | persistance | manifeste scientifique | état JSON redémarrable | séparer checkpoint opérationnel et manifeste de preuve |
 | métriques | définitions normatives et oracles | rendement, drawdown, win rate simples | garder le registre métrique normatif |
 | tests | 68 tests, réseau bloqué, 87,07 % | 9 tests centrés portefeuille | porter chaque composant avant intégration |
@@ -253,7 +253,7 @@ Le protocole minimal impose :
 1. préenregistrer input, référentiel, hypothèses et attendus;
 2. lancer le même événement canonique dans le backtest et le replay;
 3. comparer journal, fills, ledger, equity et métriques;
-4. exiger une égalité exacte ou une tolérance annoncée avant le run;
+4. exiger un hash sémantique bit-exact dans le même environnement verrouillé; utiliser les tolérances préenregistrées seulement pour les assertions numériques, jamais pour rendre deux hashes égaux;
 5. exécuter des tests de mutation qui doivent échouer si l'on modifie frais, ordre TP/SL, quantité, levier, seed ou numéraire;
 6. publier les échecs, y compris une stratégie perdante ou une région de liquidation.
 
@@ -263,6 +263,8 @@ Invariant initial :
 hash(ResultBundle(backtest, manifest M))
     == hash(ResultBundle(replay, manifest M))
 ```
+
+Cet invariant compare une sérialisation canonique excluant les métadonnées non sémantiques. Entre environnements différents, un résultat peut être `NUMERICALLY_EQUIVALENT` sous les tolérances du manifeste, mais il n'est `BIT_REPRODUCIBLE` que si les hashes sont identiques.
 
 Si les moteurs live et replay doivent diverger pour des raisons opérationnelles, la divergence est un événement explicite, jamais un chemin de code silencieux.
 
@@ -394,7 +396,7 @@ Une frontière calculée sur des estimations ponctuelles est descriptive, pas ro
 - fréquence de domination sous rééchantillonnage;
 - séparation entre risque de marché, risque de modèle, risque de données et risque opérationnel.
 
-Un point n'est qualifié de **région stable** que si un voisinage préenregistré satisfait les contraintes. Un optimum isolé entouré d'échecs est classé fragile.
+Un point n'est qualifié de **région stable** que si un voisinage préenregistré satisfait les contraintes. Pour l'oracle MVP O4, ce voisinage et ces contraintes sont fixés dans `docs/fusion/05_RISKMAP_ORACLES.md`; toute autre étude doit les préenregistrer dans son `HypothesisBundle`. Un optimum isolé entouré d'échecs est classé fragile.
 
 ### 9.8 Règle anti-optimisation trompeuse
 
@@ -548,6 +550,24 @@ Les anciens résultats SOL peuvent ensuite servir de jeu de caractérisation. Il
 | dépendance cachée à ccxt/pandas | moyenne | ports purs et extras optionnels |
 | compatibilité prématurée avec l'ancien code | moyenne | adaptateurs de migration temporaires, non API cible |
 
+### 12.1 Conditions de NO-GO
+
+La fusion est arrêtée et réévaluée, sans passage automatique au gate suivant, si au moins une condition survient :
+
+1. un invariant comptable requis est démontré contradictoire ou impossible pour les deux modèles de compte déclarés;
+2. deux adaptateurs ne peuvent produire le même événement canonique sans perte d'une information nécessaire au domaine MVP;
+3. la parité backtest/replay échoue après deux cycles Producteur–Contradictoire sur la même cause racine;
+4. la provenance ou la licence interdit le portage d'un composant nécessaire;
+5. un secret ou un ordre réel peut être déclenché par le chemin de test standard;
+6. deux gates consécutifs restent `BLOCKED` trois cycles documentés pour la même dépendance externe;
+7. maintenir la compatibilité legacy exige de violer un invariant normatif accepté.
+
+Un NO-GO n'impose pas l'abandon de toute la recherche : il impose de publier le constat, réduire le périmètre ou proposer une nouvelle architecture dans une révision distincte. Modifier le critère après son déclenchement est interdit.
+
+### 12.2 Provenance et licence des composants
+
+Avant P3, chaque composant envisagé reçoit un enregistrement : dépôt et commit source, chemin, auteur/copyright disponible, licence détectée, compatibilité avec MIT, transformations et décision `PORT/REWRITE/REJECT/UNKNOWN`. L'absence de licence explicite signifie `UNKNOWN` et interdit la copie de code; seules les idées non protégeables peuvent être réimplémentées depuis une spécification indépendante, avec traçabilité.
+
 ## 13. Critères de succès finaux
 
 La plateforme est recevable lorsque :
@@ -615,3 +635,5 @@ Terminer P0 sans modifier le comportement métier : figer les révisions et envi
 Le développement se fait depuis `fusion/controlled-merger`. Chaque hypothèse nouvelle utilise une branche `hypothesis/HNNN-slug-court` et un dossier probatoire propre. Sa fusion exige deux évaluations IA distinctes, l'une **Critique**, l'autre **Contradictoire**, selon [`PROTOCOL_CONTRADICTOIRE.md`](docs/fusion/PROTOCOL_CONTRADICTOIRE.md).
 
 Les deux avis ne sont pas un vote et ne suffisent jamais seuls : oracles indépendants, tests mécaniques, mutations, manifeste et hashes restent obligatoires. Une réfutation ouverte, un verdict `NON_TESTABLE` ou une modification a posteriori de l'attendu bloque la fusion. Le statut des branches est conservé dans [`HYPOTHESIS_BRANCH_REGISTER.md`](docs/fusion/HYPOTHESIS_BRANCH_REGISTER.md).
+
+Le cycle de faisabilité initial a reçu une dérogation humaine explicitement versionnée; elle autorise le travail de correction mais ne valide aucune hypothèse et ne modifie pas la règle générale.

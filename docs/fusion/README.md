@@ -17,6 +17,8 @@ Ce dossier transforme le corpus historique Codex en propositions réfutables ava
 9. [Protocole Contradictoire](PROTOCOL_CONTRADICTOIRE.md) — branches, preuves et double revue IA.
 10. [Registre des branches d'hypothèse](HYPOTHESIS_BRANCH_REGISTER.md) — état canonique des validations.
 11. [Décision de la Critique humaine](HUMAN_CRITIQUE_DECISION.md) — dérogation limitée permettant le tour Producteur.
+12. [Consolidation L1–L12](LIMIT_RESOLUTION_REGISTER.md) — décisions Producteur et preuves restant ouvertes.
+13. [Provenance des composants](COMPONENT_PROVENANCE.md) — licence, décisions de portage et blocages.
 
 ## Hiérarchie des preuves
 

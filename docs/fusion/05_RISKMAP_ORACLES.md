@@ -19,7 +19,7 @@ Le classement par ratio `G/D` donnerait B/F avant A et pourrait masquer D; il ne
 
 ## Oracle O2 — Liquidation
 
-Ajouter L : rendement temporaire 20, drawdown 50, `liquidated=true`. Si la liquidation est une contrainte dure préenregistrée, L appartient à `FailureMap` et ne participe pas au Pareto admissible. Si elle est un objectif à minimiser, son axe vaut 1 et la politique doit être distincte.
+Politique figée pour le noyau MVP : toute liquidation est une contrainte dure. Ajouter L : rendement temporaire 20, drawdown 50, `liquidated=true`. Attendu unique : L appartient à `FailureMap`, conserve toutes ses métriques descriptives et ne participe pas au Pareto admissible. Une étude où la liquidation devient un objectif appartient à un autre `HypothesisBundle` et ne peut réinterpréter cet oracle.
 
 ## Oracle O3 — Référentiel incompatible
 
@@ -37,7 +37,7 @@ Grille unidimensionnelle :
 | 4 | −8 | 20 |
 | 5 | −10 | 30 |
 
-Le point 3 est performant mais son voisinage droit échoue. Il est `PARETO_DESCRIPTIVE` et `FRAGILE`, jamais `ROBUST`.
+Règle figée : voisinage de rayon 1 sur l'index ordonné du paramètre, tronqué aux bornes du domaine. Une région est admissible si chaque point est non liquidé, a un rendement `>= 0` et un drawdown `<= 10`. Un point est `ROBUST` seulement si lui-même et tous ses voisins existants sont admissibles. Le point 3 a pour voisins 2 et 4; le point 4 viole les deux seuils. Attendu : point 3 = `PARETO_DESCRIPTIVE` et `FRAGILE`, jamais `ROBUST`.
 
 ## Oracle O5 — Mutation des frais
 
@@ -49,7 +49,25 @@ Un round-trip constant de 100 USD avec frais 0,1 % coûte 0,1999 USD. Muter le f
 
 ## Oracle O7 — Ordre invariant
 
-La permutation des six points O1 ne change ni l'ensemble sémantique de Pareto ni son hash canonique. Le fichier JSON brut peut différer; le hash sémantique trie selon la clé canonique préalablement définie.
+La permutation des six points O1 ne change ni l'ensemble sémantique de Pareto ni son hash canonique. Le fichier JSON brut peut différer.
+
+Clé canonique figée : `(reference_hash, scenario_id, canonical_parameters, G, D, liquidated)`. `canonical_parameters` est un objet JSON aux clés triées, encodé UTF-8 sans whitespace; les nombres suivent la politique numérique du `ReferenceSpec`. Les doublons de cette clé sont dédupliqués, la liste est triée lexicographiquement sur sa sérialisation canonique, puis hashée en SHA-256. `point_id`, ordre d'entrée et timestamp de génération sont exclus.
+
+## Oracle O8 — Zéro et drawdown nul
+
+Avec les mêmes objectifs que O1 : Z=`(G=0,D=0)` et P=`(G=2,D=0)`. Attendu : P domine Z sur le seul axe G; P est non dominé. Le drawdown nul ne provoque ni division par zéro ni score infini, car aucune dominance par ratio n'est calculée.
+
+## Oracle O9 — Métrique absente ou non finie
+
+M=`(G=null,D=2)` reçoit `NON_TESTABLE` avec raison `MISSING_OBJECTIVE`. I=`(G=+inf,D=2)` reçoit `ERROR` avec raison `NON_FINITE_OBJECTIVE`. Aucun des deux ne participe au Pareto. NaN, `+inf` et `-inf` sont interdits dans la sérialisation canonique.
+
+## Oracle O10 — Domination sur un seul axe
+
+X=`(G=6,D=3)` et Y=`(G=6,D=4)`. Attendu : X domine Y parce que G est égal et D strictement inférieur. Remplacer `<` par `<=` dans l'exigence d'au moins un axe strict doit faire échouer le test d'égalité exacte O1.
+
+## Oracle O11 — Objectifs contradictoires
+
+Q=`(G=4,D=1)` et R=`(G=8,D=5)`. Attendu avec objectifs préenregistrés `max(G), min(D)` : Q et R sont tous deux non dominés. Inverser après calcul l'objectif drawdown en `max(D)` est une nouvelle hypothèse et doit changer le `reference_hash`; aucune sélection automatique entre Q et R n'est autorisée.
 
 ## Paysages de calibration
 
@@ -63,3 +81,5 @@ La permutation des six points O1 ne change ni l'ensemble sémantique de Pareto n
 8. inversion de lecture par changement de numéraire.
 
 Ces oracles sont écrits avant le moteur et ne doivent jamais importer son implémentation.
+
+Les oracles O2, O4 et O7 sont définitionnels : ils ne deviennent acceptés qu'après revue Contradictoire d'une révision figée. Leur présence dans ce fichier ne constitue pas leur validation.

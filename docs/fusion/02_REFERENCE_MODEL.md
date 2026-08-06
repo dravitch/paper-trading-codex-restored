@@ -31,6 +31,7 @@ Deux résultats ne sont comparables que s'ils partagent un `ReferenceSpec`. Ce d
 8. Une liquidation est un événement du modèle de compte, pas un signal de stratégie.
 9. Tout arrondi est appliqué par une politique nommée.
 10. Toute annualisation déclare la fréquence et la régularité supposée.
+11. Tout frais déclare devise, base de calcul, moment et compte de règlement.
 
 ## `ReferenceSpec` minimal
 
@@ -46,6 +47,10 @@ drawdown_definition: peak_to_trough_equity
 win_policy: pnl_strictly_positive
 zero_pnl_policy: non_winner
 benchmark_specs: []
+fee_settlement:
+  currency: USD
+  charge_on: gross_notional
+  timing: per_fill
 numeric_policy:
   decimal_mode: binary64
   comparison_abs_tol: 1.0e-12
@@ -59,6 +64,7 @@ numeric_policy:
 - fréquence nulle;
 - métrique référencée sans version;
 - benchmark sans capital initial ou friction;
+- frais sans devise ou compte de règlement;
 - tolérance négative;
 - agrégation de deux résultats avec `ReferenceSpec` différents;
 - annualisation de timestamps irréguliers sans politique explicite.
@@ -67,7 +73,14 @@ numeric_policy:
 
 ### Spot à prix constant
 
-Débit brut 100 USD, frais 0,1 %, prix 20 : quantité `99,9/20 = 4,995`. Revente à 20 : valeur 99,9; frais 0,0999; cash rendu 99,8001. Perte = frais totaux = `0,1999 USD`.
+Convention préalable : frais réglés en USD, prélevés sur le débit brut à l'achat et sur le produit brut à la vente. Débit brut 100 USD, frais 0,1 %, prix 20 : quantité `99,9/20 = 4,995`. Revente à 20 : valeur 99,9; frais 0,0999; cash rendu 99,8001. Perte = frais totaux = `0,1999 USD`. Un règlement en actif de base appartient à un autre `ExecutionSpec` et n'utilise pas cet oracle.
+
+## Reproductibilité exacte et équivalence numérique
+
+- Dans le même environnement verrouillé, même code, données et manifeste doivent produire des octets canoniques identiques et donc le même SHA-256 sémantique.
+- Une tolérance sert uniquement à décider si une valeur satisfait un oracle numérique déclaré; elle ne transforme jamais deux hashes différents en hashes égaux.
+- Entre environnements différents, une comparaison par tolérance peut établir `NUMERICALLY_EQUIVALENT`, jamais `BIT_REPRODUCIBLE`.
+- La sérialisation canonique exclut timestamps de génération, chemins machine et ordre non sémantique; elle rejette NaN et infinis.
 
 ### Short linéaire
 

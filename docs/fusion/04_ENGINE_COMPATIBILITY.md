@@ -5,7 +5,7 @@
 | Concept | Projet restauré | Projet Bitget | Contrat cible |
 |---|---|---|---|
 | ordre | événements grid implicites | buy/sell | `OrderIntent` directionnel |
-| position | short avec quantité contractuelle | long spot | `SpotAccountModel` / `IsolatedShortModel` |
+| position | short avec quantité contractuelle | long spot | `SpotAccountModel` / `IsolatedLinearShortAccountModel` |
 | equity | collatéral SOL valorisé | cash USDT + actifs | ledger dans numéraire déclaré |
 | temps | timestamps injectés, quelques fallbacks | nombreux `now()`/sleep | `ReplayClock` / `LiveClock` |
 | hasard | RNG local dans simulateur corrigé | `hash(symbol)` + RNG | `RandomSpec` |

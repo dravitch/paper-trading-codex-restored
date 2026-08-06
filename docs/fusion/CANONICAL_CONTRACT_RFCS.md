@@ -22,7 +22,7 @@ Déclare fill, spread, slippage, latence, impact, maker/taker, partial fills, pr
 
 ## RFC-005 — `AccountSpec` et ledger
 
-Modèles initiaux : `SPOT_CASH` et `ISOLATED_LINEAR_SHORT_EDU`. Écritures en partie double conceptuelle : cash, actif, marge, frais, PnL réalisé, funding. Invariant : somme des variations expliquée par événements. Rejet : levier sans marge, liquidation par stratégie, mélange de modèles.
+Classes canoniques initiales : `SpotAccountModel` et `IsolatedLinearShortAccountModel`; discriminants sérialisés : `SPOT_CASH_V1` et `ISOLATED_LINEAR_SHORT_EDU_V1`. Écritures en partie double conceptuelle : cash, actif, marge, frais, PnL réalisé, funding. Invariant : somme des variations expliquée par événements. Rejet : levier sans marge, liquidation par stratégie, mélange de modèles ou alias de classe non déclaré.
 
 ## RFC-006 — `ReferenceSpec`
 
@@ -34,7 +34,7 @@ Champs par Hn : énoncé, type `DEDUCE/ASSUME`, inputs, oracle, attendu pré-run
 
 ## RFC-008 — `RunManifest` et `ResultBundle`
 
-Le manifeste fixe code, données, specs, RNG, versions et commande. Le bundle contient event log, ledger, métriques, anomalies, verdicts et hashes. Rejet : secret, chemin machine comme identité, timestamp non pertinent dans hash sémantique, résultat sans manifeste.
+Le manifeste fixe code, données, specs, RNG, versions et commande. Le bundle contient event log, ledger, métriques, anomalies, verdicts et hashes. Le SHA-256 sémantique porte sur une sérialisation canonique bit-exacte; les tolérances d'oracle sont enregistrées séparément et ne modifient jamais le hash. Rejet : secret, chemin machine comme identité, timestamp non pertinent dans hash sémantique, NaN/infini, résultat sans manifeste.
 
 ## RFC-009 — `RiskMap`
 

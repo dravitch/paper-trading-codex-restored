@@ -1,9 +1,9 @@
 """
 BitgetDataFetcher - Client Bitget en lecture seule.
 
-fetch_ohlcv() et fetch_ticker() fonctionnent.
-create_order(), fetch_balance() → BLOQUÉS par Erreur 40099.
-NotImplementedError explicite pour forcer utilisation ExchangeSimulator.
+Adaptateur public legacy; son état réel auprès du fournisseur n'est pas vérifié.
+Les endpoints privés sont volontairement non implémentés afin de garantir que ce
+projet n'envoie aucun ordre et ne lise aucun compte réel.
 
 Référence Codex: Partie 1.1.2
 """
@@ -21,8 +21,10 @@ class BitgetDataFetcher:
     """
     Client Bitget pour données marché (lecture seule).
 
-    ⚠️ L'API Demo Bitget bloque TOUS les endpoints privés (Erreur 40099).
-    Ce client expose UNIQUEMENT les endpoints publics qui fonctionnent.
+    Adaptateur public legacy et non vérifié à la date de la release.
+    Ce client expose uniquement des lectures publiques optionnelles. Les endpoints
+    privés restent interdits par conception, indépendamment d'une ancienne erreur
+    fournisseur 40099 non datée et non reproduite.
 
     Args:
         api_key: Clé API Bitget
@@ -96,7 +98,7 @@ class BitgetDataFetcher:
         since: Optional[int] = None,
     ) -> pd.DataFrame:
         """
-        Récupère OHLCV depuis Bitget. ✅ Fonctionne en mode demo.
+        Récupère OHLCV public lorsque l'adaptateur optionnel est disponible.
 
         Args:
             symbol: Paire complète (ex: 'SBTC/SUSDT:SUSDT')
@@ -129,7 +131,7 @@ class BitgetDataFetcher:
 
     def get_ticker(self, symbol: str) -> Dict:
         """
-        Récupère le ticker actuel. ✅ Fonctionne en mode demo.
+        Récupère le ticker public lorsque l'adaptateur optionnel est disponible.
 
         Args:
             symbol: Paire complète
@@ -142,26 +144,26 @@ class BitgetDataFetcher:
         return client.fetch_ticker(symbol)
 
     # =========================================================================
-    # ENDPOINTS BLOQUÉS - Erreur 40099
+    # ENDPOINTS PRIVÉS INTERDITS PAR CONCEPTION
     # =========================================================================
 
     def get_balance(self, *args, **kwargs):
-        """❌ BLOQUÉ par Erreur 40099 sur API Demo Bitget."""
+        """Endpoint privé volontairement non implémenté."""
         raise NotImplementedError(
-            "Bitget Demo API bloque fetch_balance() (Erreur 40099). "
+            "Private account access is disabled by design. "
             "Utilisez PortfolioManager pour la gestion locale du capital."
         )
 
     def create_order(self, *args, **kwargs):
-        """❌ BLOQUÉ par Erreur 40099 sur API Demo Bitget."""
+        """Endpoint privé volontairement non implémenté."""
         raise NotImplementedError(
-            "Bitget Demo API bloque create_order() (Erreur 40099). "
+            "Private order submission is disabled by design. "
             "Utilisez ExchangeSimulator.place_market_order() pour simulation locale."
         )
 
     def fetch_positions(self, *args, **kwargs):
-        """❌ BLOQUÉ par Erreur 40099 sur API Demo Bitget."""
+        """Endpoint privé volontairement non implémenté."""
         raise NotImplementedError(
-            "Bitget Demo API bloque fetch_positions() (Erreur 40099). "
+            "Private position access is disabled by design. "
             "Utilisez PortfolioManager.get_positions() pour tracking local."
         )

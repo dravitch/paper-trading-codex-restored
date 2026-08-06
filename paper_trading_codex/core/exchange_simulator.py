@@ -1,8 +1,8 @@
 """
 ExchangeSimulator - Simulation d'exécution d'ordres locale.
 
-Contourne l'Erreur 40099 de Bitget Demo API qui bloque les endpoints privés.
-Simule un slippage paramétré + commission taker.
+Moteur local indépendant des endpoints privés d'un fournisseur.
+Simule un slippage paramétré et une commission de scénario.
 
 Référence Codex: Partie 1.1.2, Partie 3.2
 """
@@ -21,13 +21,13 @@ class ExchangeSimulator:
     Simule l'exécution d'ordres market avec friction réaliste.
 
     - Slippage paramétré; aucune calibration externe n'est revendiquée
-    - Commission taker Bitget 0.1%
+    - Commission de scénario; aucune tarification fournisseur actuelle n'est revendiquée
     - Slippage TOUJOURS défavorable (dégrade le prix, jamais améliore)
 
     Args:
         slippage_config: {'mean': 0.000342, 'std': 0.000187}
             Valeurs de scénario; leur provenance doit être documentée par l'utilisateur.
-        commission_rate: Taux commission taker (défaut 0.001 = 0.1%)
+        commission_rate: Taux de commission du scénario (défaut 0.001 = 0.1%)
         seed: Seed du générateur local. Obligatoire pour une expérience reproductible.
     """
 
@@ -96,7 +96,7 @@ class ExchangeSimulator:
         else:
             executed_price = current_price * (1 - slippage)
 
-        # Commission 0.1% taker Bitget
+        # Commission du scénario, sans revendication de calibration fournisseur
         commission = amount * self.commission_rate
 
         # `amount` est le débit brut, commission incluse pour un achat.

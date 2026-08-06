@@ -1,0 +1,21 @@
+# Registre de provenance des composants
+
+## Règle
+
+`PORT` autorise une copie adaptée seulement si la licence et les obligations sont établies. `CLEAN_REIMPLEMENT` autorise une réimplémentation depuis une spécification publique sans copier l'expression du code source. `BLOCKED_LICENSE` interdit tout portage tant que le titulaire ou une licence vérifiable ne l'autorise pas.
+
+## Sources initiales
+
+| Source | Révision observée | Licence observée | Composants envisagés | Décision actuelle |
+|---|---|---|---|---|
+| `paper-trading-codex-restored` | base `bd1a9d5` | MIT (`LICENSE`) | tests, métriques, packaging, contrats locaux | `PORT`, sous historique Git |
+| `dravitch/bitget-paper-trading` | `adc1d27508c1789d185d28109df2b854449b418a` | aucun `LICENSE*`, `COPYING*` ou `NOTICE*` trouvé à profondeur 2 le 2026-08-06 | CLI, mock, spot portfolio, RSI/MA, checkpoint | `BLOCKED_LICENSE` pour copie; `CLEAN_REIMPLEMENT` depuis RFC seulement |
+| archives Codex | révisions multiples/unknown | hétérogène ou unknown | intentions, contre-exemples, vocabulaire | idées seulement; aucune copie sans examen par fichier |
+
+## Champs requis avant P3
+
+Pour chaque composant : source URL, commit, chemin, blob SHA-256, auteur/copyright disponible, licence SPDX ou `UNKNOWN`, obligations, fichier cible, transformation, tests de caractérisation, décision et approbateur.
+
+## Conséquence immédiate
+
+Aucun code de `bitget-paper-trading` ne doit être copié sur la branche de fusion. Les comportements utiles sont reformulés comme contrats et oracles; leur implémentation future doit être originale tant que la licence reste inconnue.
