@@ -41,8 +41,8 @@ Règle figée : voisinage de rayon 1 sur l'index ordonné du paramètre, tronqu�
 
 | Point | Admissible | Voisins testés | Statut attendu |
 |---|---:|---|---|
-| 1 | oui | 2 | `STABLE_REGION_MEMBER` |
-| 2 | oui | 1, 3 | `STABLE_REGION_MEMBER` |
+| 1 | oui | 2 | `ROBUST` |
+| 2 | oui | 1, 3 | `ROBUST` |
 | 3 | oui | 2, 4 | `PARETO_DESCRIPTIVE`, `FRAGILE` |
 | 4 | non | 3, 5 | `FAIL_CONSTRAINT` |
 | 5 | non | 4 | `FAIL_CONSTRAINT` |
@@ -63,7 +63,9 @@ Clé canonique figée pour O1 : `(reference_hash, scenario_id, canonical_paramet
 
 `reference_hash = SHA-256(canonical_json(ReferenceSpec))`. `canonical_parameters` et `canonical_json` utilisent des objets JSON aux clés triées, UTF-8, sans whitespace; les nombres suivent la politique numérique du `ReferenceSpec`. `point_id`, ordre d'entrée et timestamp de génération sont exclus.
 
-Deux entrées identiques sur `(reference_hash, scenario_id, canonical_parameters)` mais aux vecteurs de résultat différents ne sont jamais dédupliquées : elles produisent `REPRODUCIBILITY_CONFLICT` et rendent la carte non validable. Seuls les doublons de la clé complète peuvent être dédupliqués. La liste est triée lexicographiquement sur sa sérialisation canonique, puis hashée en SHA-256.
+Chaque identifiant d'objectif, contrainte ou métrique est unique dans le `HypothesisBundle`; un doublon d'identifiant est rejeté avant exécution.
+
+Deux entrées identiques sur `(reference_hash, scenario_id, canonical_parameters)` mais dont les projections sémantiques complètes de `RiskPoint` diffèrent ne sont jamais dédupliquées : elles produisent `REPRODUCIBILITY_CONFLICT` et rendent la carte non validable. La projection complète inclut objectifs, contraintes, métriques descriptives, statut, anomalies et hashes de preuve; elle exclut uniquement `point_id`, ordre d'entrée, chemin machine et timestamp de génération. Seuls deux `RiskPoint` aux projections sémantiques bit-identiques peuvent être dédupliqués. Les vecteurs d'objectifs/contraintes servent à la dominance, non à décider seuls de la reproductibilité. La liste est triée lexicographiquement sur sa sérialisation canonique, puis hashée en SHA-256.
 
 ## Oracle O8 — Zéro et drawdown nul
 
@@ -103,7 +105,7 @@ Les oracles O2, O4 et O7 sont définitionnels : ils ne deviennent acceptés qu'a
 | Oracle | Révision revue | Rapport | Statut |
 |---|---|---|---|
 | O2 | `09653e2` | `CONTRADICTOIRE_DELTA_09653E2.md` | `REVIEWED_ACCEPT_WITH_LIMITS` |
-| O4 | `09653e2` | même rapport | `REVIEWED_ACCEPT_WITH_LIMITS` |
+| O4 | `09653e2` | même rapport | `SUPERSEDED_PENDING_REVIEW` après correction F1/F5 |
 | O7 | `09653e2` | même rapport | `SUPERSEDED_PENDING_REVIEW` après intégration R1/R2 |
 
 Une modification de l'attendu, de la clé ou du domaine remet uniquement l'oracle concerné à `PENDING_REVIEW`; elle ne révoque pas silencieusement l'historique du rapport.

@@ -58,3 +58,15 @@ Résultat : exit code `0`; Python `3.12.12`; `68 passed in 2.26s`; couverture to
 | R8 | cycle, opérateur et registre NO-GO définis | `RESOLVED_SPEC_PENDING_USE` |
 
 Le verdict source reste `ACCEPT_WITH_LIMITS`. Cette table décrit la réponse Producteur, pas la fermeture indépendante des limites.
+
+## Constats F1–F5 sur la réponse R1–R8
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| F1 | points 1 et 2 O4 corrigés en `ROBUST`, conformément à la règle | `RESOLVED_SPEC_PENDING_REVIEW` |
+| F2 | contrôle AST interdit imports/appels temporels directs et alias dans les modules canoniques | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| F3 | `cause_key` dérivée du gate, critère, invariant et mutation; preuves exclues de l'identité | `RESOLVED_SPEC_PENDING_USE` |
+| F4 | conflit comparé sur projection sémantique complète du `RiskPoint` | `RESOLVED_SPEC_PENDING_REVIEW` |
+| F5 | O4 marqué `SUPERSEDED_PENDING_REVIEW` | `RECORDED` |
+
+Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et son heartbeat restent non suivis jusqu'à validation explicite de leur admission par l'opérateur.

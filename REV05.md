@@ -40,3 +40,5 @@ Branche de correction seulement. L9, la baseline Bitget de L11, L12 et les mutat
 ## Réponse Producteur aux limites résiduelles
 
 Après la revue du delta `09653e2`, R1–R8 sont intégrées ou enregistrées : identité RiskMap généralisée, dérivation de `reference_hash`, périmètre de mutation temporelle, statuts des oracles, dette de commit, table complète O4, ingestion des non-finis et registre NO-GO. O7 étant modifié, sa revue précédente est marquée `SUPERSEDED_PENDING_REVIEW`. Aucun gate n'est franchi par cette réponse.
+
+La revue suivante du delta `8335ab0` a produit F1–F5. La réponse Producteur corrige O4, généralise le conflit O7 au `RiskPoint` sémantique complet, remplace le simple motif `datetime.now()` par un contrôle AST des sources temporelles et donne au NO-GO une clé causale canonique. O4 et O7 restent `PENDING_REVIEW`; le contrôle AST n'est pas encore implémenté.
