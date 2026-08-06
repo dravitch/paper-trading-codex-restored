@@ -105,10 +105,10 @@ Les oracles O2, O4 et O7 sont définitionnels : ils ne deviennent acceptés qu'a
 Vocabulaire fermé :
 
 - `PENDING_REVIEW` : révision courante jamais revue;
-- `REVIEWED_ACCEPT`, `REVIEWED_ACCEPT_WITH_LIMITS`, `REVIEWED_REJECT` : révision courante revue avec ce verdict;
+- `REVIEWED_ACCEPT`, `REVIEWED_ACCEPT_WITH_LIMITS`, `REVIEWED_REJECT`, `REVIEWED_NON_TESTABLE` : révision courante revue avec ce verdict;
 - `SUPERSEDED_PENDING_REVIEW` : une ancienne révision a été revue, mais attendu, clé ou domaine de la révision courante a changé.
 
-Transition : modifier un oracle `REVIEWED_*` produit `SUPERSEDED_PENDING_REVIEW`; modifier un oracle `PENDING_REVIEW` le laisse pending; revoir la révision courante produit `REVIEWED_<VERDICT>`. Aucun statut pending n'autorise P6 `PASS`.
+Transitions fermées : modifier `REVIEWED_*` produit `SUPERSEDED_PENDING_REVIEW`; modifier `PENDING_REVIEW` ou `SUPERSEDED_PENDING_REVIEW` conserve ce statut; revoir la révision courante produit exactement `REVIEWED_ACCEPT`, `REVIEWED_ACCEPT_WITH_LIMITS`, `REVIEWED_REJECT` ou `REVIEWED_NON_TESTABLE`. Seuls les deux statuts `REVIEWED_ACCEPT*` autorisent P6 `PASS`; pending, reject et non-testable le bloquent.
 
 | Oracle | Dernière révision revue | Rapport | Statut courant |
 |---|---|---|---|

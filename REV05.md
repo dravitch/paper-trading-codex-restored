@@ -44,3 +44,5 @@ Après la revue du delta `09653e2`, R1–R8 sont intégrées ou enregistrées : 
 La revue suivante du delta `8335ab0` a produit F1–F5. La réponse Producteur corrige O4, généralise le conflit O7 au `RiskPoint` sémantique complet, remplace le simple motif `datetime.now()` par un contrôle AST des sources temporelles et donne au NO-GO une clé causale canonique. O4 et O7 restent `PENDING_REVIEW`; le contrôle AST n'est pas encore implémenté.
 
 La revue du delta `4225bc5` a produit G1–G4. La réponse Producteur précise l'analyse de provenance temporelle et ses mutants, sépare famille causale et signature de défaillance, définit le vocabulaire fermé des statuts d'oracle et corrige la note d'admission. O4/O7 et les contrôles exécutables restent non validés.
+
+La revue du delta `894b585` a produit H1–H5. La réponse Producteur fixe une allowlist d'import P1, rend le statut des oracles obligatoire dans P6, ferme les transitions `NON_TESTABLE`, impose l'attribution au troisième cycle familial et crée un registre d'identifiants causaux avec groupes racines. Ces mécanismes restent documentaires tant que P1/P6 ne sont pas implémentés.

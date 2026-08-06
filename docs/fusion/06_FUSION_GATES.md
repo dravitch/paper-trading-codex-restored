@@ -14,7 +14,7 @@ Toute hypothèse suit en plus le [`PROTOCOL_CONTRADICTOIRE.md`](PROTOCOL_CONTRAD
 | P3 Stratégies | Grid/RSI/MA sans I/O | intentions sur tables connues; aucun accès provider/clock | changer seuil/signe; injecter un appel provider |
 | P4 Providers | deux adaptateurs interchangeables | même flux canonique → même bundle | changer unité/timestamp |
 | P5 Live | checkpoint + event log | reprise sans doublon; replay live identique | rejouer dernier event |
-| P6 RiskMap | domaine, Pareto, stabilité | O1–O11 et paysages passent | supprimer un FAIL; changer clé/politique après run |
+| P6 RiskMap | domaine, Pareto, stabilité | O1–O11 et paysages passent; O2/O4/O7 sont `REVIEWED_ACCEPT` ou `REVIEWED_ACCEPT_WITH_LIMITS` sur leur révision courante | supprimer un FAIL; changer clé/politique après run; remplacer un statut accepté par pending |
 | P7 Publication | CI, wheel, docs, licence | Python 3.10–3.12 verts; termes normatifs sourcés | drift STATUS/docs; réintroduire « Sell & Hold = plafond » sans hypothèse |
 
 ## Ordre obligatoire
@@ -60,3 +60,9 @@ La seule origine temporelle admise est une dépendance explicite satisfaisant le
 Le test injecte au minimum : `datetime.now()`, alias `dt.now()`, `time.time()`, `time.monotonic()`, `datetime.now(timezone.utc)`, `date.fromtimestamp(ts)`, `__import__("time").time_ns()`, `importlib.import_module("time").time_ns()`, `os.stat(path).st_mtime`, `clock_fn = time.time; clock_fn()` et `stat = os.stat(path); stat.st_mtime`. Chaque mutant doit échouer avec fichier, ligne et règle. Une nouvelle primitive, bibliothèque ou exemption exige une modification préenregistrée et un mutant correspondant.
 
 Limite déclarée : l'AST intraprocédural ne prouve pas les flux à travers conteneurs, closures, réflexion ou appels intermodules. Réflexion et imports non allowlistés sont donc interdits dans ces répertoires jusqu'à disponibilité d'une analyse interprocédurale. Cette règle bannit également les conversions `datetime` déterministes; un futur adaptateur pur exigera sa propre RFC et ses mutants.
+
+### Allowlist d'import P1 — version 1
+
+Imports externes autorisés dans `domain/` et `replay/` : `__future__`, `collections`, `collections.abc`, `dataclasses`, `decimal`, `enum`, `fractions`, `hashlib`, `json`, `math`, `operator`, `statistics`, `typing`. Les imports internes sous `paper_trading_codex.domain` et `paper_trading_codex.replay` sont autorisés seulement si leur graphe transitif passe le même contrôle.
+
+Tout autre import, notamment `os`, `pathlib`, `time`, `datetime`, `importlib`, `numpy`, `pandas`, réseau, filesystem ou provider, est rejeté. L'exclusion de NumPy/Pandas empêche notamment `datetime64("now")` et `Timestamp.now()`. Ajouter un module à l'allowlist exige une RFC préenregistrée, un audit de ses capacités temporelles/transitives et au moins un mutant prouvant que sa voie temporelle éventuelle est rejetée.

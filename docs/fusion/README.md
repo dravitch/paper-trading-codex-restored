@@ -20,6 +20,7 @@ Ce dossier transforme le corpus historique Codex en propositions réfutables ava
 12. [Consolidation L1–L12](LIMIT_RESOLUTION_REGISTER.md) — décisions Producteur et preuves restant ouvertes.
 13. [Provenance des composants](COMPONENT_PROVENANCE.md) — licence, décisions de portage et blocages.
 14. [Registre NO-GO](NO_GO_REGISTER.md) — causes, cycles et décisions d'arrêt ou réduction.
+15. [Registre des identifiants causaux](CAUSAL_ID_REGISTRY.md) — composants, symboles, modes d'échec et groupes racines.
 
 ## Hiérarchie des preuves
 

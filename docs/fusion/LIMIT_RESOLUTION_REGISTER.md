@@ -79,3 +79,13 @@ Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTO
 | G2 | `cause_family_key` + signature stable + `cause_key`; occurrences inconnues hors compteur | `RESOLVED_SPEC_PENDING_USE` |
 | G3 | vocabulaire fermé et transitions des statuts d'oracle | `RESOLVED_DOC_PENDING_REVIEW` |
 | G4 | note remplacée par l'admission au commit `a1e9892` | `RESOLVED_DOC` |
+
+## Constats H1–H5 sur la réponse G1–G4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| H1 | allowlist P1 v1 explicite, imports transitifs contrôlés, NumPy/Pandas interdits | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| H2 | P6 exige mécaniquement O2/O4/O7 en `REVIEWED_ACCEPT*` courant | `RESOLVED_SPEC_PENDING_REVIEW` |
+| H3 | `REVIEWED_NON_TESTABLE` et transitions depuis superseded ajoutés | `RESOLVED_DOC_PENDING_REVIEW` |
+| H4 | troisième cycle familial non attribué force `ATTRIBUTION_BLOCKED` | `RESOLVED_SPEC_PENDING_USE` |
+| H5 | registre d'IDs stables et groupe de cause racine ajoutés | `RESOLVED_SPEC_PENDING_USE` |
