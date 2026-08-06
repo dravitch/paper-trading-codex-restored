@@ -1,0 +1,2 @@
+# Convenience development install. pyproject.toml is the canonical manifest.
+-e .[test,dev,examples]

@@ -1,0 +1,36 @@
+# Configuration historique, anciennement nommée « optimale ».
+#
+# ⚠️ TIMEFRAME-DÉPENDANT: ces paramètres sont calibrés pour données 1h.
+# Si utilisés avec données daily/weekly, l'auto-adaptation ajuste automatiquement.
+#
+# Résultats historiques non reproductibles faute de dataset/manifeste conservé:
+#   SOL Growth: +363.19% | Max DD: 0.03% | Sharpe: 2.55
+#   Win Rate: 81.9% | Liquidations: 0
+
+strategy: grid_bot
+timeframe: "1h"  # Timeframe de calibration
+
+# Trading (ASSUME; à revalider hors échantillon)
+leverage: 2.0
+grid_size: 3
+grid_ratio: 0.015  # 1.5% (calibré hourly)
+initial_capital: 1000
+max_positions: 3
+max_position_size: 0.30
+
+# Risk Management (ASSUME)
+maintenance_margin: 0.08
+safety_buffer: 1.5  # Calibré hourly
+
+adaptive_spacing: true
+
+risk_profile:
+  zone: GREEN
+  source: "optimizer_80k_backtests_hourly"
+  note: "Provenance incomplète; ne constitue pas une recommandation"
+
+simulation:
+  slippage:
+    mean: 0.000342
+    std: 0.000187
+  commission_rate: 0.001

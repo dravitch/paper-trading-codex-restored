@@ -1,0 +1,91 @@
+{
+  "config": {
+    "adaptive_spacing": false,
+    "grid_ratio": 0.02,
+    "grid_size": 1,
+    "initial_capital": 1000,
+    "leverage": 2,
+    "liquidation_loss_fraction": 0.8,
+    "maintenance_margin": 0.08,
+    "max_position_size": 0.3,
+    "max_positions": 1,
+    "safety_buffer": 1.0
+  },
+  "config_sha256": "d65e674279fbcd734c445ad4cbab80638b02b226df4155bc83a537b523871686",
+  "experiment": "deterministic_public_grid_scenario",
+  "input": {
+    "prices": [
+      100.0,
+      102.0,
+      99.0,
+      105.0
+    ]
+  },
+  "input_sha256": "7e35c799bbd2f4005791f64014adba578eda447612fd1fe2fbc26675f57fc0af",
+  "result": {
+    "final_collateral_sol": 9.705285714286,
+    "states": [
+      {
+        "active_positions": 1,
+        "collateral_sol": 9.997,
+        "liquidated": false,
+        "price": 100.0
+      },
+      {
+        "active_positions": 1,
+        "collateral_sol": 9.997,
+        "liquidated": false,
+        "price": 102.0
+      },
+      {
+        "active_positions": 1,
+        "collateral_sol": 9.997,
+        "liquidated": false,
+        "price": 99.0
+      },
+      {
+        "active_positions": 1,
+        "collateral_sol": 9.997,
+        "liquidated": false,
+        "price": 105.0
+      }
+    ],
+    "trade_count": 2,
+    "trades": [
+      {
+        "commission": 0.3,
+        "leverage": 2,
+        "liq_price": 138.888888888889,
+        "position_id": 1,
+        "price": 100.0,
+        "quantity": 6.0,
+        "size_usd": 600.0,
+        "type": "OPEN_SHORT"
+      },
+      {
+        "commission": 0.63,
+        "entry_price": 100.0,
+        "exit_price": 105.0,
+        "leverage": 2,
+        "pnl_sol": -0.291714285714,
+        "pnl_usd": -30.63,
+        "position_id": 1,
+        "price": 105.0,
+        "quantity": 6.0,
+        "reason": "mtm",
+        "size_usd": 600.0,
+        "total_commission": 0.93,
+        "type": "CLOSE_MTM"
+      }
+    ]
+  },
+  "result_sha256": "fc3531b6e5f02ec9461126ed1e29451192d0478b29b976b58a6633c00c585491",
+  "runtime": {
+    "numpy": "2.3.5",
+    "pandas": "2.3.3",
+    "python": "3.12.12",
+    "pyyaml": "6.0.3"
+  },
+  "schema_version": 1,
+  "seed": 42
+}

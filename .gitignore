@@ -1,0 +1,32 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+.direnv/
+.devenv/
+result
+
+# Builds and generated output
+build/
+dist/
+audit_reports/
+publication_reports/
+results/
+logs/
+
+# Local data
+data/*.csv
+data/*.parquet

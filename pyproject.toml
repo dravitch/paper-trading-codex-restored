@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paper-trading-codex"
+version = "1.1.2"
+description = "Framework de paper trading local pour stratégies crypto sur Bitget"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "Symbioticode" }]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "PyYAML>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/dravitch/paper-trading-codex-restored"
+Repository = "https://github.com/dravitch/paper-trading-codex-restored.git"
+Issues = "https://github.com/dravitch/paper-trading-codex-restored/issues"
+
+[project.optional-dependencies]
+test = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+]
+dev = [
+  "build>=1.2",
+  "ruff>=0.8",
+]
+examples = [
+  "matplotlib>=3.7",
+  "python-dotenv>=1.0",
+  "scipy>=1.10",
+]
+market-data = [
+  "ccxt>=4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["paper_trading_codex", "paper_trading_codex.*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+
+[tool.coverage.run]
+source = ["paper_trading_codex"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 70
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
