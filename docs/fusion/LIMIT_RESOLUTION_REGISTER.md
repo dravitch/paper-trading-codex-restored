@@ -109,3 +109,14 @@ Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTO
 | K3 | usages nouveaux RESERVED/DEPRECATED/RETIRED → `NON_TESTABLE INVALID_CAUSAL_ID_STATE` | `RESOLVED_SPEC_PENDING_REVIEW` |
 | K4 | seuil du groupe candidat fixé à trois cycles bloqués | `RESOLVED_DOC_PENDING_USE` |
 | K5 | tout `NON_TESTABLE` compte comme cycle bloqué, sans remise à zéro | `RESOLVED_SPEC_PENDING_USE` |
+
+## Constats L1–L4 sur la réponse K1–K5
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| L1 | `Oracle scope` indexé et marqueur normatif vérifié dans le blob admis | `RESOLVED_SPEC_PENDING_REVIEW` |
+| L2 | occurrence historique définie par identité et ascendance Git, sans temps mural | `RESOLVED_SPEC_PENDING_REVIEW` |
+| L3 | nouveau groupe hérite de l'union dédupliquée des cycles de ses membres/prédécesseurs | `RESOLVED_SPEC_PENDING_REVIEW` |
+| L4 | preuve de protection distante ou archive signée obligatoire avant P6 | `RESOLVED_SPEC_OPEN_PROOF_EXTERNAL` |
+
+Les contre-exemples et tests de non-régression attendus sont consignés dans [`REV06.md`](../../REV06.md). Cette réponse Producteur ne ferme pas la revue Contradictoire et ne franchit aucun gate.
