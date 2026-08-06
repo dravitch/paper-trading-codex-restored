@@ -39,6 +39,14 @@ Grille unidimensionnelle :
 
 Règle figée : voisinage de rayon 1 sur l'index ordonné du paramètre, tronqué aux bornes du domaine. Une région est admissible si chaque point est non liquidé, a un rendement `>= 0` et un drawdown `<= 10`. Un point est `ROBUST` seulement si lui-même et tous ses voisins existants sont admissibles. Le point 3 a pour voisins 2 et 4; le point 4 viole les deux seuils. Attendu : point 3 = `PARETO_DESCRIPTIVE` et `FRAGILE`, jamais `ROBUST`.
 
+| Point | Admissible | Voisins testés | Statut attendu |
+|---|---:|---|---|
+| 1 | oui | 2 | `STABLE_REGION_MEMBER` |
+| 2 | oui | 1, 3 | `STABLE_REGION_MEMBER` |
+| 3 | oui | 2, 4 | `PARETO_DESCRIPTIVE`, `FRAGILE` |
+| 4 | non | 3, 5 | `FAIL_CONSTRAINT` |
+| 5 | non | 4 | `FAIL_CONSTRAINT` |
+
 ## Oracle O5 — Mutation des frais
 
 Un round-trip constant de 100 USD avec frais 0,1 % coûte 0,1999 USD. Muter le frais à zéro doit modifier PnL, equity, hash résultat et éventuellement dominance. Si le résultat ne change pas, le test doit échouer.
@@ -51,7 +59,11 @@ Un round-trip constant de 100 USD avec frais 0,1 % coûte 0,1999 USD. Muter le f
 
 La permutation des six points O1 ne change ni l'ensemble sémantique de Pareto ni son hash canonique. Le fichier JSON brut peut différer.
 
-Clé canonique figée : `(reference_hash, scenario_id, canonical_parameters, G, D, liquidated)`. `canonical_parameters` est un objet JSON aux clés triées, encodé UTF-8 sans whitespace; les nombres suivent la politique numérique du `ReferenceSpec`. Les doublons de cette clé sont dédupliqués, la liste est triée lexicographiquement sur sa sérialisation canonique, puis hashée en SHA-256. `point_id`, ordre d'entrée et timestamp de génération sont exclus.
+Clé canonique figée pour O1 : `(reference_hash, scenario_id, canonical_parameters, objective_vector, constraint_vector)`, avec `objective_vector={G,D}` et `constraint_vector={liquidated}`. Dans une autre expérience, les vecteurs contiennent **tous** les objectifs et contraintes préenregistrés dans le `HypothesisBundle` — par exemple expected shortfall ou turnover s'ils participent à la dominance — dans l'ordre canonique de leurs identifiants. Une métrique descriptive non mandatée ne participe pas à la dominance, mais reste dans le `RiskPoint`.
+
+`reference_hash = SHA-256(canonical_json(ReferenceSpec))`. `canonical_parameters` et `canonical_json` utilisent des objets JSON aux clés triées, UTF-8, sans whitespace; les nombres suivent la politique numérique du `ReferenceSpec`. `point_id`, ordre d'entrée et timestamp de génération sont exclus.
+
+Deux entrées identiques sur `(reference_hash, scenario_id, canonical_parameters)` mais aux vecteurs de résultat différents ne sont jamais dédupliquées : elles produisent `REPRODUCIBILITY_CONFLICT` et rendent la carte non validable. Seuls les doublons de la clé complète peuvent être dédupliqués. La liste est triée lexicographiquement sur sa sérialisation canonique, puis hashée en SHA-256.
 
 ## Oracle O8 — Zéro et drawdown nul
 
@@ -60,6 +72,8 @@ Avec les mêmes objectifs que O1 : Z=`(G=0,D=0)` et P=`(G=2,D=0)`. Attendu : P d
 ## Oracle O9 — Métrique absente ou non finie
 
 M=`(G=null,D=2)` reçoit `NON_TESTABLE` avec raison `MISSING_OBJECTIVE`. I=`(G=+inf,D=2)` reçoit `ERROR` avec raison `NON_FINITE_OBJECTIVE`. Aucun des deux ne participe au Pareto. NaN, `+inf` et `-inf` sont interdits dans la sérialisation canonique.
+
+Le validateur détecte les valeurs non finies à l'entrée, avant construction du `RiskPoint` sérialisable. Il écrit dans `ResultBundle.anomalies` un enregistrement fini `{run_id, field, reason="NON_FINITE_OBJECTIVE", observed_token="+inf"}`; la valeur flottante non finie n'est jamais copiée dans le JSON. Le run terminal est représenté avec `status="ERROR"`, objectifs absents et référence vers l'anomalie.
 
 ## Oracle O10 — Domination sur un seul axe
 
@@ -83,3 +97,13 @@ Q=`(G=4,D=1)` et R=`(G=8,D=5)`. Attendu avec objectifs préenregistrés `max(G),
 Ces oracles sont écrits avant le moteur et ne doivent jamais importer son implémentation.
 
 Les oracles O2, O4 et O7 sont définitionnels : ils ne deviennent acceptés qu'après revue Contradictoire d'une révision figée. Leur présence dans ce fichier ne constitue pas leur validation.
+
+## Statut des oracles définitionnels
+
+| Oracle | Révision revue | Rapport | Statut |
+|---|---|---|---|
+| O2 | `09653e2` | `CONTRADICTOIRE_DELTA_09653E2.md` | `REVIEWED_ACCEPT_WITH_LIMITS` |
+| O4 | `09653e2` | même rapport | `REVIEWED_ACCEPT_WITH_LIMITS` |
+| O7 | `09653e2` | même rapport | `SUPERSEDED_PENDING_REVIEW` après intégration R1/R2 |
+
+Une modification de l'attendu, de la clé ou du domaine remet uniquement l'oracle concerné à `PENDING_REVIEW`; elle ne révoque pas silencieusement l'historique du rapport.

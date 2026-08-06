@@ -34,7 +34,7 @@ Champs par Hn : énoncé, type `DEDUCE/ASSUME`, inputs, oracle, attendu pré-run
 
 ## RFC-008 — `RunManifest` et `ResultBundle`
 
-Le manifeste fixe code, données, specs, RNG, versions et commande. Le bundle contient event log, ledger, métriques, anomalies, verdicts et hashes. Le SHA-256 sémantique porte sur une sérialisation canonique bit-exacte; les tolérances d'oracle sont enregistrées séparément et ne modifient jamais le hash. Rejet : secret, chemin machine comme identité, timestamp non pertinent dans hash sémantique, NaN/infini, résultat sans manifeste.
+Le manifeste fixe code, données, specs, RNG, versions et commande. Le bundle contient event log, ledger, métriques, anomalies, verdicts et hashes. Le SHA-256 sémantique porte sur une sérialisation canonique bit-exacte; les tolérances d'oracle sont enregistrées séparément et ne modifient jamais le hash. NaN/infini sont détectés avant sérialisation : le run devient `ERROR`, la valeur est remplacée par un objectif absent et une anomalie finie portant le token lexical observé. Rejet : secret, chemin machine comme identité, timestamp non pertinent dans hash sémantique, NaN/infini brut, résultat sans manifeste.
 
 ## RFC-009 — `RiskMap`
 

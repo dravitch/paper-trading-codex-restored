@@ -564,6 +564,8 @@ La fusion est arrêtée et réévaluée, sans passage automatique au gate suivan
 
 Un NO-GO n'impose pas l'abandon de toute la recherche : il impose de publier le constat, réduire le périmètre ou proposer une nouvelle architecture dans une révision distincte. Modifier le critère après son déclenchement est interdit.
 
+Un **cycle** est une séquence versionnée `Producteur → Contradictoire → décision`, portant sur une même cause racine identifiée dans le registre NO-GO. Le Producteur ouvre l'entrée; le Contradictoire confirme ou conteste l'identité de cause; l'opérateur humain applique `CONTINUE`, `REDUCE_SCOPE` ou `STOP`. Les cycles séparés par une modification de l'hypothèse restent comptés si la cause racine demeure identique.
+
 ### 12.2 Provenance et licence des composants
 
 Avant P3, chaque composant envisagé reçoit un enregistrement : dépôt et commit source, chemin, auteur/copyright disponible, licence détectée, compatibilité avec MIT, transformations et décision `PORT/REWRITE/REJECT/UNKNOWN`. L'absence de licence explicite signifie `UNKNOWN` et interdit la copie de code; seules les idées non protégeables peuvent être réimplémentées depuis une spécification indépendante, avec traçabilité.

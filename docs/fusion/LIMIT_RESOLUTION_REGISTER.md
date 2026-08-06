@@ -43,3 +43,18 @@ nix develop --no-write-lock-file -c bash -lc \
 ```
 
 Résultat : exit code `0`; Python `3.12.12`; `68 passed in 2.26s`; couverture totale `87.07%`; seuil 70 % atteint; `All checks passed!` pour Ruff. Le warning Git dirty était attendu sur la branche de correction et n'affecte pas le calcul. Ces résultats ne décrivent pas le dépôt Bitget source.
+
+## Limites résiduelles R1–R8
+
+| Limite | Intégration Producteur | Statut après intégration |
+|---|---|---|
+| R1 | clé O7 étendue à tous objectifs/contraintes mandatés; résultats divergents = conflit | `RESOLVED_SPEC_PENDING_REVIEW` |
+| R2 | `reference_hash = SHA-256(canonical_json(ReferenceSpec))` | `RESOLVED_SPEC_PENDING_REVIEW` |
+| R3 | mutation `now()` limitée aux futurs modules `domain/` et `replay/`; legacy déclaré | `RESOLVED_SPEC_PENDING_P1` |
+| R4 | statut et révision ajoutés par oracle; O7 repasse pending après modification | `RECORDED` |
+| R5 | écart de type de commit reconnu; aucun calcul métier n'avait changé | `RECORDED_PROCESS_DEBT` |
+| R6 | statuts attendus des cinq points O4 explicités | `RESOLVED_SPEC_PENDING_REVIEW` |
+| R7 | détection pré-sérialisation et anomalie finie définies | `RESOLVED_SPEC_PENDING_REVIEW` |
+| R8 | cycle, opérateur et registre NO-GO définis | `RESOLVED_SPEC_PENDING_USE` |
+
+Le verdict source reste `ACCEPT_WITH_LIMITS`. Cette table décrit la réponse Producteur, pas la fermeture indépendante des limites.

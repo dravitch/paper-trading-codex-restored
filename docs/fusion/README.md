@@ -19,6 +19,7 @@ Ce dossier transforme le corpus historique Codex en propositions réfutables ava
 11. [Décision de la Critique humaine](HUMAN_CRITIQUE_DECISION.md) — dérogation limitée permettant le tour Producteur.
 12. [Consolidation L1–L12](LIMIT_RESOLUTION_REGISTER.md) — décisions Producteur et preuves restant ouvertes.
 13. [Provenance des composants](COMPONENT_PROVENANCE.md) — licence, décisions de portage et blocages.
+14. [Registre NO-GO](NO_GO_REGISTER.md) — causes, cycles et décisions d'arrêt ou réduction.
 
 ## Hiérarchie des preuves
 

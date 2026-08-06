@@ -36,3 +36,7 @@ Chaque changement répond directement à une ambiguïté, contradiction ou absen
 ## Statut
 
 Branche de correction seulement. L9, la baseline Bitget de L11, L12 et les mutations exécutables restent ouvertes. Aucun gate franchi; revue Contradictoire du delta requise avant fusion.
+
+## Réponse Producteur aux limites résiduelles
+
+Après la revue du delta `09653e2`, R1–R8 sont intégrées ou enregistrées : identité RiskMap généralisée, dérivation de `reference_hash`, périmètre de mutation temporelle, statuts des oracles, dette de commit, table complète O4, ingestion des non-finis et registre NO-GO. O7 étant modifié, sa revue précédente est marquée `SUPERSEDED_PENDING_REVIEW`. Aucun gate n'est franchi par cette réponse.
