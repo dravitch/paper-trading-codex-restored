@@ -97,6 +97,19 @@ La fusion est autorisée uniquement si toutes les conditions suivantes sont vrai
 
 Le registre canonique se trouve dans [`HYPOTHESIS_BRANCH_REGISTER.md`](HYPOTHESIS_BRANCH_REGISTER.md). Il est mis à jour à la création de la branche, à chaque verdict et à la décision de fusion.
 
+## Surveillance locale
+
+`scripts/watch_fusion_reviews.sh` surveille toutes les cinq secondes les fichiers `HEARTBEAT_CONTRADICTOIRE*.md` et `HEARTBIT_CONTRADICTOIRE*.md`. Il conserve hors dépôt, dans `/tmp/codex-fusion-watch`, le dernier SHA-256 observé et un journal `NEW`/`MODIFIED`.
+
+```bash
+scripts/watch_fusion_reviews.sh baseline
+scripts/watch_fusion_reviews.sh watch 5
+scripts/watch_fusion_reviews.sh check
+scripts/watch_fusion_reviews.sh stop
+```
+
+Le watcher n'exécute aucun heartbeat, ne fait aucun accès réseau et ne committe rien. Il détecte l'artefact; l'admission reste une décision explicite de l'opérateur.
+
 ## Limite du protocole
 
 Deux IA peuvent partager les mêmes biais, données périmées ou erreurs de raisonnement. Le protocole augmente la contradiction documentée; il ne remplace ni oracle indépendant, ni test mécanique, ni revue humaine pour les décisions à conséquence financière.
