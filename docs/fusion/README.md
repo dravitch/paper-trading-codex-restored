@@ -16,6 +16,7 @@ Ce dossier transforme le corpus historique Codex en propositions réfutables ava
 8. [RFC des contrats canoniques](CANONICAL_CONTRACT_RFCS.md) — propositions à critiquer avant codage.
 9. [Protocole Contradictoire](PROTOCOL_CONTRADICTOIRE.md) — branches, preuves et double revue IA.
 10. [Registre des branches d'hypothèse](HYPOTHESIS_BRANCH_REGISTER.md) — état canonique des validations.
+11. [Décision de la Critique humaine](HUMAN_CRITIQUE_DECISION.md) — dérogation limitée permettant le tour Producteur.
 
 ## Hiérarchie des preuves
 
