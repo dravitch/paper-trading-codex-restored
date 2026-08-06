@@ -99,11 +99,11 @@ Le registre canonique se trouve dans [`HYPOTHESIS_BRANCH_REGISTER.md`](HYPOTHESI
 
 ## Surveillance locale
 
-`scripts/watch_fusion_reviews.sh` surveille toutes les cinq secondes les fichiers `HEARTBEAT_CONTRADICTOIRE*.md` et `HEARTBIT_CONTRADICTOIRE*.md`. Il conserve hors dépôt, dans `/tmp/codex-fusion-watch`, le dernier SHA-256 observé et un journal `NEW`/`MODIFIED`.
+`scripts/watch_fusion_reviews.sh` surveille toutes les dix secondes les fichiers `HEARTBEAT_CONTRADICTOIRE*.md` et `HEARTBIT_CONTRADICTOIRE*.md`. Il conserve hors dépôt, dans `/tmp/codex-fusion-watch`, le dernier SHA-256 observé et un journal `NEW`/`MODIFIED`.
 
 ```bash
 scripts/watch_fusion_reviews.sh baseline
-scripts/watch_fusion_reviews.sh watch 5
+scripts/watch_fusion_reviews.sh watch 10
 scripts/watch_fusion_reviews.sh check
 scripts/watch_fusion_reviews.sh stop
 ```

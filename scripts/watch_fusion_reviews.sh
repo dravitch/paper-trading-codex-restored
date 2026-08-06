@@ -15,7 +15,7 @@ LOG="${STATE_DIR}/detections.log"
 KNOWN="${STATE_DIR}/known.tsv"
 PIDFILE="${STATE_DIR}/watch.pid"
 INTERVALFILE="${STATE_DIR}/interval"
-INTERVAL="${INTERVAL:-60}"
+INTERVAL="${INTERVAL:-10}"
 
 mkdir -p "${STATE_DIR}"
 touch "${KNOWN}" "${LOG}"
