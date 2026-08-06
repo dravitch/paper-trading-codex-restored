@@ -4,6 +4,10 @@ Framework Python de paper trading local pour tester une stratégie grid short av
 
 Dépôt officiel : [dravitch/paper-trading-codex-restored](https://github.com/dravitch/paper-trading-codex-restored)
 
+Vision d'évolution : [fusion contrôlée vers une plateforme universelle de replay et de risque](CONTROLLED_MERGER_FEASIBILITY.md).
+
+Documents de cadrage actifs : [index de la fusion contrôlée](docs/fusion/README.md). Ils documentent les preuves disponibles et ne constituent pas encore une validation du futur moteur.
+
 Le projet simule les ordres localement. Il n'envoie aucun ordre privé à Bitget et ne doit pas être utilisé avec des fonds réels.
 
 ## Valeur pour l'utilisateur
