@@ -8,7 +8,9 @@ Contrôle : `admission_commit` doit être ancêtre du commit évalué; `git show
 
 ## Admissions
 
-`Oracle scope` est un ensemble fermé d'identifiants (`O2`, `O4`, `O7`) explicitement nommés par le rapport. `—` signifie que la revue historique ne constitue aucune preuve d'oracle. Une preuve P6 n'est admissible que si son `oracle_id` appartient exactement à cette colonne et si le blob admis contient exactement une ligne normative ancrée de forme `Oracle-Review: oracle_id=O2; verdict=ACCEPT`, où l'ID appartient à `{O2,O4,O7}` et le verdict à `{ACCEPT,ACCEPT_WITH_LIMITS,REJECT,NON_TESTABLE}`. L'expression complète est `^Oracle-Review: oracle_id=(O2|O4|O7); verdict=(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)$`, en ASCII, sans espaces supplémentaires. Une phrase, citation ou sous-chaîne ne correspond pas. Le verdict extrait doit être celui indexé pour cet oracle. Le contrôleur lit le blob au commit d'admission; la preuve courante ne fait pas autorité.
+`Oracle scope` est un ensemble fermé d'identifiants (`O2`, `O4`, `O7`) explicitement nommés par le rapport. `—` signifie que la revue historique ne constitue aucune preuve d'oracle. Une preuve P6 n'est admissible que si son `oracle_id` appartient exactement à cette colonne et à la table **Admissions d'oracles** ci-dessous, et si le blob admis contient exactement une ligne normative ancrée de forme `Oracle-Review: oracle_id=O2; verdict=ACCEPT`. L'expression complète est `^Oracle-Review: oracle_id=(O2|O4|O7); verdict=(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)$`, en ASCII, sans espaces supplémentaires.
+
+Le blob est découpé uniquement sur l'octet LF (`0A`). Tout CR (`0D`) sur la ligne candidate rend le marqueur invalide; aucune normalisation CRLF n'est effectuée. Une phrase, citation, sous-chaîne ou seconde ligne candidate ne correspond pas. Le verdict extrait doit égaler la colonne `Verdict indexé` de la table d'oracles, jamais `recorded_status` fourni par la preuve courante.
 
 | Objet revu | Oracle scope | Commit d'admission | Rapport | SHA-256 admis | Décision |
 |---|---|---|---|---|---|
@@ -20,6 +22,14 @@ Contrôle : `admission_commit` doit être ancêtre du commit évalué; `git show
 | delta `decbb42` | — | `02775ce` | `docs/fusion/CONTRADICTOIRE_DELTA_DECBB42.md` | `97cb352468a4e828b78ce6af5078f50ee2c54e71200f0b1a9cc6781183cfb2d1` | opérateur, 2026-08-06 |
 | delta `dd4cdde` | — | `5a8ebe2` | `docs/fusion/CONTRADICTOIRE_DELTA_DD4CDDE.md` | `ede8f51e082327e3a6e886cd716f4dcc027bc283bd43669fa7998f86f967257b` | opérateur, 2026-08-06 |
 | delta `f14546f` | — | `cf6aa7a` | `docs/fusion/CONTRADICTOIRE_DELTA_F14546F.md` | `3ec01a4ee0082e59b77a6d2616f06e90162c9ffdc63d01fbfa82cdd0051fbf0d` | opérateur, 2026-08-06 |
+
+## Admissions d'oracles
+
+| Oracle ID | Commit d'admission | Rapport | SHA-256 admis | Verdict indexé | Décision |
+|---|---|---|---|---|---|
+| — | — | — | — | — | aucune admission à ce jour |
+
+Une ligne de cette table est ajoutée dans un commit d'indexation postérieur au commit d'admission. Elle doit référencer le même blob que la table générale et ne peut être déduite d'une preuve P6.
 
 ## Mutations bloquantes
 

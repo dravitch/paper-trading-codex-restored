@@ -14,7 +14,7 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 | symbole | `SYM-NNN-slug` | `SYM-001-apply-fee` | contrat canonique accepté nommant le symbole |
 | mode d'échec | `FM-NNN-slug` | `FM-001-fee-not-applied` | oracle ou mutation accepté avant exécution |
 | groupe racine | `RCG-NNN-slug` | `RCG-001-fee-policy-drift` | décision opérateur versionnée |
-| occurrence | `OCC-NNNNNN` | `OCC-000001` | contrôleur NO-GO, allocation monotone dans le registre machine |
+| occurrence | `OCC-NNNNNN` | `OCC-000001` | contrôleur NO-GO uniquement; aucun ID fourni par l'appelant |
 
 ## Registre initial
 
@@ -43,6 +43,18 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 8. Les lignes initiales restent `RESERVED` jusqu'à acceptation des RFC/gates qui les autorisent.
 9. Une occurrence possède un `occurrence_id` unique, un `first_recorded_commit`, un `cycle_id` et `causal_payload_sha256`. Ce hash est calculé sur le JSON canonique `{cause_family_key,failure_signature,cause_key,root_cause_group_id,cycle_id}` : clés triées, UTF-8, séparateurs `,`/`:` sans espaces, valeurs absentes encodées `null`. Elle est **historique** uniquement si le même `occurrence_id` et le même `causal_payload_sha256` existent dans un commit ancêtre antérieur au commit qui a rendu l'ID causal non actif. Toute création d'identité ou divergence de hash est une **nouvelle occurrence**. Le temps mural et l'appréciation de l'opérateur ne participent pas à cette décision.
 10. Le contrôleur recalcule le hash courant et le compare au registre au `first_recorded_commit`. Un historique inchangé peut être relu après dépréciation sans sanction. Hash divergent, ancêtre absent, ID dupliqué ou chronologie indécidable produit `NON_TESTABLE` avec raison `INVALID_OCCURRENCE_HISTORY` et compte comme cycle bloqué; le contenu modifié ne peut jamais hériter du statut historique.
+11. Une occurrence satisfait `^OCC-[0-9]{6}$`, avec domaine `OCC-000001` à `OCC-999999`. Le contrôleur rejette tout ID proposé, alloue exactement `OCC-{n+1:06d}` où `n` est le plus grand suffixe du registre autoritaire, puis écrit l'occurrence dans la même transaction. Le validateur exige la séquence exacte `000001..len(occurrences)`, sans trou, doublon ni réutilisation. `OCC-000000`, une valeur hors séquence ou un registre épuisé produit `NON_TESTABLE` avec `INVALID_OCCURRENCE_HISTORY`.
+
+### Sérialisation canonique causale
+
+Le JSON est canonique récursivement : dictionnaires triés par clé Unicode à tous les niveaux; tableaux dans leur ordre normatif; chaînes JSON UTF-8 avec échappement JSON minimal, sans ASCII-forcing; entiers décimaux sans zéro initial; booléens et `null` JSON; flottants interdits; séparateurs `,` et `:` sans espaces. Le hash porte sur les octets UTF-8, sans BOM ni fin de ligne.
+
+Vecteur normatif :
+
+```text
+{"cause_family_key":"CFK-A","cause_key":"CK-A","cycle_id":"CYC-000001","failure_signature":{"component_id":"CMP-001-spot-ledger","failure_mode_id":"FM-001-fee-not-applied","symbol_id":"SYM-001-apply-fee"},"root_cause_group_id":null}
+SHA-256 = 51857ebbbcc0155f75bf33ae635a6f865a17e74cd324a7cd063c1ef3b47375e6
+```
 
 ## Codes de raison fermés
 
@@ -51,5 +63,6 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 | `INVALID_CAUSAL_ID_STATE` | ID causal non actif utilisé par une nouvelle occurrence |
 | `INVALID_OCCURRENCE_HISTORY` | identité, hash causal ou ascendance d'occurrence invalide |
 | `INCOMPLETE_GROUP_HISTORY` | cycles ou prédécesseurs connus absents d'un groupe |
+| `REGISTRY_HISTORY_VIOLATION` | suppression, mutation ou chaîne de hash invalide du registre machine |
 
 Tout autre code est `UNKNOWN_REASON_CODE` et rend le résultat `NON_TESTABLE`; l'ajout d'un code exige une révision normative préalable.

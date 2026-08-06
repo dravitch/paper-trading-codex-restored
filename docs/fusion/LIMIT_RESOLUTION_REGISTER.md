@@ -131,3 +131,14 @@ Les contre-exemples et tests de non-régression attendus sont consignés dans [`
 | M4 | espace `OCC-NNNNNN` et codes de raison fermés | `RESOLVED_SPEC_PENDING_REVIEW` |
 
 La preuve externe d'immuabilité demeure ouverte. Voir [`REV07.md`](../../REV07.md).
+
+## Constats N1–N4 sur la réponse M1–M4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| N1 | politique LF/CR et table autoritaire des verdicts d'oracles | `RESOLVED_SPEC_PENDING_REVIEW` |
+| N2 | JSON canonique récursif avec vecteur SHA-256 | `RESOLVED_SPEC_PENDING_REVIEW` |
+| N3 | registre append-only, chaîne du blob parent et supersession | `RESOLVED_SPEC_PENDING_REVIEW` |
+| N4 | regex, domaine et allocation contiguë exclusive des occurrences | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+Voir [`REV08.md`](../../REV08.md). Aucun contrôleur n'est implémenté.

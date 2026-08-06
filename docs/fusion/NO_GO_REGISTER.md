@@ -6,7 +6,9 @@ Statuts de cause : `OPEN`, `CONTINUE`, `ATTRIBUTION_BLOCKED`, `REDUCE_SCOPE`, `S
 
 ## Registre
 
-La source machine autoritaire est [`NO_GO_CYCLE_REGISTRY.json`](NO_GO_CYCLE_REGISTRY.json). Ce tableau Markdown est une projection humaine et ne peut ajouter ni retirer un cycle. Le contrôleur valide le schéma, recalcule chaque `causal_payload_sha256`, vérifie l'unicité des `occurrence_id` et recompose les unions uniquement depuis ce JSON versionné.
+La source machine autoritaire est [`NO_GO_CYCLE_REGISTRY.json`](NO_GO_CYCLE_REGISTRY.json). Ce tableau Markdown est une projection humaine et ne peut ajouter ni retirer un cycle. Le contrôleur valide le schéma, recalcule chaque `causal_payload_sha256`, vérifie la séquence des `occurrence_id` et recompose les unions uniquement depuis ce JSON versionné.
+
+Le registre est append-only entre deux révisions Git. `previous_blob_sha256` doit égaler le SHA-256 exact du blob du registre dans le commit parent déclaré. Les ensembles d'identités des `cycles`, `occurrences` et `groups` du parent sont des sous-ensembles obligatoires du nouveau blob; une entrée existante reste octet-pour-octet identique. Une correction ajoute une entrée de supersession pointant vers l'identité antérieure; elle ne modifie ni ne supprime l'entrée. Parent/hash absent ou divergent, suppression ou mutation produit `NON_TESTABLE` avec `REGISTRY_HISTORY_VIOLATION`. Le blob genesis seul porte `previous_blob_sha256: null` et des listes vides.
 
 | Cause ID | Family key | Failure signature | Cause key | Critère §12.1 | Gate | Cycle | Décision opérateur | Statut |
 |---|---|---|---|---|---|---:|---|---|
