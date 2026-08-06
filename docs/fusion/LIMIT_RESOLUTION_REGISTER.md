@@ -69,4 +69,13 @@ Le verdict source reste `ACCEPT_WITH_LIMITS`. Cette table décrit la réponse Pr
 | F4 | conflit comparé sur projection sémantique complète du `RiskPoint` | `RESOLVED_SPEC_PENDING_REVIEW` |
 | F5 | O4 marqué `SUPERSEDED_PENDING_REVIEW` | `RECORDED` |
 
-Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et son heartbeat restent non suivis jusqu'à validation explicite de leur admission par l'opérateur.
+Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTOIRE_DELTA_8335AB0.md` ont été admis explicitement au commit `a1e9892` et sont suivis. Leur admission ne transforme pas les réponses Producteur en fermeture indépendante.
+
+## Constats G1–G4 sur la réponse F1–F5
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| G1 | analyse AST par provenance, imports dynamiques/stat temporel interdits, onze mutants | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
+| G2 | `cause_family_key` + signature stable + `cause_key`; occurrences inconnues hors compteur | `RESOLVED_SPEC_PENDING_USE` |
+| G3 | vocabulaire fermé et transitions des statuts d'oracle | `RESOLVED_DOC_PENDING_REVIEW` |
+| G4 | note remplacée par l'admission au commit `a1e9892` | `RESOLVED_DOC` |

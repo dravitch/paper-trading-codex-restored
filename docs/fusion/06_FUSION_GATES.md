@@ -45,6 +45,18 @@ Le prototypage d'un gate ultérieur est autorisé, mais aucune intégration dans
 
 ## Contrôle temporel P1
 
-Un contrôle AST porte sur tous les fichiers Python de `paper_trading_codex/domain/` et `paper_trading_codex/replay/`. Il rejette les imports directs ou alias de `time` et `datetime`, ainsi que les appels identifiés à `now`, `utcnow`, `today`, `time`, `monotonic`, `perf_counter`, `gmtime` et `localtime`. La seule source temporelle autorisée est un objet satisfaisant le port `Clock`, reçu explicitement en dépendance.
+Le contrôle analyse l'AST de tous les fichiers Python sous `paper_trading_codex/domain/` et `paper_trading_codex/replay/`. Il est conservateur : une provenance temporelle impossible à résoudre statiquement est rejetée, sauf exemption nominative préenregistrée.
 
-Le test de mutation injecte successivement `datetime.now()`, `from datetime import datetime as dt; dt.now()`, `time.time()`, `time.monotonic()` et `datetime.now(timezone.utc)` dans un module canonique. Chaque mutation doit faire échouer le contrôle. Une nouvelle bibliothèque temporelle exige une modification préenregistrée de cette règle et un cas mutant correspondant.
+Il construit une table des symboles par module et propage les alias simples jusqu'au point fixe (`x = y`, `x = y.z`, import aliasé). Le matcher porte sur le module source, jamais seulement sur le nom lié. Toute forme `import time`, `import time as t`, `from time import X as Y`, `import datetime` ou `from datetime import X as Y` est donc interdite, y compris `date`, `datetime` et `timezone`.
+
+Sont aussi interdits :
+
+1. imports dynamiques par `__import__`, `importlib.import_module` ou alias résolu; un argument non littéral ou non résolu est rejeté;
+2. appels directs ou aliasés provenant de `time`/`datetime` : `now`, `utcnow`, `today`, `time`, `time_ns`, `monotonic`, `monotonic_ns`, `perf_counter`, `perf_counter_ns`, `process_time`, `process_time_ns`, `thread_time`, `thread_time_ns`, `gmtime`, `localtime`, `fromtimestamp`, `utcfromtimestamp`;
+3. lectures de temps de fichier issues de `os.stat`, `os.fstat`, `os.lstat`, `Path.stat` ou `Path.lstat`, notamment `st_atime`, `st_atime_ns`, `st_ctime`, `st_ctime_ns`, `st_mtime`, `st_mtime_ns`. La provenance suit les affectations simples; ambiguïté, réflexion ou réaffectation complexe = rejet.
+
+La seule origine temporelle admise est une dépendance explicite satisfaisant le port `Clock`, visible dans la signature. Constructeur implicite, singleton, défaut temporel et service locator sont interdits. Les implémentations système de `Clock` vivent hors `domain/` et `replay/`; les implémentations de replay sont déterministes et testées. Une exemption est une liste fermée `{fichier, symbole qualifié, justification, échéance}` et bloque le gate jusqu'à revue.
+
+Le test injecte au minimum : `datetime.now()`, alias `dt.now()`, `time.time()`, `time.monotonic()`, `datetime.now(timezone.utc)`, `date.fromtimestamp(ts)`, `__import__("time").time_ns()`, `importlib.import_module("time").time_ns()`, `os.stat(path).st_mtime`, `clock_fn = time.time; clock_fn()` et `stat = os.stat(path); stat.st_mtime`. Chaque mutant doit échouer avec fichier, ligne et règle. Une nouvelle primitive, bibliothèque ou exemption exige une modification préenregistrée et un mutant correspondant.
+
+Limite déclarée : l'AST intraprocédural ne prouve pas les flux à travers conteneurs, closures, réflexion ou appels intermodules. Réflexion et imports non allowlistés sont donc interdits dans ces répertoires jusqu'à disponibilité d'une analyse interprocédurale. Cette règle bannit également les conversions `datetime` déterministes; un futur adaptateur pur exigera sa propre RFC et ses mutants.

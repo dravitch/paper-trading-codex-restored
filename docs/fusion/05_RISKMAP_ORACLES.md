@@ -102,10 +102,18 @@ Les oracles O2, O4 et O7 sont définitionnels : ils ne deviennent acceptés qu'a
 
 ## Statut des oracles définitionnels
 
-| Oracle | Révision revue | Rapport | Statut |
+Vocabulaire fermé :
+
+- `PENDING_REVIEW` : révision courante jamais revue;
+- `REVIEWED_ACCEPT`, `REVIEWED_ACCEPT_WITH_LIMITS`, `REVIEWED_REJECT` : révision courante revue avec ce verdict;
+- `SUPERSEDED_PENDING_REVIEW` : une ancienne révision a été revue, mais attendu, clé ou domaine de la révision courante a changé.
+
+Transition : modifier un oracle `REVIEWED_*` produit `SUPERSEDED_PENDING_REVIEW`; modifier un oracle `PENDING_REVIEW` le laisse pending; revoir la révision courante produit `REVIEWED_<VERDICT>`. Aucun statut pending n'autorise P6 `PASS`.
+
+| Oracle | Dernière révision revue | Rapport | Statut courant |
 |---|---|---|---|
 | O2 | `09653e2` | `CONTRADICTOIRE_DELTA_09653E2.md` | `REVIEWED_ACCEPT_WITH_LIMITS` |
 | O4 | `09653e2` | même rapport | `SUPERSEDED_PENDING_REVIEW` après correction F1/F5 |
 | O7 | `09653e2` | même rapport | `SUPERSEDED_PENDING_REVIEW` après intégration R1/R2 |
 
-Une modification de l'attendu, de la clé ou du domaine remet uniquement l'oracle concerné à `PENDING_REVIEW`; elle ne révoque pas silencieusement l'historique du rapport.
+Une transition conserve l'historique du rapport et ne change jamais silencieusement le statut d'un autre oracle.
