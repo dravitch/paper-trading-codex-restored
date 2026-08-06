@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
-# watch_fusion_reviews.sh - surveillance locale des heartbeats de l'IA Contradictoire
+# watch_fusion_reviews.sh - surveillance locale des heartbeats et mandats de l'IA Contradictoire
 # Usage :
 #   baseline                       amorce l'état connu sans signaler les fichiers existants
 #   watch [interval_sec]           boucle de surveillance (défaut : 10 secondes)
 #   check                          état courant (PID, log, nombre de fichiers connus)
 #   stop                           arrête le watcher enregistré
+# Surveille : HEARTBEAT_CONTRADICTOIRE*.md, HEARTBIT_CONTRADICTOIRE*.md,
+#             REVIEW_REQUEST_*.md et REVIEW_ADMISSION_REGISTRY.md.
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -25,7 +27,9 @@ log() { printf '[%s] %s\n' "$(date -Is)" "$*" >> "${LOG}"; }
 scan_worktree() {
   local file hash line
   for file in "${WATCH_DIR}"/HEARTBEAT_CONTRADICTOIRE*.md \
-              "${WATCH_DIR}"/HEARTBIT_CONTRADICTOIRE*.md; do
+              "${WATCH_DIR}"/HEARTBIT_CONTRADICTOIRE*.md \
+              "${WATCH_DIR}"/REVIEW_REQUEST_*.md \
+              "${WATCH_DIR}"/REVIEW_ADMISSION_REGISTRY.md; do
     [ -f "${file}" ] || continue
     hash=$(sha256sum "${file}" | cut -d' ' -f1)
     line="${file}|${hash}|worktree"
