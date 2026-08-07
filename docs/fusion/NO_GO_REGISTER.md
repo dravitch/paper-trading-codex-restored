@@ -8,11 +8,13 @@ Statuts de cause : `OPEN`, `CONTINUE`, `ATTRIBUTION_BLOCKED`, `REDUCE_SCOPE`, `S
 
 La source machine autoritaire est [`NO_GO_CYCLE_REGISTRY.json`](NO_GO_CYCLE_REGISTRY.json). Ce tableau Markdown est une projection humaine et ne peut ajouter ni retirer un cycle. Le contrôleur valide le schéma, recalcule chaque `causal_payload_sha256`, vérifie la séquence des `occurrence_id` et recompose les unions uniquement depuis ce JSON versionné.
 
-Le registre est append-only entre deux révisions Git. `parent_registry_commit` nomme le commit exact dont le blob est chaîné; `previous_blob_sha256` doit égaler son SHA-256. Les ensembles d'identités des `cycles`, `occurrences` et `groups` du parent sont des sous-ensembles obligatoires du nouveau blob; une entrée existante reste octet-pour-octet identique. Une correction ajoute une supersession; elle ne modifie ni ne supprime l'entrée. Parent/hash absent ou divergent, suppression ou mutation produit `NON_TESTABLE` avec `REGISTRY_HISTORY_VIOLATION`.
+Le registre est append-only entre deux révisions Git. Pour un commit candidat `C`, le parent autoritaire est le premier commit renvoyé par `git rev-list --first-parent "C^" -- docs/fusion/NO_GO_CYCLE_REGISTRY.json`; il s'agit donc de la révision immédiatement précédente du fichier sur la première-parenté. `parent_registry_commit` doit lui être égal et `previous_blob_sha256` doit égaler le SHA-256 de son blob. Aucun ancêtre plus ancien n'est accepté, même si son hash concorde et ses ensembles sont inclus.
+
+Les ensembles d'identités des `cycles`, `occurrences`, `groups` et `supersessions` du parent sont des sous-ensembles obligatoires du nouveau blob; une entrée existante reste octet-pour-octet identique. Parent/hash absent ou divergent, saut d'une révision, suppression ou mutation produit `NON_TESTABLE` avec `REGISTRY_HISTORY_VIOLATION`. Mutant obligatoire : faire pointer un successeur vers la genesis en sautant une révision intermédiaire; le validateur doit échouer.
 
 La genesis normative est le blob au commit `930b0f9292c18d74b99a3daabc53f1af2b7fba68`, SHA-256 `4ff3bef1ba8d0005dcacdc0dd381d523e821a1c9d28549ebc847a74f6db046fb`. Le fichier vide créé à `f14546f` est une pré-genesis documentaire sans données et ne peut servir d'ancêtre autoritaire. Le premier successeur cite cette genesis dans `genesis_commit`, `parent_registry_commit` et `previous_blob_sha256`.
 
-`schema_version` est immuable dans une chaîne. Toute migration crée un nouveau fichier versionné, un manifeste de migration revu reliant genesis source et cible, et prouve la conservation exhaustive des identités; elle ne réinitialise jamais la chaîne existante.
+`schema_version` est immuable dans une chaîne. Toute migration crée un nouveau fichier versionné, un manifeste de migration revu reliant genesis source et cible, et prouve la conservation exhaustive des identités, y compris `supersessions`; elle ne réinitialise jamais la chaîne existante.
 
 | Cause ID | Family key | Failure signature | Cause key | Critère §12.1 | Gate | Cycle | Décision opérateur | Statut |
 |---|---|---|---|---|---|---:|---|---|

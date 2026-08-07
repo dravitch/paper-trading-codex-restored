@@ -41,6 +41,18 @@ Le verdict extrait doit égaler `Verdict indexé` dans le blob du registre au `r
 
 Une ligne de cette table est ajoutée dans un commit d'indexation postérieur au commit d'admission. Elle doit référencer le même blob que la table générale et ne peut être déduite d'une preuve P6.
 
+### Enregistrement machine d'un oracle
+
+La table Markdown est une projection. L'enregistrement autoritaire est exactement une ligne LF, sans CR ni espaces de début/fin :
+
+```text
+Oracle-Admission: {"admission_commit":"1111111111111111111111111111111111111111","admitted_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","oracle_id":"O2","report_path":"docs/fusion/CONTRADICTOIRE_O2.md","verdict":"ACCEPT"}
+```
+
+Grammaire : préfixe ASCII exact `Oracle-Admission: ` puis un objet JSON canonique sur une ligne, avec exactement les cinq clés montrées dans cet ordre canonique. `admission_commit` est `[0-9a-f]{40}`, `admitted_sha256` `[0-9a-f]{64}`, `oracle_id` `(O2|O4|O7)`, `report_path` `docs/fusion/[A-Za-z0-9_.-]+\.md`, `verdict` `(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)`. Toute clé supplémentaire, doublon, échappement, chemin relatif, CR ou seconde ligne pour le même oracle invalide l'index.
+
+SHA-256 du vecteur, sans LF final : `7dcf174ee657868f5dc784973bf6cface2d62ef9ee1b51145139562f1be07067`. Le contrôleur reconstruit la ligne depuis les champs parsés, exige l'égalité octet-pour-octet puis recalcule ce hash. Mutants obligatoires : modifier un octet, permuter/dupliquer une clé, changer verdict/commit/hash/chemin, ajouter CR ou une seconde ligne; tous bloquent P6.
+
 ## Mutations bloquantes
 
 - rapport courant différent du blob admis;
@@ -50,5 +62,6 @@ Une ligne de cette table est ajoutée dans un commit d'indexation postérieur au
 - admission et réponse Producteur dans le même commit;
 - verdict/statut enregistré différent du rapport ancré.
 - `oracle_id` absent du scope indexé ou de l'unique ligne normative exacte du rapport.
+- enregistrement `Oracle-Admission` absent, non canonique, dupliqué ou divergent du rapport.
 
 Toute réécriture d'historique invalide les admissions jusqu'à nouvelle décision opérateur. **Avant toute exécution ou revendication de P6**, le Producteur doit fournir l'une des preuves suivantes : règle de protection distante interdisant force-push et suppression sur la branche contenant les admissions, exportée et hashée; ou archive Git signée couvrant les commits d'admission, avec identité du signataire et commande de vérification. Sans artefact vérifiable, P6 est `BLOCKED_IMMUTABILITY`, même si tous les hashes concordent. La même preuve reste obligatoire pour la publication finale.

@@ -153,3 +153,14 @@ Voir [`REV08.md`](../../REV08.md). Aucun contrôleur n'est implémenté.
 | O4 | supersession append-only avec nouvel ID contigu | `RESOLVED_SPEC_PENDING_REVIEW` |
 
 Voir [`REV09.md`](../../REV09.md). Aucun contrôleur n'est implémenté.
+
+## Constats P1–P4 sur la réponse O1–O4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| P1 | grammaire/hash/mutants de la ligne machine `Oracle-Admission` | `RESOLVED_SPEC_PENDING_REVIEW` |
+| P2 | vecteur Unicode/contrôles et fixtures de rejet | `RESOLVED_SPEC_PENDING_REVIEW` |
+| P3 | parent fixé à la révision first-parent immédiatement précédente | `RESOLVED_SPEC_PENDING_REVIEW` |
+| P4 | schéma append-only `supersessions` et invariants de chaîne | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+La source admise est `REV09bis`; `REV09` reste `SUPERSEDED_PROCEDURAL`. Voir [`REV10.md`](../../REV10.md).

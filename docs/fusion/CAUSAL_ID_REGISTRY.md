@@ -65,9 +65,20 @@ Vecteur étendu (le texte contient NFC `é`, un slash non échappé et `\n`) :
 SHA-256 = eacf3f8071439cd6315c7693159449aeb6f9988a727eba234ab063da9f7e7563
 ```
 
+Vecteur de couverture (clé NFC non ASCII, entier, booléen, U+0000 et U+001F) :
+
+```text
+{"a":"\u0000\u001f","é":[1,true]}
+SHA-256 = 5ab8722b166d50ee50983b73ca8dc02cadc2114ef529d97f1dc7a5d70e87feee
+```
+
+Fixtures de rejet obligatoires, sans hash produit : clé NFD `e\u0301`; valeur NFD `e\u0301`; surrogate isolé U+D800; paire de surrogates encodée au lieu du scalaire Unicode; clé dupliquée après décodage. Chaque fixture doit lever `NON_CANONICAL_CAUSAL_JSON`; normaliser puis accepter est une mutation qui doit échouer.
+
 ### Supersession des occurrences
 
-Une correction référence un `occurrence_id` existant dans `supersedes_occurrence_id`; cette référence n'est pas une proposition d'ID neuf. Le contrôleur vérifie l'existence puis alloue au remplacement le prochain ID contigu. L'ancienne entrée demeure immuable dans `occurrences`, compte toujours dans `len(occurrences)` et prend le statut terminal `SUPERSEDED` par un événement annexe append-only; son suffixe n'est jamais libéré. Le remplacement est une nouvelle occurrence avec son propre hash et ne peut masquer les cycles de l'ancienne.
+Une correction crée une entrée dans `supersessions` de forme exacte `{supersession_id, superseded_occurrence_id, replacement_occurrence_id, reason_code, decision_commit}`. `supersession_id` suit `SUP-NNNNNN`, alloué de façon contiguë comme `OCC`; les deux occurrences existent, sont distinctes et `replacement_occurrence_id` est le prochain OCC alloué dans la même transaction. `reason_code` appartient au vocabulaire fermé et `decision_commit` est `[0-9a-f]{40}`.
+
+L'ancienne occurrence demeure immuable dans `occurrences`, compte toujours dans `len(occurrences)` et son statut dérivé est terminal `SUPERSEDED`. Une occurrence possède au plus une supersession entrante et une sortante; la chaîne est acyclique. Le remplacement a son propre hash et ne masque aucun cycle. Supprimer l'événement, réutiliser un ID, référencer une occurrence absente ou créer une branche/cycle produit `REGISTRY_HISTORY_VIOLATION`.
 
 ## Codes de raison fermés
 
@@ -77,5 +88,6 @@ Une correction référence un `occurrence_id` existant dans `supersedes_occurren
 | `INVALID_OCCURRENCE_HISTORY` | identité, hash causal ou ascendance d'occurrence invalide |
 | `INCOMPLETE_GROUP_HISTORY` | cycles ou prédécesseurs connus absents d'un groupe |
 | `REGISTRY_HISTORY_VIOLATION` | suppression, mutation ou chaîne de hash invalide du registre machine |
+| `NON_CANONICAL_CAUSAL_JSON` | sérialisation causale non canonique, NFD, surrogate ou clé dupliquée |
 
 Tout autre code est `UNKNOWN_REASON_CODE` et rend le résultat `NON_TESTABLE`; l'ajout d'un code exige une révision normative préalable.

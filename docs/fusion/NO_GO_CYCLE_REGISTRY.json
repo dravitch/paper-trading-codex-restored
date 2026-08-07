@@ -1,9 +1,10 @@
 {
   "schema_version": 1,
   "genesis_commit": "930b0f9292c18d74b99a3daabc53f1af2b7fba68",
-  "parent_registry_commit": "930b0f9292c18d74b99a3daabc53f1af2b7fba68",
-  "previous_blob_sha256": "4ff3bef1ba8d0005dcacdc0dd381d523e821a1c9d28549ebc847a74f6db046fb",
+  "parent_registry_commit": "6867a2db063321cd39636f87a741452396d93ca7",
+  "previous_blob_sha256": "a7ad22af7cc6b21bc7c6f5b3d8ec08a929efbb4e044451087c5963f3013322c1",
   "cycles": [],
   "occurrences": [],
-  "groups": []
+  "groups": [],
+  "supersessions": []
 }
