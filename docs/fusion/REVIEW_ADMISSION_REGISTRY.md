@@ -25,6 +25,13 @@ Le verdict extrait doit égaler `Verdict indexé` dans le blob du registre au `r
 | delta `dd4cdde` | — | `5a8ebe2` | `docs/fusion/CONTRADICTOIRE_DELTA_DD4CDDE.md` | `ede8f51e082327e3a6e886cd716f4dcc027bc283bd43669fa7998f86f967257b` | opérateur, 2026-08-06 |
 | delta `f14546f` | — | `cf6aa7a` | `docs/fusion/CONTRADICTOIRE_DELTA_F14546F.md` | `3ec01a4ee0082e59b77a6d2616f06e90162c9ffdc63d01fbfa82cdd0051fbf0d` | opérateur, 2026-08-06 |
 | delta `930b0f9` (`REV08`) | — | `a7c8a69` | `docs/fusion/CONTRADICTOIRE_DELTA_REV08.md` | `30ac34a795b1404ee416941f5fa06ad38aeee8bc1ec76cbee72c16cc60b65a64` | opérateur, 2026-08-06 |
+| delta `6867a2d` (`REV09bis`) | — | `4f281b7` | `docs/fusion/CONTRADICTOIRE_DELTA_REV09BIS.md` | `981e5b083e7382087f1f3153fe144c98348a0bb1e77c15ffb910ce36675f7085` | opérateur, 2026-08-06; addendum `77c75221b779092c1712a75e2411a79873fd046189752c062bae733c8693a42a` |
+
+## Supersessions procédurales
+
+| Artefact source | Remplacement admis | Motif | Manifeste |
+|---|---|---|---|
+| `REV09` non admis | `REV09bis` | cycle d'admission contaminé par une auto-revue Producteur rejetée; contenu scientifique indépendant inchangé | `docs/fusion/REV09_SUPERSESSION.md` au commit `4f281b7` |
 
 ## Admissions d'oracles
 
