@@ -175,3 +175,14 @@ La source admise est `REV09bis`; `REV09` reste `SUPERSEDED_PROCEDURAL`. Voir [`R
 | Q4 | espace SUP complet, raisons fermées et commit décisionnel vérifié | `RESOLVED_SPEC_PENDING_REVIEW` |
 
 Voir [`REV11.md`](../../REV11.md). Aucun contrôleur n'est implémenté.
+
+## Constats S1–S4 sur la réponse Q1–Q4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| S1 | évolution append-only de `ORACLE_ADMISSIONS.json`, révisions Git effectives et merges fermés | `RESOLVED_SPEC_PENDING_REVIEW` |
+| S2 | rapport d'entrée à schéma fermé et priorité déterministe des erreurs historiques | `RESOLVED_SPEC_PENDING_REVIEW` |
+| S3 | séparation du commit évalué `E` et de la dernière révision effective `C` du registre | `RESOLVED_SPEC_PENDING_REVIEW` |
+| S4 | registre machine des décisions de supersession et croisement occurrence/raison | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+Voir [`REV12.md`](../../REV12.md). Aucun contrôleur n'est implémenté et P6 reste `BLOCKED_IMMUTABILITY`.

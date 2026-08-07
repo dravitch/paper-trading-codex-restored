@@ -33,7 +33,7 @@ Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'es
 
 La réponse Producteur Q1–Q4 est ancrée au commit `3876fce`. La première tentative d'admission de `REV11` (`a837cea`) est invalide : l'opérateur avait admis les hashes intermédiaires R1–R4, alors que le commit contenait les blobs finaux S1–S4. L'invalidation est documentée par `3415cb3`; aucune admission REV11 invalide n'a été ajoutée au registre.
 
-La reprise contrôlée `REV11bis`, scientifiquement identique à la version finale S1–S4, a reçu un addendum Contradictoire indépendant et l'admission explicite de l'opérateur. Elle est ancrée au commit `102ce6a`, puis indexée séparément au commit `d8bc959`. Son verdict est `ACCEPT_WITH_LIMITS`; les limites S1–S4 portent sur les mutations append-only du registre machine, la validation et la priorité des erreurs, le domaine exact des commits révisant le registre et la preuve machine de la décision opérateur. Aucun gate n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
+La reprise contrôlée `REV11bis`, scientifiquement identique à la version finale S1–S4, a reçu un addendum Contradictoire indépendant et l'admission explicite de l'opérateur. Elle est ancrée au commit `102ce6a`, puis indexée séparément au commit `d8bc959`. Son verdict est `ACCEPT_WITH_LIMITS`. La réponse Producteur S1–S4 est en préparation dans `REV12.md` : évolution append-only du registre des oracles, rapport de validation d'entrée, distinction entre commit évalué et révision effective, registre machine des décisions de supersession. Aucun gate n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
 
 ## État des branches
 
@@ -43,7 +43,7 @@ Trois branches réelles existent localement et sur le dépôt distant :
 |---|---|---|
 | `main` | baseline publiable | aucune fusion contrôlée reçue |
 | `fusion/controlled-merger` | destination d'intégration | attend la fermeture des gates requis |
-| `correction/reconcile-l1-l12` | consolidation documentaire active | tête `d8bc959`, synchronisée avec `origin` |
+| `correction/reconcile-l1-l12` | consolidation documentaire active | réponse S1–S4 en cours; commit cible à figer avant revue |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une quatrième branche. Le dossier non suivi `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 

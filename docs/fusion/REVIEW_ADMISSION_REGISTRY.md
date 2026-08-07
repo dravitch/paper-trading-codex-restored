@@ -58,6 +58,16 @@ Grammaire de rendu : préfixe ASCII exact `Oracle-Admission: ` puis un objet JSO
 
 SHA-256 du vecteur, sans LF final : `7dcf174ee657868f5dc784973bf6cface2d62ef9ee1b51145139562f1be07067`. Le contrôleur parse uniquement `ORACLE_ADMISSIONS.json`, rejette les clés dupliquées avant construction d'objet, rend chaque entrée, exige l'égalité sémantique et recalcule ce hash. Mutants obligatoires : modifier un octet, permuter/dupliquer une clé dans l'entrée source, changer verdict/commit/hash/chemin, ajouter CR, réordonner `records` ou ajouter un doublon; tous bloquent P6.
 
+### Évolution du registre machine
+
+La genesis de `ORACLE_ADMISSIONS.json` est le blob vide créé au commit `3876fce12eb23daa78293a803a7a658afb5b10bc`, SHA-256 `246f867f77cfbe61fd392297925d4f498946eff28bcf3d66f62a6e22ed3c8209`. Pour une évaluation au commit `E`, la révision candidate `C` est l'unique sortie de `git rev-list --first-parent --max-count=1 E -- docs/fusion/ORACLE_ADMISSIONS.json`. Si `C` n'est pas la genesis, la révision précédente `P` est l'unique sortie de `git rev-list --first-parent --max-count=1 "C^1" -- docs/fusion/ORACLE_ADMISSIONS.json`.
+
+Entre `P` et `C`, l'ensemble des `oracle_id` antérieurs est un sous-ensemble obligatoire du nouvel ensemble et chaque objet antérieur demeure sémantiquement identique dans sa sérialisation canonique. Une révision peut seulement ajouter un record nouvellement admis; retrait, modification, remplacement, seconde entrée du même oracle ou réintroduction produisent `ORACLE_ADMISSION_HISTORY_VIOLATION` et bloquent P6. L'ordre du tableau reste l'ordre fermé O2, O4, O7; l'ajout d'un oracle antérieur dans cet ordre peut donc déplacer un objet existant sans le modifier.
+
+Un commit qui ne modifie pas le fichier n'est pas une nouvelle révision et valide le blob porté via son dernier `C`. Pour un merge, les blobs de tous les parents doivent être identiques au blob du premier parent et le merge ne peut modifier le fichier; sinon `ORACLE_ADMISSION_MERGE_CONFLICT`. Une union éventuelle est créée dans un commit linéaire ultérieur et doit satisfaire les règles d'ajout ci-dessus.
+
+Mutants historiques obligatoires : retirer ou modifier un record antérieur, changer son verdict ou son ancre, dupliquer un oracle, traiter un commit non-révision comme `C`, sauter `P`, accepter des parents de merge divergents ou modifier le fichier dans un merge. Tous bloquent P6. Cette chaîne Git détecte les mutations dans l'histoire observée; elle ne remplace pas la preuve externe d'immuabilité exigée plus bas.
+
 ## Mutations bloquantes
 
 - rapport courant différent du blob admis;

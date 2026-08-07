@@ -73,6 +73,10 @@ Tout autre import, notamment `os`, `pathlib`, `time`, `datetime`, `importlib`, `
 
 Pour O2, O4 et O7, la preuve mécanique contient `{oracle_id, reviewed_commit, admission_commit, report_path, admitted_sha256, report_verdict, registry_commit, registry_blob_sha256, recorded_status}`. Le contrôleur applique [`REVIEW_ADMISSION_REGISTRY.md`](REVIEW_ADMISSION_REGISTRY.md) et lit exclusivement `ORACLE_ADMISSIONS.json` au `registry_commit` : hashes du rapport et du registre machine recalculés depuis leurs commits historiques, distincts et ancêtres, jamais depuis une valeur auto-déclarée courante. Il vérifie le marqueur unique du rapport et l'unique objet machine de l'oracle. Un statut accepté sans admission, avec rapport ou registre modifié, mauvais commit, oracle substitué/dupliqué/hors ordre ou verdict divergent bloque P6.
 
+Le contrôleur valide aussi l'évolution append-only de `ORACLE_ADMISSIONS.json` entre ses révisions Git selon le registre d'admission. Il résout la dernière révision effective du fichier à partir du commit évalué; un commit qui porte le même blob sans le modifier ne devient jamais un faux parent. Retrait ou mutation d'une admission, saut de révision et merge divergent bloquent P6.
+
 Avant ce contrôle, une preuve d'immuabilité conforme au registre d'admission doit être présente et son SHA-256 inclus dans le manifeste P6. Son absence impose `BLOCKED_IMMUTABILITY`; la concordance des blobs ne suffit pas à lever ce blocage.
 
 Mutations obligatoires : élever pending vers accepté sans rapport; substituer le rapport d'un autre oracle; modifier un octet du rapport; recalculer seulement le hash courant; changer le commit examiné ou d'admission; transformer `REJECT`/`NON_TESTABLE` en accepté. Chacune doit échouer.
+
+Tout run P6 référence également le rapport de validation d'entrée, même vide, défini dans `CAUSAL_ID_REGISTRY.md`. Toute supersession référence un record exact de `OPERATOR_SUPERSESSION_DECISIONS.json` ajouté dans un commit strictement antérieur. Une preuve seulement narrative ou située dans le même commit que la supersession est invalide.
