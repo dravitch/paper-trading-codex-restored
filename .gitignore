@@ -30,3 +30,6 @@ logs/
 # Local data
 data/*.csv
 data/*.parquet
+
+# Local research material
+docs/deepsearch/
