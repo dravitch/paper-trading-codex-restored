@@ -31,6 +31,6 @@ Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'es
 
 ## Jalon courant
 
-La reprise Contradictoire `REV09bis` visant `6867a2d` a été admise au commit `4f281b7`, puis indexée au commit `bff1dcd`; `REV09` reste `SUPERSEDED_PROCEDURAL`. Le travail Producteur courant porte sur P1–P4 : grammaire des admissions d'oracles, vecteurs Unicode négatifs, adjacence du registre et schéma machine de supersession. La preuve externe de protection de l'historique reste ouverte avant P6.
+La revue Contradictoire `REV10` visant `7039476` a été admise au commit `ae5eb92`, puis indexée au commit `ec233ca`. Le travail Producteur courant porte sur Q1–Q4 : emplacement machine des admissions, statut pré-validation du canon, cas limites Git et espace SUP. La preuve externe de protection de l'historique reste ouverte avant P6.
 
 Après revue de ce delta, la prochaine étape est de terminer P0 puis d'ouvrir la première branche d'hypothèse exécutable. Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6.

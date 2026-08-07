@@ -44,15 +44,17 @@ Une ligne de cette table est ajoutée dans un commit d'indexation postérieur au
 
 ### Enregistrement machine d'un oracle
 
-La table Markdown est une projection. L'enregistrement autoritaire est exactement une ligne LF, sans CR ni espaces de début/fin :
+La table Markdown est une projection. La seule source machine est [`ORACLE_ADMISSIONS.json`](ORACLE_ADMISSIONS.json), jamais ce fichier Markdown ni un bloc de code. Le fichier contient exactement `{schema_version: 1, records: [...]}`. `records` est trié selon l'ordre fermé `O2`, `O4`, `O7`, contient au plus une entrée par oracle et n'accepte aucune autre clé racine ou d'enregistrement. Le JSON suit la sérialisation canonique définie dans `CAUSAL_ID_REGISTRY.md`; le blob présent est vide de toute admission.
+
+Chaque objet de `records` se rend en exactement une ligne LF, sans CR ni espaces de début/fin :
 
 ```text
 Oracle-Admission: {"admission_commit":"1111111111111111111111111111111111111111","admitted_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","oracle_id":"O2","report_path":"docs/fusion/CONTRADICTOIRE_O2.md","verdict":"ACCEPT"}
 ```
 
-Grammaire : préfixe ASCII exact `Oracle-Admission: ` puis un objet JSON canonique sur une ligne, avec exactement les cinq clés montrées dans cet ordre canonique. `admission_commit` est `[0-9a-f]{40}`, `admitted_sha256` `[0-9a-f]{64}`, `oracle_id` `(O2|O4|O7)`, `report_path` `docs/fusion/[A-Za-z0-9_.-]+\.md`, `verdict` `(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)`. Toute clé supplémentaire, doublon, échappement, chemin relatif, CR ou seconde ligne pour le même oracle invalide l'index.
+Grammaire de rendu : préfixe ASCII exact `Oracle-Admission: ` puis un objet JSON canonique sur une ligne, avec exactement les cinq clés montrées dans cet ordre canonique. `admission_commit` est `[0-9a-f]{40}`, `admitted_sha256` `[0-9a-f]{64}`, `oracle_id` `(O2|O4|O7)`, `report_path` `docs/fusion/[A-Za-z0-9_.-]+\.md`, `verdict` `(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)`. Toute clé supplémentaire, doublon, échappement, chemin relatif, CR, oracle hors scope ou seconde entrée pour le même oracle invalide le fichier entier.
 
-SHA-256 du vecteur, sans LF final : `7dcf174ee657868f5dc784973bf6cface2d62ef9ee1b51145139562f1be07067`. Le contrôleur reconstruit la ligne depuis les champs parsés, exige l'égalité octet-pour-octet puis recalcule ce hash. Mutants obligatoires : modifier un octet, permuter/dupliquer une clé, changer verdict/commit/hash/chemin, ajouter CR ou une seconde ligne; tous bloquent P6.
+SHA-256 du vecteur, sans LF final : `7dcf174ee657868f5dc784973bf6cface2d62ef9ee1b51145139562f1be07067`. Le contrôleur parse uniquement `ORACLE_ADMISSIONS.json`, rejette les clés dupliquées avant construction d'objet, rend chaque entrée, exige l'égalité sémantique et recalcule ce hash. Mutants obligatoires : modifier un octet, permuter/dupliquer une clé dans l'entrée source, changer verdict/commit/hash/chemin, ajouter CR, réordonner `records` ou ajouter un doublon; tous bloquent P6.
 
 ## Mutations bloquantes
 

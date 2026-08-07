@@ -72,11 +72,15 @@ Vecteur de couverture (clé NFC non ASCII, entier, booléen, U+0000 et U+001F) :
 SHA-256 = 5ab8722b166d50ee50983b73ca8dc02cadc2114ef529d97f1dc7a5d70e87feee
 ```
 
-Fixtures de rejet obligatoires, sans hash produit : clé NFD `e\u0301`; valeur NFD `e\u0301`; surrogate isolé U+D800; paire de surrogates encodée au lieu du scalaire Unicode; clé dupliquée après décodage. Chaque fixture doit lever `NON_CANONICAL_CAUSAL_JSON`; normaliser puis accepter est une mutation qui doit échouer.
+Fixtures de rejet obligatoires, sans hash produit : clé NFD `e\u0301`; valeur NFD `e\u0301`; surrogate isolé U+D800; paire de surrogates encodée au lieu du scalaire Unicode; clé dupliquée après décodage. Chaque fixture lève l'erreur de pré-validation `NON_CANONICAL_CAUSAL_JSON`; normaliser puis accepter est une mutation qui doit échouer.
+
+Cette erreur survient avant allocation de `occurrence_id`, `cycle_id`, famille ou groupe. Elle ne crée aucune entrée dans le registre NO-GO et ne compte jamais comme cycle bloqué. Elle est inscrite seulement dans le rapport de validation d'entrée avec hash des octets rejetés et sans recopier le contenu potentiellement sensible. Si un payload déjà enregistré devient non canonique lors d'une relecture, il s'agit au contraire de `REGISTRY_HISTORY_VIOLATION`, qui compte comme cycle bloqué.
 
 ### Supersession des occurrences
 
-Une correction crée une entrée dans `supersessions` de forme exacte `{supersession_id, superseded_occurrence_id, replacement_occurrence_id, reason_code, decision_commit}`. `supersession_id` suit `SUP-NNNNNN`, alloué de façon contiguë comme `OCC`; les deux occurrences existent, sont distinctes et `replacement_occurrence_id` est le prochain OCC alloué dans la même transaction. `reason_code` appartient au vocabulaire fermé et `decision_commit` est `[0-9a-f]{40}`.
+Une correction crée une entrée dans `supersessions` de forme exacte `{supersession_id, superseded_occurrence_id, replacement_occurrence_id, reason_code, decision_commit}`. `supersession_id` satisfait `^SUP-[0-9]{6}$`, domaine `SUP-000001` à `SUP-999999`. Le contrôleur rejette tout SUP proposé, alloue `SUP-{n+1:06d}` dans la même transaction et exige la séquence exacte `000001..len(supersessions)`, sans trou, doublon ni réutilisation.
+
+Les deux occurrences existent, sont distinctes et `replacement_occurrence_id` est le prochain OCC alloué dans la même transaction. `reason_code` appartient exactement à `{CORRECT_CAUSAL_PAYLOAD, REATTRIBUTE_CAUSE, REPAIR_METADATA}`. `decision_commit` satisfait `[0-9a-f]{40}`, existe dans le dépôt, est ancêtre strict du commit qui écrit la supersession et contient une décision opérateur nommant l'occurrence source et la raison; une décision créée dans la même transaction est refusée.
 
 L'ancienne occurrence demeure immuable dans `occurrences`, compte toujours dans `len(occurrences)` et son statut dérivé est terminal `SUPERSEDED`. Une occurrence possède au plus une supersession entrante et une sortante; la chaîne est acyclique. Le remplacement a son propre hash et ne masque aucun cycle. Supprimer l'événement, réutiliser un ID, référencer une occurrence absente ou créer une branche/cycle produit `REGISTRY_HISTORY_VIOLATION`.
 
@@ -88,6 +92,8 @@ L'ancienne occurrence demeure immuable dans `occurrences`, compte toujours dans 
 | `INVALID_OCCURRENCE_HISTORY` | identité, hash causal ou ascendance d'occurrence invalide |
 | `INCOMPLETE_GROUP_HISTORY` | cycles ou prédécesseurs connus absents d'un groupe |
 | `REGISTRY_HISTORY_VIOLATION` | suppression, mutation ou chaîne de hash invalide du registre machine |
-| `NON_CANONICAL_CAUSAL_JSON` | sérialisation causale non canonique, NFD, surrogate ou clé dupliquée |
+| `MERGE_REGISTRY_CONFLICT` | parents de merge portant des blobs de registre divergents |
 
 Tout autre code est `UNKNOWN_REASON_CODE` et rend le résultat `NON_TESTABLE`; l'ajout d'un code exige une révision normative préalable.
+
+`NON_CANONICAL_CAUSAL_JSON` est un code de pré-validation, pas un code de raison NO-GO; il est régi par la section de sérialisation ci-dessus.

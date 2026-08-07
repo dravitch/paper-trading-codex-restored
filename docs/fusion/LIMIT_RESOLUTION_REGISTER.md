@@ -164,3 +164,14 @@ Voir [`REV09.md`](../../REV09.md). Aucun contrôleur n'est implémenté.
 | P4 | schéma append-only `supersessions` et invariants de chaîne | `RESOLVED_SPEC_PENDING_REVIEW` |
 
 La source admise est `REV09bis`; `REV09` reste `SUPERSEDED_PROCEDURAL`. Voir [`REV10.md`](../../REV10.md).
+
+## Constats Q1–Q4 sur la réponse P1–P4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| Q1 | admissions d'oracles déplacées dans un JSON machine ordonné et fermé | `RESOLVED_SPEC_PENDING_REVIEW` |
+| Q2 | erreur canonique classée pré-validation, sans compteur NO-GO | `RESOLVED_SPEC_PENDING_REVIEW` |
+| Q3 | genesis, merges, résultat vide et ordre first-parent régulés | `RESOLVED_SPEC_PENDING_REVIEW` |
+| Q4 | espace SUP complet, raisons fermées et commit décisionnel vérifié | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+Voir [`REV11.md`](../../REV11.md). Aucun contrôleur n'est implémenté.
