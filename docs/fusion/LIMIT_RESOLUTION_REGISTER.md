@@ -142,3 +142,14 @@ La preuve externe d'immuabilité demeure ouverte. Voir [`REV07.md`](../../REV07.
 | N4 | regex, domaine et allocation contiguë exclusive des occurrences | `RESOLVED_SPEC_PENDING_REVIEW` |
 
 Voir [`REV08.md`](../../REV08.md). Aucun contrôleur n'est implémenté.
+
+## Constats O1–O4 sur la réponse N1–N4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| O1 | candidate exacte et blob historique du registre des verdicts ancré | `RESOLVED_SPEC_PENDING_REVIEW` |
+| O2 | NFC, échappements exhaustifs et vecteur Unicode | `RESOLVED_SPEC_PENDING_REVIEW` |
+| O3 | genesis/parent/hash explicites et migration sans remise à zéro | `RESOLVED_SPEC_PENDING_REVIEW` |
+| O4 | supersession append-only avec nouvel ID contigu | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+Voir [`REV09.md`](../../REV09.md). Aucun contrôleur n'est implémenté.

@@ -31,6 +31,6 @@ Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'es
 
 ## Jalon courant
 
-Le rapport Contradictoire visant `f14546f` a été admis au commit `cf6aa7a`, puis indexé au commit `4e96e92`. Son verdict est `ACCEPT_WITH_LIMITS`. Le travail Producteur courant porte sur N1–N4 : fins de ligne et verdicts d'oracles, sérialisation récursive, intégrité append-only du registre et allocation mécanique des occurrences. La preuve externe de protection de l'historique reste ouverte avant P6.
+Le rapport Contradictoire `REV08` visant `930b0f9` a été admis au commit `a7c8a69`, puis indexé au commit `67dcb87`. Son verdict est `ACCEPT_WITH_LIMITS`. Le travail Producteur courant porte sur O1–O4 : candidats/verdicts ancrés, canon Unicode, genesis append-only et supersession des occurrences. La preuve externe de protection de l'historique reste ouverte avant P6.
 
 Après revue de ce delta, la prochaine étape est de terminer P0 puis d'ouvrir la première branche d'hypothèse exécutable. Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6.

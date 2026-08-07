@@ -47,7 +47,9 @@ Cycle de vie fermé : `RESERVED → ACTIVE → DEPRECATED → RETIRED`. `RESERVE
 
 ### Sérialisation canonique causale
 
-Le JSON est canonique récursivement : dictionnaires triés par clé Unicode à tous les niveaux; tableaux dans leur ordre normatif; chaînes JSON UTF-8 avec échappement JSON minimal, sans ASCII-forcing; entiers décimaux sans zéro initial; booléens et `null` JSON; flottants interdits; séparateurs `,` et `:` sans espaces. Le hash porte sur les octets UTF-8, sans BOM ni fin de ligne.
+Le JSON est canonique récursivement : dictionnaires triés par valeur scalaire Unicode des clés à tous les niveaux; tableaux dans leur ordre normatif; entiers décimaux sans zéro initial; booléens et `null` JSON; flottants interdits; séparateurs `,` et `:` sans espaces. Toute clé et chaîne doit déjà être en NFC; une entrée non NFC ou contenant un surrogate Unicode est rejetée, jamais normalisée silencieusement.
+
+Échappements uniques : `"`, `\\`, `\b`, `\t`, `\n`, `\f`, `\r`; les autres U+0000–U+001F utilisent `\u00xx` en hexadécimal minuscule. `/` n'est jamais échappé. Tout autre caractère, notamment non ASCII NFC, est encodé directement en UTF-8. Le hash porte sur ces octets, sans BOM ni fin de ligne.
 
 Vecteur normatif :
 
@@ -55,6 +57,17 @@ Vecteur normatif :
 {"cause_family_key":"CFK-A","cause_key":"CK-A","cycle_id":"CYC-000001","failure_signature":{"component_id":"CMP-001-spot-ledger","failure_mode_id":"FM-001-fee-not-applied","symbol_id":"SYM-001-apply-fee"},"root_cause_group_id":null}
 SHA-256 = 51857ebbbcc0155f75bf33ae635a6f865a17e74cd324a7cd063c1ef3b47375e6
 ```
+
+Vecteur étendu (le texte contient NFC `é`, un slash non échappé et `\n`) :
+
+```text
+{"labels":["é","a/b","line\n"],"n":7,"ok":true}
+SHA-256 = eacf3f8071439cd6315c7693159449aeb6f9988a727eba234ab063da9f7e7563
+```
+
+### Supersession des occurrences
+
+Une correction référence un `occurrence_id` existant dans `supersedes_occurrence_id`; cette référence n'est pas une proposition d'ID neuf. Le contrôleur vérifie l'existence puis alloue au remplacement le prochain ID contigu. L'ancienne entrée demeure immuable dans `occurrences`, compte toujours dans `len(occurrences)` et prend le statut terminal `SUPERSEDED` par un événement annexe append-only; son suffixe n'est jamais libéré. Le remplacement est une nouvelle occurrence avec son propre hash et ne peut masquer les cycles de l'ancienne.
 
 ## Codes de raison fermés
 

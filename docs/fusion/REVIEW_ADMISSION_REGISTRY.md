@@ -10,7 +10,9 @@ Contrôle : `admission_commit` doit être ancêtre du commit évalué; `git show
 
 `Oracle scope` est un ensemble fermé d'identifiants (`O2`, `O4`, `O7`) explicitement nommés par le rapport. `—` signifie que la revue historique ne constitue aucune preuve d'oracle. Une preuve P6 n'est admissible que si son `oracle_id` appartient exactement à cette colonne et à la table **Admissions d'oracles** ci-dessous, et si le blob admis contient exactement une ligne normative ancrée de forme `Oracle-Review: oracle_id=O2; verdict=ACCEPT`. L'expression complète est `^Oracle-Review: oracle_id=(O2|O4|O7); verdict=(ACCEPT|ACCEPT_WITH_LIMITS|REJECT|NON_TESTABLE)$`, en ASCII, sans espaces supplémentaires.
 
-Le blob est découpé uniquement sur l'octet LF (`0A`). Tout CR (`0D`) sur la ligne candidate rend le marqueur invalide; aucune normalisation CRLF n'est effectuée. Une phrase, citation, sous-chaîne ou seconde ligne candidate ne correspond pas. Le verdict extrait doit égaler la colonne `Verdict indexé` de la table d'oracles, jamais `recorded_status` fourni par la preuve courante.
+Le blob est découpé uniquement sur l'octet LF (`0A`). Une **ligne candidate** commence à l'octet 0 par les 14 octets ASCII `Oracle-Review:`. Une ligne indentée, citée ou préfixée n'est pas candidate. Il doit exister exactement une candidate et elle doit correspondre entièrement à l'expression normative; toute candidate supplémentaire ou mal formée invalide le rapport. Tout CR (`0D`) sur une candidate l'invalide; aucune normalisation CRLF n'est effectuée.
+
+Le verdict extrait doit égaler `Verdict indexé` dans le blob du registre au `registry_commit` fourni par la preuve P6. Ce commit doit être distinct, postérieur au commit d'admission, ancêtre du commit P6 et contenir une ligne `{oracle_id, admission_commit, report_path, admitted_sha256, verdict}` concordante. La preuve contient aussi `registry_blob_sha256`, recalculé par le contrôleur. Changer ultérieurement le verdict indexé, utiliser un autre commit de registre ou indexer un verdict divergent bloque P6; `recorded_status` courant ne fait jamais autorité.
 
 | Objet revu | Oracle scope | Commit d'admission | Rapport | SHA-256 admis | Décision |
 |---|---|---|---|---|---|
@@ -26,9 +28,9 @@ Le blob est découpé uniquement sur l'octet LF (`0A`). Tout CR (`0D`) sur la li
 
 ## Admissions d'oracles
 
-| Oracle ID | Commit d'admission | Rapport | SHA-256 admis | Verdict indexé | Décision |
-|---|---|---|---|---|---|
-| — | — | — | — | — | aucune admission à ce jour |
+| Oracle ID | Commit d'admission | Rapport | SHA-256 admis | Verdict indexé | Commit d'indexation | Décision |
+|---|---|---|---|---|---|---|
+| — | — | — | — | — | — | aucune admission à ce jour |
 
 Une ligne de cette table est ajoutée dans un commit d'indexation postérieur au commit d'admission. Elle doit référencer le même blob que la table générale et ne peut être déduite d'une preuve P6.
 
