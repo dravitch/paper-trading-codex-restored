@@ -22,6 +22,7 @@ Le blob est découpé uniquement sur l'octet LF (`0A`). Tout CR (`0D`) sur la li
 | delta `decbb42` | — | `02775ce` | `docs/fusion/CONTRADICTOIRE_DELTA_DECBB42.md` | `97cb352468a4e828b78ce6af5078f50ee2c54e71200f0b1a9cc6781183cfb2d1` | opérateur, 2026-08-06 |
 | delta `dd4cdde` | — | `5a8ebe2` | `docs/fusion/CONTRADICTOIRE_DELTA_DD4CDDE.md` | `ede8f51e082327e3a6e886cd716f4dcc027bc283bd43669fa7998f86f967257b` | opérateur, 2026-08-06 |
 | delta `f14546f` | — | `cf6aa7a` | `docs/fusion/CONTRADICTOIRE_DELTA_F14546F.md` | `3ec01a4ee0082e59b77a6d2616f06e90162c9ffdc63d01fbfa82cdd0051fbf0d` | opérateur, 2026-08-06 |
+| delta `930b0f9` (`REV08`) | — | `a7c8a69` | `docs/fusion/CONTRADICTOIRE_DELTA_REV08.md` | `30ac34a795b1404ee416941f5fa06ad38aeee8bc1ec76cbee72c16cc60b65a64` | opérateur, 2026-08-06 |
 
 ## Admissions d'oracles
 
