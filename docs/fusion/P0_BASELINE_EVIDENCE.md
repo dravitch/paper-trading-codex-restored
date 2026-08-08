@@ -154,3 +154,52 @@ sur un dépôt distant.
 licence MIT Bitget est observée et les révisions distantes concordent ponctuellement. P0 ne
 peut pas passer avant preuve d'immuabilité distante conforme au protocole et revue
 indépendante du présent dossier.
+
+## Réponse Producteur aux revues admises
+
+Les rapports Critique et Contradictoire ont été admis par l'opérateur le 2026-08-08 au
+commit distinct `804002fbbcdb8ade13309e5f49cae9452e7b741a`. Les deux verdicts sont
+`ACCEPT_WITH_LIMITS`.
+
+### Chaîne d'import
+
+La mention historique de `colorama` décrit le premier module absent dans l'environnement
+minimal du Producteur, pas une séquence universelle. L'ordre observable dépend des paquets
+déjà installés : `portfolio.py` exige d'abord Loguru; l'import avide de `engine` depuis
+`paper_trading/__init__.py` expose ensuite notamment Colorama, Pandas, NumPy et CCXT. La
+conclusion stable est le couplage transitif excessif, pas le nom du premier module absent.
+
+Contradictoire a recollecté indépendamment la baseline restaurée : 68 tests collectés,
+68 réussis, couverture 87,07 % et Ruff sans erreur, tous avec code de sortie 0. La réserve
+Critique sur l'absence de recollecte est donc levée par la seconde revue.
+
+### Périmètre de couverture
+
+Le terme historique « 38 % global » est remplacé pour toute interprétation future par :
+
+```text
+pytest --cov=paper_trading : 465 statements, 175 covered, 38 %
+paper_trading/portfolio.py : 80 %
+pytest --cov sans cible    : 778 statements, 42 % (inclut les tests observés)
+pytest --cov=.             : 898 statements, 36 % (mesure Critique)
+```
+
+La métrique P0 canonique de 38 % porte uniquement sur le paquet `paper_trading`. Elle ne
+représente ni tout le dépôt, ni les adaptateurs, ni `core`, ni une couverture scientifique.
+
+### Artefacts non canoniques
+
+- Un `pip freeze` instrumenté est comparé comme ensemble de lignes normalisées par
+  `LC_ALL=C sort -u`, jamais par le hash de l'ordre brut. La différence admise est exactement
+  l'ajout de `coverage==7.15.4` et `pytest-cov==7.1.0`.
+- `coverage.xml` contient un timestamp. Son hash brut identifie une exécution, mais n'est
+  pas un attendu reproductible. L'oracle inter-exécutions est le tuple structurel
+  `{lines-valid=465, lines-covered=175, line-rate=0.3763}` avec la commande et les versions.
+- Avant fermeture, les manifestes normalisés et le rapport brut ou sa projection canonique
+  doivent être versés dans un emplacement accessible et hashé.
+
+### Statut après admission
+
+Les limites de narration, recollecte et périmètre sont intégrées. Restent bloquants : la
+mise à disposition des artefacts canoniques, puis une preuve de protection distante ou une
+archive Git signée couvrant `d1ed53b...` et `f2e41890...`. P0 reste `PARTIAL`.

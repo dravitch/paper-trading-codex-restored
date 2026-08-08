@@ -18,7 +18,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 
 | Gate | Objet | État |
 |---|---|---|
-| P0 | baselines immuables | preuves Producteur des deux exécutions; immuabilité distante et revue indépendante ouvertes |
+| P0 | baselines immuables | deux revues admises; artefacts canoniques et immuabilité distante ouverts |
 | P1 | domaine canonique et ledgers | non commencé |
 | P2 | replay unique déterministe | non commencé |
 | P3 | portage contrôlé des stratégies | non commencé |
@@ -27,7 +27,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 | P6 | RiskMap et chaîne probatoire | spécification avancée; contrôleur et preuves externes absents; `BLOCKED_IMMUTABILITY` |
 | P7 | publication | bloqué |
 
-Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'est pas commencé. Les deux baselines ont maintenant été exécutées séparément : le dépôt restauré rapporte 68 tests, 87,07 % de couverture et Ruff sans erreur; la baseline Bitget rapporte 9 tests hors réseau et 38 % de couverture globale. Ces preuves Producteur sont consignées dans `docs/fusion/P0_BASELINE_EVIDENCE.md`; elles ne ferment pas P0 sans preuve d'immuabilité distante et revue indépendante. Les cycles achevés ont consolidé la spécification et son protocole probatoire; ils ne constituent ni une validation scientifique du moteur futur, ni une preuve de fidélité au marché.
+Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'est pas commencé. Les deux baselines ont maintenant été exécutées séparément et reproduites par Contradictoire : le dépôt restauré rapporte 68 tests, 87,07 % de couverture et Ruff sans erreur; la baseline Bitget rapporte 9 tests hors réseau et 38 % sur le seul paquet `paper_trading`. Les deux revues P0 `ACCEPT_WITH_LIMITS` ont été admises au commit `804002f`. Elles ne ferment pas P0 sans artefacts canoniques accessibles et preuve d'immuabilité distante. Les cycles achevés ont consolidé la spécification et son protocole probatoire; ils ne constituent ni une validation scientifique du moteur futur, ni une preuve de fidélité au marché.
 
 ## Jalon courant
 
@@ -50,7 +50,7 @@ Trois branches réelles existent localement et sur le dépôt distant :
 ## Prochaine étape contrôlée
 
 1. intégrer explicitement les limites S1–S4 dans la spécification ou les classer comme exigences de l'implémentation future;
-2. soumettre la preuve P0 des baselines à revue indépendante et produire une preuve d'immuabilité distante;
+2. publier les artefacts P0 canoniques et produire une preuve d'immuabilité distante;
 3. ouvrir ensuite une branche `hypothesis/HNNN-*` pour la première hypothèse exécutable;
 4. implémenter tests, oracles et manifestes avant toute revendication de `PASS`;
 5. obtenir séparément les verdicts Critique et Contradictoire, puis l'admission humaine.

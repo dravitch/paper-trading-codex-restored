@@ -42,9 +42,18 @@ Cet addendum ne réécrit pas le verdict historique L1–L12 ci-dessus.
 | L9 | licence MIT ajoutée dans Bitget au commit distant `f2e41890...`; SHA-256 `dd10b10e...` | `RESOLVED_LICENSE_PENDING_REVIEW` |
 | L11 | VM NixOS 26.05; 9/9 tests Bitget hors réseau; couverture globale 38 %; manifests et hashes consignés | `RESOLVED_BASELINES_PENDING_REVIEW` |
 
-La preuve complète est [`P0_BASELINE_EVIDENCE.md`](P0_BASELINE_EVIDENCE.md). P0 demeure
-`PARTIAL` : l'immuabilité distante et la revue indépendante restent ouvertes. L12 et les
-mutations exécutables L6 ne sont pas affectées.
+La preuve complète est [`P0_BASELINE_EVIDENCE.md`](P0_BASELINE_EVIDENCE.md). Au moment de
+cet addendum, P0 demeure `PARTIAL` : l'immuabilité distante et la revue indépendante sont
+encore ouvertes. L12 et les mutations exécutables L6 ne sont pas affectées.
+
+### Admission des revues P0
+
+Les rapports Critique et Contradictoire ont été admis au commit `804002f` avec deux
+verdicts `ACCEPT_WITH_LIMITS`. La recollecte restaurée 68/68 est reproduite; la couverture
+Bitget est renommée 38 % du paquet `paper_trading`; l'ordre de `pip freeze` et le timestamp
+Coverage XML sont exclus des oracles byte-à-byte. Statut proposé L11 :
+`RESOLVED_BASELINES_REVIEWED`. P0 reste `PARTIAL` jusqu'à publication des artefacts
+canoniques et preuve d'immuabilité distante.
 
 ## Reproduction Nix du dépôt restauré
 

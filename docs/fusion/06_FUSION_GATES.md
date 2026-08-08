@@ -37,7 +37,7 @@ Le prototypage d'un gate ultérieur est autorisé, mais aucune intégration dans
 
 ## Blocages immédiats connus
 
-- P0 : les deux baselines ont une preuve Producteur d'exécution, mais cette preuve attend une revue indépendante;
+- P0 : les deux preuves ont été reproduites et les deux revues admises; les artefacts canoniques doivent encore être rendus accessibles;
 - P0 : concordance ponctuelle des branches distantes observée, sans preuve de protection contre le force-push ni archive signée;
 - P1 : contrats encore documentaires, pas de schémas exécutables;
 - P1 : quatre fallbacks temporels legacy restent à caractériser puis purger ou adapter; ils sont hors périmètre de la mutation jusqu'à leur migration dans les modules canoniques;
