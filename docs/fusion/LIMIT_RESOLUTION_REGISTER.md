@@ -33,6 +33,19 @@
 
 Neuf limites sont résolues au niveau spécification ou preuve du dépôt restauré. L9 et L12 restent `OPEN_PROOF`; la partie Bitget de L11 et les mutations exécutables L6 restent ouvertes. Aucun gate ne passe par cette consolidation. Le delta doit être revu avant retour dans `fusion/controlled-merger`.
 
+## Addendum P0 du 2026-08-07
+
+Cet addendum ne réécrit pas le verdict historique L1–L12 ci-dessus.
+
+| Limite | Nouvelle preuve Producteur | Statut courant proposé |
+|---|---|---|
+| L9 | licence MIT ajoutée dans Bitget au commit distant `f2e41890...`; SHA-256 `dd10b10e...` | `RESOLVED_LICENSE_PENDING_REVIEW` |
+| L11 | VM NixOS 26.05; 9/9 tests Bitget hors réseau; couverture globale 38 %; manifests et hashes consignés | `RESOLVED_BASELINES_PENDING_REVIEW` |
+
+La preuve complète est [`P0_BASELINE_EVIDENCE.md`](P0_BASELINE_EVIDENCE.md). P0 demeure
+`PARTIAL` : l'immuabilité distante et la revue indépendante restent ouvertes. L12 et les
+mutations exécutables L6 ne sont pas affectées.
+
 ## Reproduction Nix du dépôt restauré
 
 Commande exécutée le 2026-08-06 :
