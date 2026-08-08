@@ -20,7 +20,7 @@ humaine explicite.
 La révision probatoire sera figée par le Producteur avant transmission :
 
 ```text
-P0_EVIDENCE_COMMIT=<P0_EVIDENCE_COMMIT_A_REMPLACER_APRES_FIGEAGE>
+P0_EVIDENCE_COMMIT=d1ed53b1b63d3b6d06ad8edcf64dc4655a3574da
 branche=correction/reconcile-l1-l12
 ```
 
