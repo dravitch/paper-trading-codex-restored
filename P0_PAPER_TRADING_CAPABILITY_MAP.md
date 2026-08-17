@@ -1,7 +1,7 @@
 # P0 Paper Trading Capability Map
 
 **Date** : 2026-08-17
-**Baseline principale** : `paper-trading-codex-restored` (commit `3a3b267`)
+**Baseline principale** : `paper-trading-codex-restored` (P0_EVIDENCE_COMMIT `3a3b267`)
 **Baseline secondaire** : `bitget-paper-trading` (commit `f2e41890`)
 
 ## Légende

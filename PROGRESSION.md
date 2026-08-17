@@ -1,6 +1,6 @@
 # Progression de la fusion contrôlée
 
-## Situation au 2026-08-07
+## Situation au 2026-08-17
 
 Les dépôts `paper-trading-codex-restored` et `bitget-paper-trading` ont été comparés. La fusion directe a été rejetée au profit d'une plateforme de paper trading indépendante des fournisseurs, fondée sur des contrats canoniques, un replay déterministe, des oracles indépendants et une cartographie du risque sans promesse de performance.
 
@@ -18,7 +18,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 
 | Gate | Objet | État |
 |---|---|---|
-| P0 | baselines immuables | deux revues admises; artefacts canoniques et immuabilité distante ouverts |
+| P0 | baselines | `CLOSED_WITH_DEBT` — rescoping immuabilité vers P6/P7; 68/68 restored, 9/9 bitget, revues admises; dette : preuve d'immuabilité distante et oracles O2/O4/O7 (scope P6/P7) |
 | P1 | domaine canonique et ledgers | non commencé |
 | P2 | replay unique déterministe | non commencé |
 | P3 | portage contrôlé des stratégies | non commencé |
@@ -27,7 +27,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 | P6 | RiskMap et chaîne probatoire | spécification avancée; contrôleur et preuves externes absents; `BLOCKED_IMMUTABILITY` |
 | P7 | publication | bloqué |
 
-Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'est pas commencé. Les deux baselines ont maintenant été exécutées séparément et reproduites par Contradictoire : le dépôt restauré rapporte 68 tests, 87,07 % de couverture et Ruff sans erreur; la baseline Bitget rapporte 9 tests hors réseau et 38 % sur le seul paquet `paper_trading`. Les deux revues P0 `ACCEPT_WITH_LIMITS` ont été admises au commit `804002f`. Elles ne ferment pas P0 sans artefacts canoniques accessibles et preuve d'immuabilité distante. Les cycles achevés ont consolidé la spécification et son protocole probatoire; ils ne constituent ni une validation scientifique du moteur futur, ni une preuve de fidélité au marché.
+Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'est pas commencé. P0 est `CLOSED_WITH_DEBT` (commit de clôture `0a11672`), les deux baselines ont été exécutées séparément : le dépôt restauré rapporte 68 tests, 87,07 % de couverture et Ruff sans erreur (exécuté et vérifié lors de l'audit P0 sous Nix) ; la baseline Bitget rapporte 9 tests hors réseau et 38 % sur le seul paquet `paper_trading` (exécuté sur VM NixOS, reproduit par les revues Critique et Contradictoire séparées et aveugles au premier verdict, admises au commit `804002f`, non rejoué lors de l'audit P0). L'immuabilité distante a été rescopée vers P6/P7 (`P0_CONTRACT_SCOPE_DECISION.md`) : elle protège la valeur probatoire, pas l'exécutabilité. Les dettes D01 (immuabilité) et D02 (oracles O2/O4/O7) restent ouvertes pour P6/P7. Les cycles achevés ont consolidé la spécification et son protocole probatoire ; ils ne constituent ni une validation scientifique du moteur futur, ni une preuve de fidélité au marché.
 
 ## Jalon courant
 
@@ -50,9 +50,8 @@ Trois branches réelles existent localement et sur le dépôt distant :
 ## Prochaine étape contrôlée
 
 1. intégrer explicitement les limites S1–S4 dans la spécification ou les classer comme exigences de l'implémentation future;
-2. publier les artefacts P0 canoniques et produire une preuve d'immuabilité distante;
-3. ouvrir ensuite une branche `hypothesis/HNNN-*` pour la première hypothèse exécutable;
-4. implémenter tests, oracles et manifestes avant toute revendication de `PASS`;
-5. obtenir séparément les verdicts Critique et Contradictoire, puis l'admission humaine.
+2. ouvrir une branche `hypothesis/HNNN-*` pour la première hypothèse exécutable;
+3. implémenter tests, oracles et manifestes avant toute revendication de `PASS`;
+4. obtenir séparément les verdicts Critique et Contradictoire, puis l'admission humaine.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.

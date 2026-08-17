@@ -82,3 +82,5 @@ Mutants historiques obligatoires : retirer ou modifier un record antérieur, cha
 - enregistrement `Oracle-Admission` absent, non canonique, dupliqué ou divergent du rapport.
 
 Toute réécriture d'historique invalide les admissions jusqu'à nouvelle décision opérateur. **Avant toute exécution ou revendication de P6**, le Producteur doit fournir l'une des preuves suivantes : règle de protection distante interdisant force-push et suppression sur la branche contenant les admissions, exportée et hashée; ou archive Git signée couvrant les commits d'admission, avec identité du signataire et commande de vérification. Sans artefact vérifiable, P6 est `BLOCKED_IMMUTABILITY`, même si tous les hashes concordent. La même preuve reste obligatoire pour la publication finale.
+
+> **Note de rescoping (2026-08-17)** : Cette exigence d'immuabilité distante a été déplacée de P0 vers P6/P7 par `P0_CONTRACT_SCOPE_DECISION.md`. L'audit P0 a démontré qu'elle protège la valeur probatoire (P6/P7), pas l'exécutabilité (P0). P0 est `CLOSED_WITH_DEBT` avec cette distinction explicitée.

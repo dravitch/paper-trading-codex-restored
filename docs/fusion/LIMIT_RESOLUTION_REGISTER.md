@@ -31,7 +31,7 @@
 
 ## Verdict Producteur
 
-Neuf limites sont résolues au niveau spécification ou preuve du dépôt restauré. L9 et L12 restent `OPEN_PROOF`; la partie Bitget de L11 et les mutations exécutables L6 restent ouvertes. Aucun gate ne passe par cette consolidation. Le delta doit être revu avant retour dans `fusion/controlled-merger`.
+Neuf limites sont résolues au niveau spécification ou preuve du dépôt restauré. L9 et L12 restent `OPEN_PROOF` (scope P6/P7) ; la partie Bitget de L11 et les mutations exécutables L6 restent ouvertes. P0 est `CLOSED_WITH_DEBT` avec rescoping de l'immuabilité distante vers P6/P7. Le delta doit être revu avant retour dans `fusion/controlled-merger`.
 
 ## Addendum P0 du 2026-08-07
 
@@ -42,18 +42,16 @@ Cet addendum ne réécrit pas le verdict historique L1–L12 ci-dessus.
 | L9 | licence MIT ajoutée dans Bitget au commit distant `f2e41890...`; SHA-256 `dd10b10e...` | `RESOLVED_LICENSE_PENDING_REVIEW` |
 | L11 | VM NixOS 26.05; 9/9 tests Bitget hors réseau; couverture globale 38 %; manifests et hashes consignés | `RESOLVED_BASELINES_PENDING_REVIEW` |
 
-La preuve complète est [`P0_BASELINE_EVIDENCE.md`](P0_BASELINE_EVIDENCE.md). Au moment de
-cet addendum, P0 demeure `PARTIAL` : l'immuabilité distante et la revue indépendante sont
-encore ouvertes. L12 et les mutations exécutables L6 ne sont pas affectées.
+La preuve complète est [`P0_BASELINE_EVIDENCE.md`](P0_BASELINE_EVIDENCE.md). P0 est désormais `CLOSED_WITH_DEBT` (commit de clôture `0a11672`). L'immuabilité distante a été rescopée vers P6/P7 (`P0_CONTRACT_SCOPE_DECISION.md`) : elle protège la valeur probatoire (P6/P7), pas l'exécutabilité (P0). L12 et les mutations exécutables L6 ne sont pas affectées.
 
 ### Admission des revues P0
 
 Les rapports Critique et Contradictoire ont été admis au commit `804002f` avec deux
 verdicts `ACCEPT_WITH_LIMITS`. La recollecte restaurée 68/68 est reproduite; la couverture
 Bitget est renommée 38 % du paquet `paper_trading`; l'ordre de `pip freeze` et le timestamp
-Coverage XML sont exclus des oracles byte-à-byte. Statut proposé L11 :
-`RESOLVED_BASELINES_REVIEWED`. P0 reste `PARTIAL` jusqu'à publication des artefacts
-canoniques et preuve d'immuabilité distante.
+Coverage XML sont exclus des oracles byte-à-byte. Statut L11 :
+`RESOLVED_BASELINES_REVIEWED`. P0 est `CLOSED_WITH_DEBT` avec rescoping de l'immuabilité
+distante vers P6/P7.
 
 ## Reproduction Nix du dépôt restauré
 
@@ -139,7 +137,7 @@ Les artefacts source `CONTRADICTOIRE_DELTA_8335AB0.md` et `HEARTBEAT_CONTRADICTO
 | L1 | `Oracle scope` indexé et marqueur normatif vérifié dans le blob admis | `RESOLVED_SPEC_PENDING_REVIEW` |
 | L2 | occurrence historique définie par identité et ascendance Git, sans temps mural | `RESOLVED_SPEC_PENDING_REVIEW` |
 | L3 | nouveau groupe hérite de l'union dédupliquée des cycles de ses membres/prédécesseurs | `RESOLVED_SPEC_PENDING_REVIEW` |
-| L4 | preuve de protection distante ou archive signée obligatoire avant P6 | `RESOLVED_SPEC_OPEN_PROOF_EXTERNAL` |
+| L4 | preuve de protection distante ou archive signée obligatoire avant P6 | rescopée vers P6/P7 par `P0_CONTRACT_SCOPE_DECISION.md` | `RESOLVED_SPEC_OPEN_PROOF_EXTERNAL` |
 
 Les contre-exemples et tests de non-régression attendus sont consignés dans [`REV06.md`](../../REV06.md). Cette réponse Producteur ne ferme pas la revue Contradictoire et ne franchit aucun gate.
 
@@ -152,7 +150,7 @@ Les contre-exemples et tests de non-régression attendus sont consignés dans [`
 | M3 | registre JSON versionné déclaré source autoritaire des cycles | `RESOLVED_SPEC_PENDING_IMPLEMENTATION` |
 | M4 | espace `OCC-NNNNNN` et codes de raison fermés | `RESOLVED_SPEC_PENDING_REVIEW` |
 
-La preuve externe d'immuabilité demeure ouverte. Voir [`REV07.md`](../../REV07.md).
+La preuve externe d'immuabilité demeure ouverte pour P6/P7. Voir [`REV07.md`](../../REV07.md) et [`P0_CONTRACT_SCOPE_DECISION.md`](../../P0_CONTRACT_SCOPE_DECISION.md).
 
 ## Constats N1–N4 sur la réponse M1–M4
 

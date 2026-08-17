@@ -37,8 +37,7 @@ Le prototypage d'un gate ultérieur est autorisé, mais aucune intégration dans
 
 ## Blocages immédiats connus
 
-- P0 : les deux preuves ont été reproduites et les deux revues admises; les artefacts canoniques doivent encore être rendus accessibles;
-- P0 : concordance ponctuelle des branches distantes observée, sans preuve de protection contre le force-push ni archive signée;
+- P0 : **CLOSED_WITH_DEBT** (commit de clôture `0a11672`). Les deux preuves ont été reproduites et les deux revues admises. L'immuabilité distante a été rescopée vers P6/P7 (`P0_CONTRACT_SCOPE_DECISION.md`) : elle protège la valeur probatoire, pas l'exécutabilité. Les artefacts canoniques P0 sont documentés dans `P0_CONTRACT_MAP.md` et `P0_CLOSURE_DECISION.md`;
 - P1 : contrats encore documentaires, pas de schémas exécutables;
 - P1 : quatre fallbacks temporels legacy restent à caractériser puis purger ou adapter; ils sont hors périmètre de la mutation jusqu'à leur migration dans les modules canoniques;
 - P2+ : interdits à la publication comme accomplis.

@@ -3,6 +3,8 @@
 **Date** : 2026-08-17
 **Auteur** : Big Pickle (opencode), sur directive de l'opérateur
 **Type** : Décision normative de rescoping
+**P0_EVIDENCE_COMMIT** : `3a3b2678b957e86768ec05584bbba5a8e90f629e`
+**P0_CLOSURE_COMMIT** : `0a11672`
 
 ## Constat
 

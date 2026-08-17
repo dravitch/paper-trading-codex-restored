@@ -1,7 +1,8 @@
 # P0 Reproducibility Report
 
 **Date** : 2026-08-17
-**Commit P0 candidate** : `3a3b2678b957e86768ec05584bbba5a8e90f629e`
+**P0_EVIDENCE_COMMIT** : `3a3b2678b957e86768ec05584bbba5a8e90f629e`
+**P0_CLOSURE_COMMIT** : `0a11672`
 **Branche** : `correction/reconcile-l1-l12`
 
 ## Environnement
