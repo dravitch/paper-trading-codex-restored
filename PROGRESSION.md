@@ -1,6 +1,6 @@
 # Progression de la fusion contrôlée
 
-## Situation au 2026-08-17
+## Situation au 2026-08-19
 
 Les dépôts `paper-trading-codex-restored` et `bitget-paper-trading` ont été comparés. La fusion directe a été rejetée au profit d'une plateforme de paper trading indépendante des fournisseurs, fondée sur des contrats canoniques, un replay déterministe, des oracles indépendants et une cartographie du risque sans promesse de performance.
 
@@ -33,7 +33,7 @@ Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'es
 
 La réponse Producteur Q1–Q4 est ancrée au commit `3876fce`. La première tentative d'admission de `REV11` (`a837cea`) est invalide : l'opérateur avait admis les hashes intermédiaires R1–R4, alors que le commit contenait les blobs finaux S1–S4. L'invalidation est documentée par `3415cb3`; aucune admission REV11 invalide n'a été ajoutée au registre.
 
-La reprise contrôlée `REV11bis`, scientifiquement identique à la version finale S1–S4, a reçu un addendum Contradictoire indépendant et l'admission explicite de l'opérateur. Elle est ancrée au commit `102ce6a`, puis indexée séparément au commit `d8bc959`. Son verdict est `ACCEPT_WITH_LIMITS`. La réponse Producteur S1–S4 est en préparation dans `REV12.md` : évolution append-only du registre des oracles, rapport de validation d'entrée, distinction entre commit évalué et révision effective, registre machine des décisions de supersession. Aucun gate n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
+La reprise contrôlée `REV11bis`, scientifiquement identique à la version finale S1–S4, a reçu un addendum Contradictoire indépendant et l'admission explicite de l'opérateur. Elle est ancrée au commit `102ce6a`, puis indexée séparément au commit `d8bc959`. Son verdict est `ACCEPT_WITH_LIMITS`. La réponse Producteur S1–S4 (`REV12.md`) a été commitée au `777fc23` et la revue Contradictoire (`CONTRADICTOIRE_DELTA_REV12.md`) a reçu `ACCEPT_WITH_LIMITS` avec trois réserves T1 (manifeste de run), T2 (merge transparent divergent), T3 (unicité de consommation décision). Le cycle S1–S4 est maintenant cloturé. Aucun gate n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
 
 ## État des branches
 
@@ -43,7 +43,7 @@ Trois branches réelles existent localement et sur le dépôt distant :
 |---|---|---|
 | `main` | baseline publiable | aucune fusion contrôlée reçue |
 | `fusion/controlled-merger` | destination d'intégration | attend la fermeture des gates requis |
-| `correction/reconcile-l1-l12` | consolidation documentaire active | réponse S1–S4 en cours; commit cible à figer avant revue |
+| `correction/reconcile-l1-l12` | consolidation documentaire achevée | cycle S1–S4 cloturé; dettes T1/T2/T3 ouvertes pour contrôleur futur |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une quatrième branche. Le dossier non suivi `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 

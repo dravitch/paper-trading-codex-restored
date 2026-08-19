@@ -30,6 +30,7 @@ Le verdict extrait doit égaler `Verdict indexé` dans le blob du registre au `r
 | delta `3876fce` (`REV11bis`) | — | `102ce6a` | `docs/fusion/CONTRADICTOIRE_DELTA_REV11BIS.md` | `b6066082196fabc74e4e7657abf2fc076199a2b67d05c95965199c70697120cb` | opérateur, 2026-08-07; addendum `6f8c23695146a999a213b44ec056bea92e82e5238f3e251b1b62be82a4298e67` |
 | P0 baseline, Critique | — | `804002fbbcdb8ade13309e5f49cae9452e7b741a` | `docs/fusion/CRITIQUE_P0_BASELINE.md` | `5a5df6466d4db66852163c2fb95008df3796d418f365fc9e569f6205f0c791cd` | opérateur, 2026-08-08; `ACCEPT_WITH_LIMITS` |
 | P0 baseline, Contradictoire | — | `804002fbbcdb8ade13309e5f49cae9452e7b741a` | `docs/fusion/CONTRADICTOIRE_P0_BASELINE.md` | `c444e7e8c37a535afe8838e2b092ef9a0c4c2ca7828fa3aee11f6a041b4e4fb5` | opérateur, 2026-08-08; `ACCEPT_WITH_LIMITS` |
+| delta REV12 (S1–S4) | — | `cf6eaee` | `docs/fusion/CONTRADICTOIRE_DELTA_REV12.md` | `85b8329db5dd53589ea8ce93fa5cd1c1338ff1ca2592d96c78db750ad434e8af` | opérateur, 2026-08-19; `ACCEPT_WITH_LIMITS` |
 
 ## Supersessions procédurales
 
