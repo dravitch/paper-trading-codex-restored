@@ -33,3 +33,6 @@ data/*.parquet
 
 # Local research material
 docs/deepsearch/
+
+# Local AI session exports
+session-ses_*.md
