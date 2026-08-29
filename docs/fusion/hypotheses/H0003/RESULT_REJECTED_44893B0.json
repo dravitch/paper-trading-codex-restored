@@ -1,0 +1,45 @@
+{
+  "all_contract_vectors_exact": true,
+  "claims_not_proven": [
+    "P1_PASS",
+    "spot_ledger_valid",
+    "short_ledger_p1_conformant",
+    "clock_enforcement_valid",
+    "replay_valid",
+    "exchange_fidelity"
+  ],
+  "contract_results": {
+    "AccountEvent": {
+      "canonical_bytes_equal": true,
+      "roundtrip_equal": true,
+      "sha256": "c9389940f85b8da359cb8399566d426a1f9ca96d5e07247354c0ddb9dc296db4"
+    },
+    "Fill": {
+      "canonical_bytes_equal": true,
+      "roundtrip_equal": true,
+      "sha256": "4429c2c764d653704f794a999f4eaf8a3734a2d200e693957795861a7bdba027"
+    },
+    "InstrumentSpec": {
+      "canonical_bytes_equal": true,
+      "roundtrip_equal": true,
+      "sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4"
+    },
+    "MarketEvent": {
+      "canonical_bytes_equal": true,
+      "roundtrip_equal": true,
+      "sha256": "e0a08cad3db326b5cafbe67303d5781a7e40b397866043d1b328f2ecf7da4703"
+    },
+    "ReferenceSpec": {
+      "canonical_bytes_equal": true,
+      "roundtrip_equal": true,
+      "sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"
+    }
+  },
+  "hypothesis_id": "H0003",
+  "normative_addendum_commit": "d817a1642f7123ac367f7b0b7c03186b2d161925",
+  "normative_decision_commit": "0fe56109974790792eeaf39e341386164af36822",
+  "previous_blocked_preregistration": "ed2731da82326cf938b3634670e7cd1f6e50445f",
+  "producer_code_commit": "9a8f318c60e82d97eff74a3fb36f532780a718bf",
+  "ready_preregistration_commit": "be6678a562f77587af6f52ee7607d1a89fa674c1",
+  "schema_version": 1
+}
