@@ -35,6 +35,10 @@ def _require(condition: bool, code: str) -> None:
 
 def _nfc(value: str, code: str = "STRING_REQUIRED") -> str:
     _require(isinstance(value, str) and bool(value), code)
+    _require(
+        not any(0xD800 <= ord(character) <= 0xDFFF for character in value),
+        "UNICODE_SURROGATE_INVALID",
+    )
     return unicodedata.normalize("NFC", value)
 
 
@@ -78,13 +82,18 @@ def _normalize_json(value: Any) -> Any:
     if isinstance(value, Fraction):
         return rational_text(value)
     if isinstance(value, str):
-        return unicodedata.normalize("NFC", value)
+        return _nfc(value)
     if isinstance(value, bool) or value is None or isinstance(value, int):
         return value
     if isinstance(value, (tuple, list)):
         return [_normalize_json(item) for item in value]
     if isinstance(value, dict):
-        return {_nfc(key): _normalize_json(item) for key, item in value.items()}
+        result = {}
+        for key, item in value.items():
+            normalized_key = _nfc(key)
+            _require(normalized_key not in result, "CANONICAL_JSON_DUPLICATE_KEY")
+            result[normalized_key] = _normalize_json(item)
+        return result
     raise ContractValidationError("CANONICAL_JSON_TYPE_UNSUPPORTED")
 
 

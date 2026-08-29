@@ -103,6 +103,17 @@ def test_unicode_nfc_and_escape_vector_bytes_are_exact():
     assert hashlib.sha256(payload).hexdigest() == vector["sha256"]
 
 
+def test_unicode_surrogate_and_nfc_key_collision_are_rejected():
+    _assert_code(
+        "UNICODE_SURROGATE_INVALID",
+        lambda: canonical_json_bytes({"value": "\ud800"}),
+    )
+    _assert_code(
+        "CANONICAL_JSON_DUPLICATE_KEY",
+        lambda: canonical_json_bytes({"é": 1, "e\u0301": 2}),
+    )
+
+
 @pytest.mark.parametrize("contract_name", tuple(CONTRACT_TYPES))
 def test_serialize_deserialize_serialize_is_bit_exact(contract_name):
     contract_type = CONTRACT_TYPES[contract_name]
