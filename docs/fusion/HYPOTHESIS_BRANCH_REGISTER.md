@@ -10,7 +10,7 @@
 |---|---|---|---|---|---|---|---|
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
-| H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | — | — | `IN_REVIEW` | — |
+| H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | `REJECT` | `REJECT` | `TESTING` | — |
 
 ## Règle
 
@@ -28,5 +28,7 @@ admission et leurs hashes sont consignés dans
 
 Le premier préenregistrement H0003 `ed2731d` a conclu `BLOCKED_SPEC_AMBIGUITY`. Les
 décisions humaines `0fe5610` et `d817a16` ont fermé B1–B8/B5a avant code; les vecteurs ont
-été gelés à `0e105c2`. Le paquet Producteur est désormais complet et `IN_REVIEW`, sans
-déclaration `P1 PASS`.
+été gelés à `0e105c2`. Le premier paquet Producteur `44893b0` a reçu deux verdicts
+`REJECT`, admis dans [`HUMAN_REJECTION_DECISION.md`](hypotheses/H0003/HUMAN_REJECTION_DECISION.md).
+Le paquet est rejeté mais l'hypothèse n'est pas classée `REFUTED` : H0003 revient en
+`TESTING / CORRECTION_REQUIRED` dans le même scope, sans déclaration `P1 PASS`.
