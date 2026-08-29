@@ -75,9 +75,11 @@ input_sha256 = 7e35c799bbd2f4005791f64014adba578eda447612fd1fe2fbc26675f57fc0af
 result_sha256 = fc3531b6e5f02ec9461126ed1e29451192d0478b29b976b58a6633c00c585491
 ```
 
-Le futur fixture `SCENARIO.json` recopiera uniquement les inputs et observations comptables
-utiles, avec ces empreintes de provenance. Le code historique sert de source du scénario
-observé, jamais d'oracle pour le nouveau ledger.
+`SCENARIO.json` recopie uniquement les inputs et l'ordre des événements utiles, avec ces
+empreintes de provenance. Les résultats historiques vivent séparément dans
+`P0_OBSERVED_PROJECTION.json`. L'oracle exécutable reçoit exclusivement le chemin de
+`SCENARIO.json`; ni son API ni ses imports ne lui donnent accès à la projection P0. Le code
+historique sert de source du scénario observé, jamais d'oracle pour le nouveau ledger.
 
 ## Données d'entrée figées
 
@@ -146,19 +148,20 @@ collateral_final_sol   = 9997/1000 - 1021/3500 = 339685/35000
 Correction de notation : la forme irréductible de la valeur finale est
 `67937/7000 SOL`; `339685/35000` est la somme intermédiaire équivalente.
 
-Le fichier d'oracle exécutable devra utiliser `fractions.Fraction`, lire
-`SCENARIO.json`, et retourner les attendus sans importer le ledger ni la stratégie.
+Le fichier d'oracle exécutable devra utiliser `fractions.Fraction`, lire exclusivement
+`SCENARIO.json`, et retourner les attendus sans importer le ledger, la stratégie ou
+`P0_OBSERVED_PROJECTION.json`. Un test statique ferme ces dépendances.
 
 ## États attendus exacts
 
-| Après événement | Position | Collatéral SOL | Frais cumulés USD | PnL prix réalisé USD |
-|---|---|---:|---:|---:|
-| initialisation | aucune | `10` | `0` | `0` |
-| ouverture | short `6 SOL @ 100` | `9997/1000` | `3/10` | `0` |
-| observation 102 | inchangée | `9997/1000` | `3/10` | `0` |
-| observation 99 | inchangée | `9997/1000` | `3/10` | `0` |
-| observation 105 | inchangée | `9997/1000` | `3/10` | `0` |
-| clôture MTM 105 | aucune | `67937/7000` | `93/100` | `-30` |
+| Après événement | Position | Marge déclarée USD | Collatéral SOL | Frais cumulés USD | PnL prix réalisé USD |
+|---|---|---:|---:|---:|---:|
+| initialisation | aucune | `0` | `10` | `0` | `0` |
+| ouverture | short `6 SOL @ 100` | `300` | `9997/1000` | `3/10` | `0` |
+| observation 102 | inchangée | `300` | `9997/1000` | `3/10` | `0` |
+| observation 99 | inchangée | `300` | `9997/1000` | `3/10` | `0` |
+| observation 105 | inchangée | `300` | `9997/1000` | `3/10` | `0` |
+| clôture MTM 105 | aucune | `0` | `67937/7000` | `93/100` | `-30` |
 
 Projection finale attendue :
 
@@ -169,6 +172,7 @@ Projection finale attendue :
   "exit_fee_usd": "0.63",
   "final_collateral_sol_rounded_12": "9.705285714286",
   "gross_pnl_usd": "-30",
+  "margin_usd_at_open": "300",
   "net_pnl_usd": "-30.63",
   "quantity_sol": "6",
   "total_fees_usd": "0.93"
@@ -187,7 +191,7 @@ comparent octet pour octet et n'utilisent jamais cette tolérance.
 
 H0001 est `FAIL` si :
 
-1. un état ou attendu exact ci-dessus diverge;
+1. un état ou attendu exact ci-dessus diverge, notamment la marge déclarée `300 USD`;
 2. quantité, frais, PnL ou collatéral exige une convention absente de A1–A10;
 3. un ajustement ad hoc dépend d'une valeur finale P0 plutôt que des inputs;
 4. le ledger ou l'oracle importe/appelle `grid_bot` ou une autre implémentation historique;

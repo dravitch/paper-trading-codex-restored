@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0001",
+  "provenance": {
+    "base_commit": "7c322a812cc7308d1045c53bd34fa854d0e5bbb4",
+    "source_path": "REPRODUCIBILITY_MANIFEST.json",
+    "experiment": "deterministic_public_grid_scenario",
+    "config_sha256": "d65e674279fbcd734c445ad4cbab80638b02b226df4155bc83a537b523871686",
+    "input_sha256": "7e35c799bbd2f4005791f64014adba578eda447612fd1fe2fbc26675f57fc0af",
+    "result_sha256": "fc3531b6e5f02ec9461126ed1e29451192d0478b29b976b58a6633c00c585491"
+  },
+  "inputs": {
+    "initial_capital_usd": "1000",
+    "initial_price_usd_per_sol": "100",
+    "margin_fraction": "0.30",
+    "leverage": "2",
+    "maker_fee_rate": "0.0005",
+    "taker_fee_rate": "0.001",
+    "maintenance_margin": "0.08",
+    "prices_usd_per_sol": ["100", "102", "99", "105"],
+    "close_reason": "mtm",
+    "publication_decimal_places": 12,
+    "seed_for_provenance_only": 42
+  },
+  "ordered_events": [
+    {"sequence": 1, "kind": "INITIALIZE_COLLATERAL", "price_usd_per_sol": "100"},
+    {"sequence": 2, "kind": "OPEN_SHORT", "price_usd_per_sol": "100"},
+    {"sequence": 3, "kind": "OBSERVE", "price_usd_per_sol": "102"},
+    {"sequence": 4, "kind": "OBSERVE", "price_usd_per_sol": "99"},
+    {"sequence": 5, "kind": "OBSERVE", "price_usd_per_sol": "105"},
+    {"sequence": 6, "kind": "CLOSE_MTM", "price_usd_per_sol": "105"}
+  ]
+}

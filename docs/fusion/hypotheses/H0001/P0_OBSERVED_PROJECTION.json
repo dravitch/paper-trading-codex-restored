@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0001",
+  "source": {
+    "base_commit": "7c322a812cc7308d1045c53bd34fa854d0e5bbb4",
+    "path": "REPRODUCIBILITY_MANIFEST.json",
+    "result_sha256": "fc3531b6e5f02ec9461126ed1e29451192d0478b29b976b58a6633c00c585491"
+  },
+  "projection": {
+    "open_quantity_sol": "6.0",
+    "open_notional_usd": "600.0",
+    "open_commission_usd": "0.3",
+    "close_commission_usd": "0.63",
+    "close_total_commission_usd": "0.93",
+    "close_net_pnl_usd": "-30.63",
+    "close_pnl_sol": "-0.291714285714",
+    "final_collateral_sol": "9.705285714286",
+    "trade_count": 2
+  }
+}
