@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0002",
+  "phase": "PRODUCER_COMPLETE",
+  "result": "PASS_PENDING_INDEPENDENT_REVIEW",
+  "base_commit": "de946c1aa1a9190aebbd1bcba3116cf9be6d521e",
+  "preregistration_commit": "1d63024aee44e56c236d5bc67b3128f03994aa92",
+  "first_instrument_commit": "eade1e71b740a67bba8a803ed9568585735fb696",
+  "first_run_record_commit": "9eec77fb4cdeb58b16f579959c22003fa734fdf8",
+  "producer_code_commit": "da720db01f0a10554efc3dc75185d9d804899c68",
+  "producer_evidence_commit": "90dd9e1d467317bdfdd127e7321a119e11277b74",
+  "ledger_modified_for_h0002": false,
+  "environment": {
+    "nix_develop": true,
+    "python": "3.12.12",
+    "pytest": "8.4.2",
+    "pluggy": "1.6.0"
+  },
+  "commands": {
+    "first_run": "nix develop --command pytest tests/hypotheses/H0002 -vv",
+    "targeted_final": "nix develop --command pytest tests/hypotheses/H0002 -vv",
+    "result": "nix develop --command python -m tests.hypotheses.H0002.run_experiment --output docs/fusion/hypotheses/H0002/RESULT.json",
+    "global": "nix develop --command just check",
+    "status": "nix develop --command python scripts/update_status.py --check"
+  },
+  "results": {
+    "first_run_tests": 7,
+    "targeted_final_tests": 16,
+    "global_tests": 96,
+    "global_coverage_percent": "89.53",
+    "ledger_line_and_branch_coverage_percent": "100",
+    "accounting_mutants_rejected": 5,
+    "event_plan_drifts_rejected": 3,
+    "scenario_count": 5
+  },
+  "sha256": {
+    "hypothesis": "c99eba645169bec0d4759f5ff02aa70a0fb3b068db476b47da4413fb6d6ef0aa",
+    "scenario_family": "1e1d4bf3ef245fa40c0aa6b54897846c0ba9c276b15200e473e740399fb12e89",
+    "preregistered_oracle_expectations": "e26f982dda9d8bc6874b94c30d4c2bc2c96cc80587a1f600c0a338ed25daf9b6",
+    "first_run": "2e71a14c9920c14539554b47a28b10cdc7237c5bfc1044241358b0a3573fdf80",
+    "inherited_ledger": "b917433de9661896a1ac0ec74e9c7b2fb2d8a64864736e48d1ae4161286cf6bc",
+    "executable_oracle": "40fff01ec14fdac11ee988ca8288e5982ff869b1eaad863401ad6c2699c017c2",
+    "tests": "5a03e753563eb76819a0f7d185318b1ed71032a68ee211755bd374e9bbcca831",
+    "runner": "840bdd0f1762fc9d72e86332df93aee09074bb378a02410bd5ec184e6fe6a7b2",
+    "result": "b38e2bcee1992dc8314300f6687b664534290368eee2660621eff2d488050c4b",
+    "evidence": "b7b3c241205705e65dd03ff4033beba07a958231e87512ed240f238d24969d59",
+    "protocol_observations": "a13546f13dfa5326d5f91767dc7c5c33a471d892aeb969d0ed5c60837b566c2e",
+    "status": "15f15a041fe0723ab5bb8cb61410799b1a1a13d34579316d1db26daba34ac2c3",
+    "flake_lock": "615cdc38dd9d049eee8775ac67c8297cfd6b362ea044fb446d0a0d84579b7bbe",
+    "pyproject": "aa948b7b9d463cbb0d4fa43a3590593539043ab14608990a95be7ca0bf9050be"
+  },
+  "claims_not_proven": [
+    "P1_PASS",
+    "long_or_spot_accounting",
+    "partial_close_accounting",
+    "liquidation_or_funding",
+    "multi_position_accounting",
+    "exchange_fidelity"
+  ]
+}
