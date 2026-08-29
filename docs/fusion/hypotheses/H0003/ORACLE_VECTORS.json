@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0003",
+  "normative_decision_commit": "0fe56109974790792eeaf39e341386164af36822",
+  "canonical_json": {
+    "encoding": "UTF-8",
+    "unicode_normalization": "NFC",
+    "recursive_key_order": "lexicographic",
+    "separators": [",", ":"],
+    "bom": false,
+    "trailing_newline": false
+  },
+  "rational_vectors": [
+    {"semantic_input":"2","canonical":"2/1"},
+    {"semantic_input":"1/2","canonical":"1/2"},
+    {"semantic_input":"2/4","canonical":"1/2"},
+    {"semantic_input":"-1/2","canonical":"-1/2"},
+    {"semantic_input":"0","canonical":"0/1"}
+  ],
+  "noncanonical_rational_text_rejections": [
+    "2",
+    "2/4",
+    "-0/1",
+    "01/2",
+    "+1/2",
+    "1/-2",
+    "1/0",
+    "0.5",
+    "5e-1"
+  ],
+  "valid_objects": {
+    "InstrumentSpec": {
+      "semantic_value": {
+        "instrument_id": "SOL-USD-SPOT",
+        "instrument_type": "SPOT",
+        "base": "SOL",
+        "quote": "USD",
+        "settlement": "USD",
+        "contract_multiplier": "1/1",
+        "tick_size": "1/100",
+        "lot_size": "1/1000",
+        "rounding_policy": "REJECT_OFF_GRID"
+      },
+      "canonical_json": "{\"base\":\"SOL\",\"contract_multiplier\":\"1/1\",\"instrument_id\":\"SOL-USD-SPOT\",\"instrument_type\":\"SPOT\",\"lot_size\":\"1/1000\",\"quote\":\"USD\",\"rounding_policy\":\"REJECT_OFF_GRID\",\"settlement\":\"USD\",\"tick_size\":\"1/100\"}",
+      "canonical_utf8_hex": "7b2262617365223a22534f4c222c22636f6e74726163745f6d756c7469706c696572223a22312f31222c22696e737472756d656e745f6964223a22534f4c2d5553442d53504f54222c22696e737472756d656e745f74797065223a2253504f54222c226c6f745f73697a65223a22312f31303030222c2271756f7465223a22555344222c22726f756e64696e675f706f6c696379223a2252454a4543545f4f46465f47524944222c22736574746c656d656e74223a22555344222c227469636b5f73697a65223a22312f313030227d",
+      "sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4"
+    },
+    "ReferenceSpec": {
+      "semantic_value": {
+        "instrument_id": "SOL-USD-SPOT",
+        "instrument_spec_sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4",
+        "numeraire": "USD",
+        "valuation_price": "EVENT_PRICE",
+        "fee_settlement_currency": "USD",
+        "numeric_policy": "EXACT_RATIONAL",
+        "rounding_policy": "REJECT_OFF_GRID"
+      },
+      "canonical_json": "{\"fee_settlement_currency\":\"USD\",\"instrument_id\":\"SOL-USD-SPOT\",\"instrument_spec_sha256\":\"e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4\",\"numeraire\":\"USD\",\"numeric_policy\":\"EXACT_RATIONAL\",\"rounding_policy\":\"REJECT_OFF_GRID\",\"valuation_price\":\"EVENT_PRICE\"}",
+      "canonical_utf8_hex": "7b226665655f736574746c656d656e745f63757272656e6379223a22555344222c22696e737472756d656e745f6964223a22534f4c2d5553442d53504f54222c22696e737472756d656e745f737065635f736861323536223a2265303430306565623265626439356534656536393838343739366431383131336630353535376564333236623162376262623439313634333632613838366234222c226e756d657261697265223a22555344222c226e756d657269635f706f6c696379223a2245584143545f524154494f4e414c222c22726f756e64696e675f706f6c696379223a2252454a4543545f4f46465f47524944222c2276616c756174696f6e5f7072696365223a224556454e545f5052494345227d",
+      "sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"
+    },
+    "MarketEvent": {
+      "semantic_value": {"event_id":"price-0001","source_id":"fixture-é","instrument_id":"SOL-USD-SPOT","event_type":"PRICE","event_time":1700000000000000000,"sequence":1,"price":"100/1","raw_hash":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","fidelity_level":"F0"},
+      "canonical_json": "{\"event_id\":\"price-0001\",\"event_time\":1700000000000000000,\"event_type\":\"PRICE\",\"fidelity_level\":\"F0\",\"instrument_id\":\"SOL-USD-SPOT\",\"price\":\"100/1\",\"raw_hash\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sequence\":1,\"source_id\":\"fixture-é\"}",
+      "sha256": "e0a08cad3db326b5cafbe67303d5781a7e40b397866043d1b328f2ecf7da4703"
+    },
+    "Fill": {
+      "semantic_value": {"fill_id":"fill-0001","order_id":"order-0001","source_id":"fixture-é","instrument_id":"SOL-USD-SPOT","side":"BUY","quantity":"1/2","price":"100/1","fee_amount":"1/20","fee_currency":"USD","liquidity_role":"MAKER","event_time":1700000000000000001,"sequence":2},
+      "canonical_json": "{\"event_time\":1700000000000000001,\"fee_amount\":\"1/20\",\"fee_currency\":\"USD\",\"fill_id\":\"fill-0001\",\"instrument_id\":\"SOL-USD-SPOT\",\"liquidity_role\":\"MAKER\",\"order_id\":\"order-0001\",\"price\":\"100/1\",\"quantity\":\"1/2\",\"sequence\":2,\"side\":\"BUY\",\"source_id\":\"fixture-é\"}",
+      "sha256": "4429c2c764d653704f794a999f4eaf8a3734a2d200e693957795861a7bdba027"
+    },
+    "AccountEvent": {
+      "semantic_value": {"account_event_id":"account-0001","source_id":"fixture-é","source_event_id":"fill-0001","account_model":"SPOT_CASH_V1","instrument_id":"SOL-USD-SPOT","kind":"FEE","account":"QUOTE","delta":"-1/20","currency":"USD","event_time":1700000000000000001,"sequence":3},
+      "canonical_json": "{\"account\":\"QUOTE\",\"account_event_id\":\"account-0001\",\"account_model\":\"SPOT_CASH_V1\",\"currency\":\"USD\",\"delta\":\"-1/20\",\"event_time\":1700000000000000001,\"instrument_id\":\"SOL-USD-SPOT\",\"kind\":\"FEE\",\"sequence\":3,\"source_event_id\":\"fill-0001\",\"source_id\":\"fixture-é\"}",
+      "sha256": "c9389940f85b8da359cb8399566d426a1f9ca96d5e07247354c0ddb9dc296db4"
+    }
+  },
+  "unicode_and_escape_vector": {
+    "semantic_value": {"escaped":"quote:\" slash:/ backslash:\\ newline:\n","unicode":"é"},
+    "canonical_json": "{\"escaped\":\"quote:\\\" slash:/ backslash:\\\\ newline:\\n\",\"unicode\":\"é\"}",
+    "canonical_utf8_hex": "7b2265736361706564223a2271756f74653a5c2220736c6173683a2f206261636b736c6173683a5c5c206e65776c696e653a5c6e222c22756e69636f6465223a22c3a9227d",
+    "sha256": "120a8759fe8a6ad9417c188c2d2569c6691b04d83113585c6d5ecf2089f240d1"
+  },
+  "ordering_vectors": {
+    "MarketEvent": [1700000000000000000,1,"fixture-é","price-0001"],
+    "Fill": [1700000000000000001,2,"fixture-é","fill-0001"],
+    "AccountEvent": [1700000000000000001,3,"fixture-é","account-0001"],
+    "cross_type_order": "UNDEFINED_IN_P1"
+  },
+  "duplicate_vectors": {
+    "identity_shape": ["type","source_id","object_id"],
+    "same_identity_same_bytes": "IDEMPOTENT_DEDUPLICATE",
+    "same_identity_different_bytes": "DUPLICATE_DIVERGENT",
+    "scope": "EXPLICIT_COLLECTION_ONLY"
+  }
+}

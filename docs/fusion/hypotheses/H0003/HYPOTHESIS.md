@@ -10,7 +10,10 @@
 | Branche | `hypothesis/H0003-canonical-contract-foundation` |
 | Commit de départ | `56e770af872b5132c1cf76b848a403320cf21876` |
 | Source normative immédiate | `docs/fusion/P1_MINIMAL_EXECUTABLE_PROFILE.md` |
-| Statut de préimplémentation | `BLOCKED_SPEC_AMBIGUITY` |
+| Préenregistrement précédent | `ed2731da82326cf938b3634670e7cd1f6e50445f` |
+| Statut précédent | `BLOCKED_SPEC_AMBIGUITY` |
+| Décision normative B1–B8 | `0fe56109974790792eeaf39e341386164af36822` |
+| Statut de préimplémentation | `READY_FOR_IMPLEMENTATION` |
 | Code H0003 lors de cet énoncé | aucun |
 
 La branche descend du diagnostic P1 sans fusionner H0001/H0002 ni
@@ -82,58 +85,57 @@ H0003 peut appliquer sans nouvelle décision :
   NFC, tri récursif des clés, séparateurs `,`/`:` sans espaces, échappements uniques,
   UTF-8 sans BOM ni fin de ligne.
 
-## Audit de suffisance avant implémentation
+## Audit de suffisance précédent et résolution
 
-L'audit du profil et des RFC existantes révèle les décisions nécessaires suivantes qui ne
-sont pas encore fermées.
+Le préenregistrement `ed2731d` a détecté les huit ambiguïtés ci-dessous avant tout code.
+La décision humaine séparée `0fe5610` les ferme sans effacer cet état historique.
 
 | ID | Statut | Ambiguïté exécutable | Pourquoi le code ne peut pas choisir |
 |---|---|---|---|
-| B1 | `BLOCKING` | vocabulaires autorisés absents pour `instrument_type` et `rounding_policy` | le profil exige de rejeter un type/politique inconnu sans définir l'ensemble connu |
-| B2 | `BLOCKING` | `ReferenceSpec.valuation_price` n'a pas un vocabulaire unique | le modèle cite last/mid/mark/index, son exemple utilise `close`; choisir ou accepter tous serait une nouvelle décision |
-| B3 | `BLOCKING` | vocabulaires absents pour `MarketEvent.event_type`, `Fill.side`, `Fill.liquidity_role` et `AccountEvent.kind` | validations, A8 et mutants dépendent de ces ensembles fermés |
-| B4 | `BLOCKING` | forme des montants d'`AccountEvent` non définie | « montants signés et devises » ne fixe ni comptes/champs ni association delta↔devise; M9 est indécidable |
-| B5 | `BLOCKING` | compatibilité `InstrumentSpec`/`ReferenceSpec` sans liaison sérialisée | `ReferenceSpec` minimal ne porte ni `instrument_id` ni hash d'instrument; M5 ne possède pas de règle de comparaison |
-| B6 | `BLOCKING` | clé d'ordre définie avec `source_id,event_id`, absents de `Fill` et `AccountEvent` | appliquer la clé seulement à `MarketEvent` ou ajouter des champs serait une décision nouvelle |
-| B7 | `BLOCKING` | identité de doublon divergente non définie par type | `event_id`, `fill_id` et `account_event_id` existent, mais aucune API/portée de registre ni clé de contenu n'est normée |
-| B8 | `BLOCKING` | forme JSON d'un rationnel négatif/non entier non vectorisée | le profil dit `numerator/denominator`, mais aucun vecteur P1 n'établit si les entiers sont `"2"` ou `"2/1"` ni les règles `-1/2`, zéro et dénominateur |
+| B1 | `RESOLVED` | vocabulaires instrument/arrondi | `{SPOT,LINEAR_PERPETUAL}`; `REJECT_OFF_GRID` |
+| B2 | `RESOLVED` | prix de valorisation | `EVENT_PRICE` uniquement |
+| B3 | `RESOLVED` | vocabulaires événements/fills/comptes | ensembles fermés dans la décision humaine |
+| B4 | `RESOLVED` | forme d'`AccountEvent` | onze champs exacts, compte, devise et signes fermés |
+| B5 | `RESOLVED` | compatibilité instrument/référentiel | identité et SHA-256 de spec tous deux obligatoires |
+| B6 | `RESOLVED` | ordre local | clé par type; aucun ordre inter-types P1 |
+| B7 | `RESOLVED` | doublons | identité typée, collection explicite, idempotence/divergence fermées |
+| B8 | `RESOLVED` | rationnels JSON | chaîne irréductible `numerator/denominator`, dénominateur positif |
 
-Ces points ne sont pas des améliorations facultatives. Ils déterminent les bytes, hashes,
-validations ou résultats des mutants annoncés. Les résoudre dans le code violerait le
-critère principal de H0003.
+Les règles complètes font autorité dans `P1_CANONICAL_CONTRACT_DECISIONS.md`. Aucun code
+n'a été écrit entre la détection et leur décision.
 
-## Décision préimplémentation
+## Nouvel ancrage préimplémentation
 
 ```text
-H0003 = BLOCKED
-reason = BLOCKED_SPEC_AMBIGUITY
-blocking_findings = [B1, B2, B3, B4, B5, B6, B7, B8]
+previous_preregistration = ed2731da82326cf938b3634670e7cd1f6e50445f
+previous_status = BLOCKED_SPEC_AMBIGUITY
+normative_decision_commit = 0fe56109974790792eeaf39e341386164af36822
+B1-B8 = RESOLVED
 implementation_started = false
-oracle_vectors_frozen = false
+oracle_vectors_frozen = true
+oracle_vectors = ORACLE_VECTORS.json
+status = READY_FOR_IMPLEMENTATION
 P1 = NOT_PASSED
 ```
 
-Ce statut ne réfute pas l'utilité du profil P1. Il réfute seulement, dans son état actuel,
-l'affirmation plus forte selon laquelle le socle peut être codé **sans** décision
-supplémentaire.
+Toute convention supplémentaire découverte pendant l'implémentation replace H0003 en
+`BLOCKED`; elle ne peut être ajoutée silencieusement.
 
-## Forme attendue de l'oracle après levée explicite des blocages
+## Oracle préenregistré
 
-Une révision humaine du profil devra fournir, avant code :
+`ORACLE_VECTORS.json` fige avant code :
 
-1. un vocabulaire fermé pour chaque discriminant validé;
-2. un schéma exact d'`AccountEvent` et la matrice `kind × signe × devise`;
-3. une règle explicite de compatibilité instrument/référentiel;
-4. une clé d'ordre complète pour chacun des trois types d'événement;
-5. une règle de doublon par identité et projection sémantique;
-6. des vecteurs JSON exacts incluant entier, fraction réductible, fraction négative, zéro,
-   Unicode NFC et caractères échappés;
-7. les bytes UTF-8 et SHA-256 attendus d'au moins un `InstrumentSpec` et un
-   `ReferenceSpec`.
+- entiers, fractions réductibles, fraction négative et zéro;
+- textes rationnels non canoniques devant être rejetés;
+- un objet valide pour les cinq contrats sérialisables;
+- JSON canonique et SHA-256 de chaque objet;
+- bytes UTF-8 exacts d'`InstrumentSpec`, `ReferenceSpec` et du vecteur Unicode/échappements;
+- clés d'ordre locales et résultats de doublons idempotent/divergent.
 
-H0003 pourra alors être révisée sur la même branche avant implémentation, avec une nouvelle
-ancre de préenregistrement clairement postérieure à cette version bloquée. Cette version ne
-doit pas être supprimée ni présentée comme un run.
+Le hash attendu d'`InstrumentSpec` est
+`e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4`; celui de
+`ReferenceSpec` est
+`f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde`.
 
 ## Falsifications préenregistrées
 
@@ -169,12 +171,12 @@ Après levée des blocages, H0003 sera `FAIL` si :
 8. l'implémentation ajoute une convention non présente dans l'ancre normative révisée.
 
 Elle sera `NON_TESTABLE` si les vecteurs/hashes préenregistrés sont invalides ou si leur
-provenance ne peut pas être établie. Elle restera `BLOCKED` tant que B1–B8 ne sont pas tous
-fermés explicitement. Un éventuel `PASS` ne signifiera ni ledger spot/short valide, ni
+provenance ne peut pas être établie. Elle redevient `BLOCKED` si une décision supplémentaire
+est nécessaire. Un éventuel `PASS` ne signifiera ni ledger spot/short valide, ni
 enforcement temporel, replay, fidélité exchange ou `P1 PASS`.
 
 ## Condition d'arrêt actuelle
 
-Atteinte : H0003 est préenregistrée, aucun code n'a été écrit et l'insuffisance du profil
-est rendue falsifiable. La mission s'arrête avant toute implémentation et attend une décision
-humaine sur B1–B8.
+Atteinte : H0003-v2 cite la décision humaine distincte, conserve l'ancien blocage, fige ses
+vecteurs et reste sans code. La mission s'arrête avant implémentation pour vérification du
+nouveau paquet préenregistré.
