@@ -18,6 +18,7 @@ from .contracts import (
     validate_account_event_compatibility,
     validate_fill_compatibility,
     validate_instrument_reference,
+    validate_market_event_compatibility,
 )
 
 from .ledger import (
@@ -67,4 +68,5 @@ __all__ = [
     "validate_account_event_compatibility",
     "validate_fill_compatibility",
     "validate_instrument_reference",
+    "validate_market_event_compatibility",
 ]

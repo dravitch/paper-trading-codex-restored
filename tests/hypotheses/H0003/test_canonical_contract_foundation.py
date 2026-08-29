@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 from dataclasses import replace
+from datetime import datetime
 from fractions import Fraction
 import hashlib
 import json
@@ -13,6 +14,8 @@ from paper_trading_codex.domain.contracts import (
     AccountEvent,
     ContractValidationError,
     Fill,
+    DurationNs,
+    InstantNs,
     InstrumentSpec,
     MarketEvent,
     ReferenceSpec,
@@ -23,6 +26,7 @@ from paper_trading_codex.domain.contracts import (
     validate_account_event_compatibility,
     validate_fill_compatibility,
     validate_instrument_reference,
+    validate_market_event_compatibility,
 )
 
 
@@ -272,5 +276,54 @@ def test_reject_off_grid_is_mechanical():
         "PRICE_OFF_GRID",
         lambda: validate_fill_compatibility(
             replace(fill, price=Fraction(10001, 1000)), instrument, reference
+        ),
+    )
+
+
+@pytest.mark.parametrize("value", ["not-an-int", True, 0.1, datetime(2026, 8, 29)])
+def test_reviewer_c4_instant_ns_rejects_non_exact_int(value):
+    _assert_code("INSTANT_NS_TYPE_INVALID", lambda: InstantNs(value))
+
+
+@pytest.mark.parametrize("value", ["not-an-int", True, 0.1, datetime(2026, 8, 29)])
+def test_reviewer_c4_duration_ns_rejects_non_exact_int(value):
+    _assert_code("DURATION_NS_TYPE_INVALID", lambda: DurationNs(value))
+
+
+def test_reviewer_f1_rejects_bool_and_binary64_rationals():
+    instrument = _object("InstrumentSpec")
+    fill = _object("Fill")
+    _assert_code(
+        "RATIONAL_VALUE_TYPE_INVALID",
+        lambda: replace(instrument, contract_multiplier=True),
+    )
+    _assert_code(
+        "RATIONAL_VALUE_TYPE_INVALID",
+        lambda: replace(fill, quantity=0.1),
+    )
+    _assert_code(
+        "RATIONAL_VALUE_TYPE_INVALID",
+        lambda: replace(fill, price=100.005),
+    )
+    _assert_code(
+        "RATIONAL_VALUE_TYPE_INVALID",
+        lambda: replace(fill, fee_amount=False),
+    )
+
+
+def test_reviewer_f2_market_event_rejects_incompatible_instrument_and_off_grid_price():
+    instrument = _object("InstrumentSpec")
+    event = _object("MarketEvent")
+    validate_market_event_compatibility(event, instrument)
+    _assert_code(
+        "MARKET_EVENT_INSTRUMENT_INCOMPATIBLE",
+        lambda: validate_market_event_compatibility(
+            replace(event, instrument_id="BTC-USD-SPOT"), instrument
+        ),
+    )
+    _assert_code(
+        "PRICE_OFF_GRID",
+        lambda: validate_market_event_compatibility(
+            replace(event, price=Fraction(20001, 200)), instrument
         ),
     )

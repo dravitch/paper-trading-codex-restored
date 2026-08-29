@@ -7,11 +7,23 @@ from fractions import Fraction
 import hashlib
 import json
 import unicodedata
-from typing import Any, Dict, Iterable, NewType, Protocol, Tuple, Type, TypeVar
+from typing import Any, Dict, Iterable, Protocol, Tuple, Type, TypeVar
 
 
-InstantNs = NewType("InstantNs", int)
-DurationNs = NewType("DurationNs", int)
+class InstantNs(int):
+    """Instant nanoseconde signé dont la frontière est validée à l'exécution."""
+
+    def __new__(cls, value: int) -> "InstantNs":
+        _require(type(value) is int, "INSTANT_NS_TYPE_INVALID")
+        return int.__new__(cls, value)
+
+
+class DurationNs(int):
+    """Durée nanoseconde signée dont la frontière est validée à l'exécution."""
+
+    def __new__(cls, value: int) -> "DurationNs":
+        _require(type(value) is int, "DURATION_NS_TYPE_INVALID")
+        return int.__new__(cls, value)
 
 
 class Clock(Protocol):
@@ -53,8 +65,13 @@ def _hash_text(value: str, code: str) -> str:
     return value
 
 
+def _exact_fraction(value: Any) -> Fraction:
+    _require(type(value) in {int, Fraction}, "RATIONAL_VALUE_TYPE_INVALID")
+    return value if isinstance(value, Fraction) else Fraction(value)
+
+
 def rational_text(value: Fraction) -> str:
-    value = Fraction(value)
+    value = _exact_fraction(value)
     return f"{value.numerator}/{value.denominator}"
 
 
@@ -183,7 +200,7 @@ class InstrumentSpec(CanonicalContract):
             ("tick_size", "TICK_SIZE_NOT_POSITIVE"),
             ("lot_size", "LOT_SIZE_NOT_POSITIVE"),
         ):
-            value = Fraction(getattr(self, name))
+            value = _exact_fraction(getattr(self, name))
             object.__setattr__(self, name, value)
             _require(value > 0, code)
 
@@ -245,7 +262,12 @@ def validate_instrument_reference(instrument: InstrumentSpec, reference: Referen
 def _event_common(instance: Any, object_id_name: str) -> None:
     for name in (object_id_name, "source_id", "instrument_id"):
         object.__setattr__(instance, name, _nfc(getattr(instance, name), "EVENT_FIELD_REQUIRED"))
-    object.__setattr__(instance, "event_time", InstantNs(_integer(instance.event_time, "EVENT_TIME_INVALID")))
+    event_time = instance.event_time
+    if type(event_time) is int:
+        event_time = InstantNs(event_time)
+    else:
+        _require(type(event_time) is InstantNs, "EVENT_TIME_INVALID")
+    object.__setattr__(instance, "event_time", event_time)
     object.__setattr__(instance, "sequence", _integer(instance.sequence, "EVENT_SEQUENCE_REQUIRED"))
 
 
@@ -264,7 +286,7 @@ class MarketEvent(CanonicalContract):
     def __post_init__(self) -> None:
         _event_common(self, "event_id")
         _require(self.event_type == "PRICE", "MARKET_EVENT_TYPE_INVALID")
-        price = Fraction(self.price)
+        price = _exact_fraction(self.price)
         object.__setattr__(self, "price", price)
         _require(price > 0, "PRICE_NOT_POSITIVE")
         object.__setattr__(self, "raw_hash", _hash_text(self.raw_hash, "RAW_HASH_INVALID"))
@@ -280,6 +302,16 @@ class MarketEvent(CanonicalContract):
     def _from_dict(cls, value: Dict[str, Any]) -> "MarketEvent":
         _exact_keys(value, tuple(field.name for field in fields(cls)))
         return cls(**{**value, "price": parse_canonical_rational(value["price"])})
+
+
+def validate_market_event_compatibility(
+    event: MarketEvent, instrument: InstrumentSpec
+) -> None:
+    _require(
+        event.instrument_id == instrument.instrument_id,
+        "MARKET_EVENT_INSTRUMENT_INCOMPATIBLE",
+    )
+    _require(event.price % instrument.tick_size == 0, "PRICE_OFF_GRID")
 
 
 @dataclass(frozen=True)
@@ -308,7 +340,7 @@ class Fill(CanonicalContract):
             ("price", "PRICE_NOT_POSITIVE", False),
             ("fee_amount", "FEE_NEGATIVE", True),
         ):
-            value = Fraction(getattr(self, name))
+            value = _exact_fraction(getattr(self, name))
             object.__setattr__(self, name, value)
             _require(value >= 0 if allow_zero else value > 0, code)
 
@@ -368,7 +400,7 @@ class AccountEvent(CanonicalContract):
         )
         _require(self.kind in {"INITIALIZE", "TRADE", "FEE", "REALIZED_PNL"}, "ACCOUNT_EVENT_KIND_INVALID")
         _require(self.account in {"BASE", "QUOTE", "COLLATERAL"}, "ACCOUNT_INVALID")
-        delta = Fraction(self.delta)
+        delta = _exact_fraction(self.delta)
         object.__setattr__(self, "delta", delta)
         _require(not (self.kind == "INITIALIZE" and delta < 0), "ACCOUNT_EVENT_SIGN_MISMATCH")
         _require(not (self.kind == "FEE" and delta > 0), "ACCOUNT_EVENT_SIGN_MISMATCH")
