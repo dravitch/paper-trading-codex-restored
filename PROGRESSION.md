@@ -19,7 +19,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 | Gate | Objet | État |
 |---|---|---|
 | P0 | baselines | `CLOSED_WITH_DEBT` — rescoping immuabilité vers P6/P7; 68/68 restored, 9/9 bitget, revues admises; dette : preuve d'immuabilité distante et oracles O2/O4/O7 (scope P6/P7) |
-| P1 | domaine canonique et ledgers | H0001 exécutée par le Producteur; dossier en attente de deux revues; gate non franchi |
+| P1 | domaine canonique et ledgers | H0001 `VALIDATED_WITH_PUBLISHED_LIMITS`; scénario unique seulement; gate non franchi |
 | P2 | replay unique déterministe | non commencé |
 | P3 | portage contrôlé des stratégies | non commencé |
 | P4 | adaptateurs fournisseurs | non commencé |
@@ -27,7 +27,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 | P6 | RiskMap et chaîne probatoire | spécification avancée; contrôleur et preuves externes absents; `BLOCKED_IMMUTABILITY` |
 | P7 | publication | bloqué |
 
-Aucun gate et aucune hypothèse métier ne sont validés. H0001 ajoute le premier code de domaine canonique, limité à un scénario comptable short P0; il ne constitue pas P1. P0 est `CLOSED_WITH_DEBT` (commit de clôture `0a11672`), les deux baselines ont été exécutées séparément : le dépôt restauré rapporte 68 tests, 87,07 % de couverture et Ruff sans erreur (exécuté et vérifié lors de l'audit P0 sous Nix) ; la baseline Bitget rapporte 9 tests hors réseau et 38 % sur le seul paquet `paper_trading` (exécuté sur VM NixOS, reproduit par les revues Critique et Contradictoire séparées et aveugles au premier verdict, admises au commit `804002f`, non rejoué lors de l'audit P0). L'immuabilité distante a été rescopée vers P6/P7 (`P0_CONTRACT_SCOPE_DECISION.md`) : elle protège la valeur probatoire, pas l'exécutabilité. Les dettes D01 (immuabilité) et D02 (oracles O2/O4/O7) restent ouvertes pour P6/P7. Les cycles achevés ont consolidé la spécification et son protocole probatoire ; ils ne constituent ni une validation scientifique du moteur futur, ni une preuve de fidélité au marché.
+Aucun gate métier n'est franchi. H0001 est validée avec limites publiées dans son unique scénario comptable short P0; elle ne constitue pas P1. P0 est `CLOSED_WITH_DEBT` (commit de clôture `0a11672`), les deux baselines ont été exécutées séparément : le dépôt restauré rapporte 68 tests, 87,07 % de couverture et Ruff sans erreur (exécuté et vérifié lors de l'audit P0 sous Nix) ; la baseline Bitget rapporte 9 tests hors réseau et 38 % sur le seul paquet `paper_trading` (exécuté sur VM NixOS, reproduit par les revues Critique et Contradictoire séparées et aveugles au premier verdict, admises au commit `804002f`, non rejoué lors de l'audit P0). L'immuabilité distante a été rescopée vers P6/P7 (`P0_CONTRACT_SCOPE_DECISION.md`) : elle protège la valeur probatoire, pas l'exécutabilité. Les dettes D01 (immuabilité) et D02 (oracles O2/O4/O7) restent ouvertes pour P6/P7. Les cycles achevés ont consolidé la spécification et son protocole probatoire ; ils ne constituent ni une validation scientifique du moteur futur, ni une preuve de fidélité au marché.
 
 ## Jalon courant
 
@@ -38,8 +38,10 @@ La reprise contrôlée `REV11bis`, scientifiquement identique à la version fina
 H0001 part du handoff post-P0 `7c322a8`. L'hypothèse et l'oracle ont précédé le code. Le
 Producteur observe une égalité rationnelle exacte sur six états, une concordance séparée
 avec la projection P0, sept mutants rejetés, 80 tests globaux et 89,53 % de couverture. Le
-dossier Producteur actualisé est figé au commit `f49d0c1` et reste `IN_REVIEW`; ce résultat
-ne vaut ni validation H0001 ni `P1 PASS`.
+dossier Producteur actualisé est figé au commit `f49d0c1`. Les rapports Critique et
+Contradictoire, tous deux `ACCEPT_WITH_LIMITS`, sont ancrés au commit `e4ff866` puis admis
+humainement avec une indépendance qualifiée `PROCEDURAL / ROLE-SEPARATED`. H0001 est
+`VALIDATED_WITH_PUBLISHED_LIMITS`; ce résultat ne vaut pas `P1 PASS`.
 
 ## État des branches
 
@@ -51,14 +53,14 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `fusion/controlled-merger` | destination d'intégration | attend la fermeture des gates requis |
 | `correction/reconcile-l1-l12` | consolidation documentaire achevée | cycle S1–S4 cloturé; dettes T1/T2/T3 ouvertes pour contrôleur futur |
 | `work/continuation-2026-08-28` | dette documentaire P6 | REV13/T1–T3 figés; revue différée avant P6 |
-| `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | preuve Producteur complète; revues indépendantes en attente |
+| `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | H0001 validée avec limites publiées; non fusionnée; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. transmettre le commit Producteur `f49d0c1` séparément à la Critique puis à la Contradictoire, sans revue intermédiaire;
-2. soumettre les deux verdicts et leurs limites à l'admission humaine;
-3. ne pas ouvrir H0002, P2 ou reprendre P6 dans la mission H0001.
+1. conserver H0001 et ses limites publiées sans rouvrir le paquet Producteur;
+2. décider séparément, hors de la mission H0001, de la prochaine hypothèse P1;
+3. ne pas confondre la validation limitée de H0001 avec `P1 PASS` ni reprendre P6 par contamination de scope.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
