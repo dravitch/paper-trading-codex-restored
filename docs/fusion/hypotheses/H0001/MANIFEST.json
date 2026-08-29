@@ -4,8 +4,8 @@
   "branch": "hypothesis/H0001-canonical-ledger-equivalence",
   "base_commit": "7c322a812cc7308d1045c53bd34fa854d0e5bbb4",
   "hypothesis_commit": "39932a964391388ef815143c462428d9b1676a2f",
-  "producer_code_commit": "19a565a5728656afb929a385a85c9ef4e2ea5d95",
-  "producer_evidence_commit": "a207dd8318360e759c32442223641e7c2d0b3895",
+  "producer_code_commit": "2ae00f9d4405cfcbdfee5bf9c2187bf572b7dca4",
+  "producer_evidence_commit": null,
   "inputs": [
     {
       "path": "docs/fusion/hypotheses/H0001/HYPOTHESIS.md",
@@ -24,7 +24,7 @@
   "code": [
     {
       "path": "paper_trading_codex/domain/ledger.py",
-      "sha256": "cc036dc576550e33e3762fd0f4ba8a24c8613701023ea44244d9483e2e9f5c83"
+      "sha256": "b917433de9661896a1ac0ec74e9c7b2fb2d8a64864736e48d1ae4161286cf6bc"
     },
     {
       "path": "tests/hypotheses/H0001/oracle.py",
@@ -32,11 +32,11 @@
     },
     {
       "path": "tests/hypotheses/H0001/test_canonical_ledger_equivalence.py",
-      "sha256": "d0b869944bfc592574b3a5d1dccb7d5ebbefbb0c45991c91cbd422e6c805724e"
+      "sha256": "9ad99937e77cba7d6d56019739bd52346ae462f84e6a1d6a48354416f7bdf284"
     },
     {
       "path": "tests/hypotheses/H0001/run_experiment.py",
-      "sha256": "cdb907f934e87308c8c1cb58760cf330ee8d8496656c7ff02a4416eff48dda38"
+      "sha256": "82fd0d67a8425eeecce6d6b6af46353d02ab93e55dada2527a3ce90af6bd48d6"
     }
   ],
   "environment": {
@@ -51,18 +51,18 @@
   },
   "commands": [
     "nix develop --command pytest tests/hypotheses/H0001 -vv",
-    "nix develop --command python -m tests.hypotheses.H0001.run_experiment --producer-code-commit 19a565a5728656afb929a385a85c9ef4e2ea5d95 --output docs/fusion/hypotheses/H0001/RESULT.json",
+    "nix develop --command python -m tests.hypotheses.H0001.run_experiment --output docs/fusion/hypotheses/H0001/RESULT.json",
     "nix develop --command just check",
     "nix develop --command python scripts/update_status.py --check"
   ],
   "result": {
     "status": "PASS_PENDING_INDEPENDENT_REVIEW",
-    "h0001_tests": 10,
-    "full_tests": 78,
-    "full_coverage_percent": "89.43",
-    "required_mutants_rejected": 6,
+    "h0001_tests": 12,
+    "full_tests": 80,
+    "full_coverage_percent": "89.53",
+    "required_mutants_rejected": 7,
     "result_path": "docs/fusion/hypotheses/H0001/RESULT.json",
-    "result_sha256": "caccc8bc9252027f0a23a15e498d1d2083349cd0b238fb81d44b76db99b42981"
+    "result_sha256": "41f50abf3a962f6644d2f74db552ce368f43899e2bee2c53a5c802ca7ed6fd31"
   },
   "gate_effect": {
     "P1": "NOT_PASSED",

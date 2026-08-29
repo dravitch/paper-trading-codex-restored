@@ -5,8 +5,8 @@
 | Champ | Valeur |
 |---|---|
 | hypothèse préenregistrée | `8e36998` puis clarification anti-contamination `39932a9` |
-| code et tests H0001 | `9302635` |
-| runner probatoire | `19a565a5728656afb929a385a85c9ef4e2ea5d95` |
+| code initial H0001 | `9302635` |
+| code final, M7 et runner lié au HEAD | `2ae00f9d4405cfcbdfee5bf9c2187bf572b7dca4` |
 | environnement | Nix, Python 3.12.12, pytest 8.4.2, pytest-cov 6.2.1 |
 | réseau requis par l'expérience | aucun |
 | résultat Producteur | `PASS_PENDING_INDEPENDENT_REVIEW` |
@@ -53,7 +53,15 @@ seulement que cette projection limitée reproduit les champs observés de P0.
 Projection P0 : `9.705285714286 SOL` après arrondi à douze décimales, concordante avec
 `67937/7000`; quantité, notionnel, frais et PnL net concordent également. L'artefact
 `RESULT.json` porte le SHA-256
-`caccc8bc9252027f0a23a15e498d1d2083349cd0b238fb81d44b76db99b42981`.
+`41f50abf3a962f6644d2f74db552ce368f43899e2bee2c53a5c802ca7ed6fd31`.
+
+## Autorité effective du plan d'événements
+
+`ShortScenarioSpec` contient désormais la projection fermée de `ordered_events`. Après
+construction, le builder compare exactement pour chaque événement `{sequence,kind,price}`
+au plan préenregistré. Une divergence produit `SCENARIO_EVENT_PLAN_MISMATCH`; modifier les
+seules entrées de plan ne peut plus laisser le run reconstruire silencieusement une autre
+séquence depuis `prices_usd_per_sol`.
 
 ## Exécution H0001 et mutants
 
@@ -63,7 +71,7 @@ Commande :
 nix develop --command pytest tests/hypotheses/H0001 -vv
 ```
 
-Résultat : `10 passed in 0.11s`, code 0.
+Résultat final : `12 passed in 0.08s`, code 0.
 
 | Mutant | Défaut injecté | Détection observée |
 |---|---|---|
@@ -73,8 +81,9 @@ Résultat : `10 passed in 0.11s`, code 0.
 | `M4_OMIT_EXIT_FEE` | frais de sortie omis | `CLOSE_FEE_MISMATCH` |
 | `M5_SWAP_CLOSE_AND_OPEN` | clôture avant ouverture | `POSITION_MISSING` |
 | `M6_USD_AS_SOL` | USD débité comme SOL sans conversion | `OPEN_FEE_CURRENCY_MISMATCH` |
+| `M7_SCENARIO_EVENT_ORDER_DRIFT` | `kind` du deuxième événement changé en clôture | `SCENARIO_EVENT_PLAN_MISMATCH` |
 
-Les six mutations sont rejetées par un invariant ciblé et un code stable.
+Les sept mutations sont rejetées par un invariant ciblé et un code stable.
 
 ## Runner probatoire
 
@@ -82,11 +91,12 @@ Commande :
 
 ```bash
 nix develop --command python -m tests.hypotheses.H0001.run_experiment \
-  --producer-code-commit 19a565a5728656afb929a385a85c9ef4e2ea5d95 \
   --output docs/fusion/hypotheses/H0001/RESULT.json
 ```
 
-Résultat : code 0. Le JSON déclare séparément :
+Résultat : code 0. Le runner exécute `git rev-parse HEAD` dans la racine du dépôt et inscrit
+directement `2ae00f9d4405cfcbdfee5bf9c2187bf572b7dca4`; aucun argument ne peut substituer cette
+identité. Le JSON déclare séparément :
 
 - `canonical_ledger_equals_independent_oracle: true`;
 - `h0001_projection_matches_p0_observation: true`;
@@ -100,7 +110,7 @@ Commande :
 nix develop --command just check
 ```
 
-Résultat : Ruff sans erreur; `78 passed`; couverture lignes + branches `89,43 %`, seuil
+Résultat : Ruff sans erreur; `80 passed`; couverture lignes + branches `89,53 %`, seuil
 70 % atteint; code 0. Le ledger H0001 possède 100 % de couverture lignes et branches dans
 ce run. `python scripts/update_status.py --check` retourne `STATUS.md is current`, code 0.
 
@@ -118,6 +128,7 @@ tolérance de projection P0 ne doit pas contaminer l'égalité comptable interne
 - un ledger pur et indépendant de `GridBot` reconstruit les six états attendus;
 - la quantité, la marge déclarée, les frais, le PnL et le collatéral final sont vérifiés;
 - les six erreurs prescrites sont détectées;
+- la dérive du plan d'événements préenregistré est détectée;
 - la projection limitée concorde avec le résultat historique P0.
 
 ## Ce que la preuve n'établit pas
@@ -128,6 +139,20 @@ tolérance de projection P0 ne doit pas contaminer l'égalité comptable interne
 - fidélité exchange, funding, multi-position, multi-instrument ou multi-devise;
 - performance financière ou validité hors du scénario figé;
 - admission scientifique avant les deux revues indépendantes.
+
+## `SPEC_NOTE_A8` — dette non bloquante H0001
+
+A8 préenregistrait « tous les montants d'événements sont positifs avec un champ direction ».
+L'implémentation respecte cette forme pour quantité, notionnel, marge et frais, mais porte
+directement un signe sur `gross_pnl_usd`, `net_pnl_usd` et `collateral_delta_sol`; elle ne
+possède pas de champ `direction` séparé pour ces trois deltas.
+
+- statut : `OPEN_SPEC_NOTE`;
+- scope : généralisation du modèle d'événements P1;
+- impact H0001 : `NON_BLOCKING`, car signes et conversions sont explicites, vérifiés par
+  l'oracle et réfutés par M2/M3/M6;
+- décision différée : choisir pour P1 entre deltas signés et magnitude positive + direction;
+- interdiction : ne pas réécrire rétroactivement A8 pour masquer l'écart.
 
 ## Verdict Producteur
 

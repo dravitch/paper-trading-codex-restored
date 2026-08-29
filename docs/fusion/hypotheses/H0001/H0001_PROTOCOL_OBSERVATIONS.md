@@ -30,6 +30,14 @@ constituent pas un gate.
    ce paquet figé.
 9. **Le scope empêche la contamination de roadmap.** T1–T3 restent une dette P6 sur une
    branche sœur et n'ont pas été importés dans H0001.
+10. **Un plan préenregistré doit être consommé ou comparé intégralement.** Vérifier seulement
+    les numéros de séquence laissait `kind` et `price` sans autorité effective; M7 a fermé
+    cette voie avant revue.
+11. **Un commit déclaré par l'appelant n'est pas une provenance.** Le runner doit résoudre
+    lui-même le HEAD exécuté; le manifeste peut ensuite lier ce résultat au dossier.
+12. **A8 révèle un choix de représentation encore ouvert.** H0001 fonctionne avec des
+    PnL/deltas signés alors que l'énoncé parlait de magnitudes positives + direction. Cette
+    tension est non bloquante ici mais doit rester visible avant généralisation P1.
 
 Ces observations devront être confrontées à d'autres hypothèses avant toute formalisation
 du futur Hypothesis Protocol.

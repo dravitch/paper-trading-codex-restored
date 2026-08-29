@@ -37,9 +37,9 @@ La reprise contrôlée `REV11bis`, scientifiquement identique à la version fina
 
 H0001 part du handoff post-P0 `7c322a8`. L'hypothèse et l'oracle ont précédé le code. Le
 Producteur observe une égalité rationnelle exacte sur six états, une concordance séparée
-avec la projection P0, six mutants rejetés, 78 tests globaux et 89,43 % de couverture. Le
-dossier Producteur est figé au commit `a207dd8` et son statut est `IN_REVIEW`; ce résultat
-ne vaut ni validation H0001 ni `P1 PASS`.
+avec la projection P0, sept mutants rejetés, 80 tests globaux et 89,53 % de couverture. Le
+dossier Producteur actualisé reste `IN_REVIEW`; ce résultat ne vaut ni validation H0001 ni
+`P1 PASS`.
 
 ## État des branches
 

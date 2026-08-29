@@ -31,7 +31,7 @@
   "hypothesis_id": "H0001",
   "oracle_forbidden_input": "P0_OBSERVED_PROJECTION.json",
   "oracle_input": "SCENARIO.json",
-  "producer_code_commit": "19a565a5728656afb929a385a85c9ef4e2ea5d95",
+  "producer_code_commit": "2ae00f9d4405cfcbdfee5bf9c2187bf572b7dca4",
   "schema_version": 1,
   "state_projection": [
     {

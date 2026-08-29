@@ -5,7 +5,7 @@ Ce fichier est la source unique des compteurs de tests. Régénération : `pytho
 ## Tests
 
 <!-- TEST_STATUS_START -->
-- Tests collectés : **78** dans **8** fichiers.
+- Tests collectés : **80** dans **8** fichiers.
 - Commande canonique : `python -m pytest tests -q`.
 - Fichiers : `tests/hypotheses/H0001/test_canonical_ledger_equivalence.py`, `tests/test_contracts.py`, `tests/test_critical_5_5.py`, `tests/test_data_fetcher.py`, `tests/test_data_loader.py`, `tests/test_grid_bot.py`, `tests/test_performance_metrics.py`, `tests/test_trade_auditor.py`.
 <!-- TEST_STATUS_END -->
