@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import json
+import subprocess
 from dataclasses import replace
 from decimal import Decimal, localcontext
 from fractions import Fraction
@@ -13,11 +14,13 @@ from paper_trading_codex.domain.ledger import (
     CloseShort,
     LedgerInvariantError,
     OpenShort,
+    PlannedEvent,
     ShortScenarioSpec,
     build_short_scenario_events,
     replay_ledger,
 )
 from tests.hypotheses.H0001.oracle import derive_expected
+from tests.hypotheses.H0001.run_experiment import run
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -32,7 +35,8 @@ def _load_json(path: Path) -> dict:
 
 
 def _spec() -> ShortScenarioSpec:
-    inputs = _load_json(SCENARIO_PATH)["inputs"]
+    scenario = _load_json(SCENARIO_PATH)
+    inputs = scenario["inputs"]
     return ShortScenarioSpec(
         initial_capital_usd=Fraction(inputs["initial_capital_usd"]),
         initial_price_usd_per_sol=Fraction(inputs["initial_price_usd_per_sol"]),
@@ -41,6 +45,14 @@ def _spec() -> ShortScenarioSpec:
         maker_fee_rate=Fraction(inputs["maker_fee_rate"]),
         taker_fee_rate=Fraction(inputs["taker_fee_rate"]),
         prices_usd_per_sol=tuple(Fraction(value) for value in inputs["prices_usd_per_sol"]),
+        ordered_events=tuple(
+            PlannedEvent(
+                sequence=event["sequence"],
+                kind=event["kind"],
+                price_usd_per_sol=Fraction(event["price_usd_per_sol"]),
+            )
+            for event in scenario["ordered_events"]
+        ),
     )
 
 
@@ -85,6 +97,28 @@ def test_scenario_provenance_matches_frozen_p0_manifest():
     assert provenance["input_sha256"] == p0["input_sha256"]
     assert provenance["result_sha256"] == p0["result_sha256"]
     assert [event["sequence"] for event in scenario["ordered_events"]] == list(range(1, 7))
+
+
+def test_mutant_scenario_event_order_drift_is_rejected():
+    spec = _spec()
+    drifted_plan = tuple(
+        replace(event, kind="CLOSE_MTM") if event.sequence == 2 else event
+        for event in spec.ordered_events
+    )
+    with pytest.raises(LedgerInvariantError) as caught:
+        build_short_scenario_events(replace(spec, ordered_events=drifted_plan))
+    assert caught.value.code == "SCENARIO_EVENT_PLAN_MISMATCH"
+
+
+def test_runner_records_the_executed_git_head():
+    head = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    assert run()["producer_code_commit"] == head
 
 
 def test_canonical_ledger_matches_independent_exact_oracle():

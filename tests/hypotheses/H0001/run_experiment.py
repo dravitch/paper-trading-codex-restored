@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 from decimal import Decimal, localcontext
 from fractions import Fraction
 from pathlib import Path
@@ -12,6 +13,7 @@ from pathlib import Path
 from paper_trading_codex.domain.ledger import (
     CloseShort,
     OpenShort,
+    PlannedEvent,
     ShortScenarioSpec,
     build_short_scenario_events,
     replay_ledger,
@@ -44,7 +46,17 @@ def _sha256(value: object) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def run(producer_code_commit: str) -> dict:
+def _git_head() -> str:
+    return subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+
+
+def run() -> dict:
     scenario_path = DOSSIER / "SCENARIO.json"
     observed_path = DOSSIER / "P0_OBSERVED_PROJECTION.json"
 
@@ -60,6 +72,14 @@ def run(producer_code_commit: str) -> dict:
         maker_fee_rate=Fraction(inputs["maker_fee_rate"]),
         taker_fee_rate=Fraction(inputs["taker_fee_rate"]),
         prices_usd_per_sol=tuple(Fraction(value) for value in inputs["prices_usd_per_sol"]),
+        ordered_events=tuple(
+            PlannedEvent(
+                sequence=event["sequence"],
+                kind=event["kind"],
+                price_usd_per_sol=Fraction(event["price_usd_per_sol"]),
+            )
+            for event in scenario["ordered_events"]
+        ),
     )
     events = build_short_scenario_events(spec)
     snapshots = replay_ledger(events)
@@ -127,7 +147,7 @@ def run(producer_code_commit: str) -> dict:
     return {
         "schema_version": 1,
         "hypothesis_id": "H0001",
-        "producer_code_commit": producer_code_commit,
+        "producer_code_commit": _git_head(),
         "chain": [
             "independent_fraction_oracle",
             "pre_registered_expectations",
@@ -158,9 +178,8 @@ def run(producer_code_commit: str) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--producer-code-commit", required=True)
     args = parser.parse_args()
-    payload = json.dumps(run(args.producer_code_commit), indent=2, sort_keys=True) + "\n"
+    payload = json.dumps(run(), indent=2, sort_keys=True) + "\n"
     if args.output is None:
         print(payload, end="")
     else:

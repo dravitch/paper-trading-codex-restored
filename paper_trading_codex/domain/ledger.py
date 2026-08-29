@@ -23,6 +23,13 @@ class LedgerInvariantError(ValueError):
 
 
 @dataclass(frozen=True)
+class PlannedEvent:
+    sequence: int
+    kind: str
+    price_usd_per_sol: Fraction
+
+
+@dataclass(frozen=True)
 class ShortScenarioSpec:
     initial_capital_usd: Fraction
     initial_price_usd_per_sol: Fraction
@@ -31,6 +38,7 @@ class ShortScenarioSpec:
     maker_fee_rate: Fraction
     taker_fee_rate: Fraction
     prices_usd_per_sol: Tuple[Fraction, ...]
+    ordered_events: Tuple[PlannedEvent, ...]
 
 
 @dataclass(frozen=True)
@@ -250,6 +258,10 @@ def build_short_scenario_events(spec: ShortScenarioSpec) -> Tuple[LedgerEvent, .
             net_pnl / exit_price,
         ),
     )
+    actual_plan = tuple(
+        PlannedEvent(event.sequence, event.kind, event.price_usd_per_sol) for event in events
+    )
+    _require(actual_plan == spec.ordered_events, "SCENARIO_EVENT_PLAN_MISMATCH")
     return events
 
 
