@@ -26,7 +26,10 @@ def collect() -> tuple[int, str]:
     if not match:
         raise RuntimeError("Pytest collection count not found")
     count = int(match.group(1))
-    files = sorted(path.name for path in (ROOT / "tests").glob("test_*.py"))
+    files = sorted(
+        path.relative_to(ROOT).as_posix()
+        for path in (ROOT / "tests").rglob("test_*.py")
+    )
     body = (
         f"{START}\n"
         f"- Tests collectés : **{count}** dans **{len(files)}** fichiers.\n"
