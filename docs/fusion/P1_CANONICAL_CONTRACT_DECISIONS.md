@@ -147,6 +147,28 @@ P2.
 
 **Statut : `RESOLVED`.**
 
+## B5a — Compatibilité de la devise des frais
+
+Addendum humain du 2026-08-29, postérieur aux vecteurs H0003-v2 et antérieur à toute
+implémentation :
+
+```text
+Fill.fee_currency == ReferenceSpec.fee_settlement_currency
+
+ReferenceSpec.fee_settlement_currency ∈ {
+  InstrumentSpec.base,
+  InstrumentSpec.quote,
+  InstrumentSpec.settlement
+}
+```
+
+Les comparaisons sont des égalités exactes de tokens de devise. Aucune conversion, alias ou
+devise implicite n'est autorisé. Une absence produit `CURRENCY_REQUIRED`; une devise du
+référentiel hors de l'instrument produit `REFERENCE_FEE_CURRENCY_INCOMPATIBLE`; une devise
+du fill différente du référentiel produit `FILL_FEE_CURRENCY_INCOMPATIBLE`.
+
+**Statut : `RESOLVED`.**
+
 ## B7 — Doublons divergents
 
 L'identité d'un objet est :
@@ -210,6 +232,7 @@ B5 = RESOLVED
 B6 = RESOLVED
 B7 = RESOLVED
 B8 = RESOLVED
+B5a = RESOLVED
 implementation_started = false
 H0003 = AUTHORIZED_FOR_REPREREGISTRATION_ONLY
 P1 = NOT_PASSED
