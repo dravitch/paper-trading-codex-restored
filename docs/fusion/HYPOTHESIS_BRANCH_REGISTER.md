@@ -10,6 +10,7 @@
 |---|---|---|---|---|---|---|---|
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
+| H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | — | — | `DRAFT` | — |
 
 ## Règle
 
@@ -24,3 +25,6 @@ Pour H0002, `VALIDATED` signifie également `VALIDATED_WITH_PUBLISHED_LIMITS` da
 famille préenregistrée seulement. Les rapports sont ancrés au commit `5658a8b`; leur
 admission et leurs hashes sont consignés dans
 [`HUMAN_ADMISSION.md`](hypotheses/H0002/HUMAN_ADMISSION.md). Elle ne vaut pas `P1 PASS`.
+
+H0003 reste `DRAFT` dans le vocabulaire du registre. Son préenregistrement la classe
+`BLOCKED_SPEC_AMBIGUITY` avant code sur huit décisions B1–B8; aucun run n'a commencé.
