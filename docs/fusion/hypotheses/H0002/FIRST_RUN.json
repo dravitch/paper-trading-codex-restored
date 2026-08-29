@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0002",
+  "phase": "FIRST_RUN_BEFORE_MUTANTS",
+  "preregistration_commit": "1d63024aee44e56c236d5bc67b3128f03994aa92",
+  "instrument_commit": "eade1e71b740a67bba8a803ed9568585735fb696",
+  "inherited_ledger_commit": "de946c1aa1a9190aebbd1bcba3116cf9be6d521e",
+  "ledger_sha256": "b917433de9661896a1ac0ec74e9c7b2fb2d8a64864736e48d1ae4161286cf6bc",
+  "ledger_changed_since_h0001_admission": false,
+  "command": "nix develop --command pytest tests/hypotheses/H0002 -vv",
+  "environment": {
+    "python": "3.12.12",
+    "pytest": "8.4.2",
+    "pluggy": "1.6.0"
+  },
+  "collected": 7,
+  "passed": 7,
+  "failed": 0,
+  "duration_seconds_reported": "0.05",
+  "scenario_results": {
+    "WIN_STANDARD": "PASS",
+    "LOSS_STANDARD": "PASS",
+    "FLAT_HIGH_FEES": "PASS",
+    "SMALL_FRACTIONAL": "PASS",
+    "LARGE_WIN": "PASS"
+  },
+  "classification": "UNCHANGED_H0001_LEDGER_GENERALIZED_TO_PREREGISTERED_FAMILY",
+  "ledger_correction_before_result": false
+}
