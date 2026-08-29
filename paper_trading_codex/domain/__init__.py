@@ -1,5 +1,25 @@
 """Domaine canonique minimal, introduit hypothèse par hypothèse."""
 
+from .contracts import (
+    AccountEvent,
+    Clock,
+    ContractValidationError,
+    DurationNs,
+    Fill,
+    InstantNs,
+    InstrumentSpec,
+    MarketEvent,
+    ReferenceSpec,
+    canonical_json_bytes,
+    canonical_sha256,
+    deduplicate_contracts,
+    parse_canonical_rational,
+    rational_text,
+    validate_account_event_compatibility,
+    validate_fill_compatibility,
+    validate_instrument_reference,
+)
+
 from .ledger import (
     CloseShort,
     InitializeCollateral,
@@ -17,6 +37,15 @@ from .ledger import (
 )
 
 __all__ = [
+    "AccountEvent",
+    "Clock",
+    "ContractValidationError",
+    "DurationNs",
+    "Fill",
+    "InstantNs",
+    "InstrumentSpec",
+    "MarketEvent",
+    "ReferenceSpec",
     "CloseShort",
     "InitializeCollateral",
     "LedgerInvariantError",
@@ -29,5 +58,13 @@ __all__ = [
     "ShortScenarioSpec",
     "apply_event",
     "build_short_scenario_events",
+    "canonical_json_bytes",
+    "canonical_sha256",
+    "deduplicate_contracts",
+    "parse_canonical_rational",
+    "rational_text",
     "replay_ledger",
+    "validate_account_event_compatibility",
+    "validate_fill_compatibility",
+    "validate_instrument_reference",
 ]
