@@ -38,7 +38,8 @@ La reprise contrôlée `REV11bis`, scientifiquement identique à la version fina
 H0001 part du handoff post-P0 `7c322a8`. L'hypothèse et l'oracle ont précédé le code. Le
 Producteur observe une égalité rationnelle exacte sur six états, une concordance séparée
 avec la projection P0, six mutants rejetés, 78 tests globaux et 89,43 % de couverture. Le
-dossier est `IN_REVIEW`; ce résultat ne vaut ni validation H0001 ni `P1 PASS`.
+dossier Producteur est figé au commit `a207dd8` et son statut est `IN_REVIEW`; ce résultat
+ne vaut ni validation H0001 ni `P1 PASS`.
 
 ## État des branches
 
@@ -56,9 +57,8 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 
 ## Prochaine étape contrôlée
 
-1. figer le commit probatoire Producteur H0001;
-2. transmettre ce même commit séparément à la Critique puis à la Contradictoire, sans revue intermédiaire;
-3. soumettre les deux verdicts et leurs limites à l'admission humaine;
-4. ne pas ouvrir H0002, P2 ou reprendre P6 dans la mission H0001.
+1. transmettre le commit Producteur `a207dd8` séparément à la Critique puis à la Contradictoire, sans revue intermédiaire;
+2. soumettre les deux verdicts et leurs limites à l'admission humaine;
+3. ne pas ouvrir H0002, P2 ou reprendre P6 dans la mission H0001.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
