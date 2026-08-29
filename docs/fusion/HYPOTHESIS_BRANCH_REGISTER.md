@@ -8,7 +8,7 @@
 
 | ID | Branche | Énoncé court | Gate | Critique | Contradictoire | Statut | Commit de fusion |
 |---|---|---|---|---|---|---|---|
-| — | — | aucune hypothèse ouverte | — | — | — | — | — |
+| H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | — | — | `DRAFT` | — |
 
 ## Règle
 
