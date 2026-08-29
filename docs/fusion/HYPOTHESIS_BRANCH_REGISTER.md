@@ -10,7 +10,7 @@
 |---|---|---|---|---|---|---|---|
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
-| H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | — | — | `DRAFT` | — |
+| H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | — | — | `IN_REVIEW` | — |
 
 ## Règle
 
@@ -26,6 +26,7 @@ famille préenregistrée seulement. Les rapports sont ancrés au commit `5658a8b
 admission et leurs hashes sont consignés dans
 [`HUMAN_ADMISSION.md`](hypotheses/H0002/HUMAN_ADMISSION.md). Elle ne vaut pas `P1 PASS`.
 
-H0003 reste `DRAFT` dans le vocabulaire du registre. Son premier préenregistrement
-`ed2731d` a conclu `BLOCKED_SPEC_AMBIGUITY`; la décision humaine `0fe5610` ferme B1–B8 et
-H0003-v2 est `READY_FOR_IMPLEMENTATION`, toujours avant code et avant run.
+Le premier préenregistrement H0003 `ed2731d` a conclu `BLOCKED_SPEC_AMBIGUITY`. Les
+décisions humaines `0fe5610` et `d817a16` ont fermé B1–B8/B5a avant code; les vecteurs ont
+été gelés à `0e105c2`. Le paquet Producteur est désormais complet et `IN_REVIEW`, sans
+déclaration `P1 PASS`.

@@ -64,16 +64,17 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `work/continuation-2026-08-28` | dette documentaire P6 | REV13/T1–T3 figés; revue différée avant P6 |
 | `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | H0001 validée avec limites publiées; non fusionnée; P1 non passé |
 | `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
-| `work/p1-capability-gap` | diagnostic documentaire P1 | capability map et gap-to-gate établis; aucune H0003 attribuée |
+| `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
+| `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet Producteur complet; 29 tests ciblés; revues non commencées |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. faire décider le profil minimal P1 exécutable : types requis, portée RFC-005 et questions `UNKNOWN` à trancher;
-2. transformer ce profil en liste fermée de critères et réfutations du gate P1;
-3. attribuer H0003 seulement à l'écart falsifiable prioritaire qui en résulte;
-4. ne pas coder, fusionner H0001/H0002 ni reprendre P2/P6 avant cette décision.
+1. geler H0003 sur le paquet Producteur final sans nouvelle correction;
+2. transmettre le même paquet séparément à la Critique et à la Contradictoire après décision explicite;
+3. conserver la note `unicodedata` pour le futur enforcement P1 sans la faire contaminer H0003;
+4. ne pas attribuer l'hypothèse ledger spot avant l'admission éventuelle de H0003.
 
 Le diagnostic courant est publié dans [`docs/fusion/P1_CAPABILITY_GAP.md`](docs/fusion/P1_CAPABILITY_GAP.md). Il classe le noyau short full-close `DEMONSTRATED_LIMITED`, mais constate `InstrumentSpec`, événements canoniques, ledger spot, `Clock`, contrôle temporel et preuve intégrée P1 absents. La cause synthétique est `MISSING_EXECUTABLE_CANONICAL_CONTRACTS_AND_SPOT_LEDGER`.
 

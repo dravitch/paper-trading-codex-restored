@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0003",
+  "phase": "PRODUCER_COMPLETE",
+  "result": "PASS_PENDING_INDEPENDENT_REVIEW",
+  "base_commit": "56e770af872b5132c1cf76b848a403320cf21876",
+  "blocked_preregistration_commit": "ed2731da82326cf938b3634670e7cd1f6e50445f",
+  "normative_decision_commit": "0fe56109974790792eeaf39e341386164af36822",
+  "vector_preregistration_commit": "0e105c25ba287fbf4dbdc25c4baff8bbeca41ad3",
+  "normative_addendum_commit": "d817a1642f7123ac367f7b0b7c03186b2d161925",
+  "ready_preregistration_commit": "be6678a562f77587af6f52ee7607d1a89fa674c1",
+  "first_code_commit": "5676de86b0b84284fdf81bf1edb0e43f36c61558",
+  "producer_code_commit": "9a8f318c60e82d97eff74a3fb36f532780a718bf",
+  "producer_evidence_commit": "5bd95dd22dd11274da3d49f259314d614d01fc1f",
+  "environment": {
+    "nix_develop": true,
+    "python": "3.12.12",
+    "pytest": "8.4.2",
+    "pluggy": "1.6.0"
+  },
+  "commands": {
+    "targeted": "nix develop --command pytest tests/hypotheses/H0003 -q",
+    "result": "nix develop --command python -m tests.hypotheses.H0003.run_experiment --output docs/fusion/hypotheses/H0003/RESULT.json",
+    "global": "nix develop --command just check",
+    "status": "nix develop --command python scripts/update_status.py --check"
+  },
+  "results": {
+    "targeted_tests": 29,
+    "global_tests": 125,
+    "global_coverage_percent": "90.92",
+    "contracts_coverage_percent": "95",
+    "ledger_coverage_percent": "100",
+    "mutant_families_rejected": 11,
+    "contract_vectors_exact": 5,
+    "roundtrips_exact": 5
+  },
+  "sha256": {
+    "normative_decisions": "f1206334f812ae7abc78659b1d0cf4b8a4f24f90d8dd4b87b7b5f3f6858a3637",
+    "hypothesis": "979bb36106a1b6e3b74abedbabe77495a9c844c8ede6f3a75fbb51aaac44c8e3",
+    "oracle_vectors": "75870e77180d4bc8412555f90c3a7a8a137b2c772cd9358043c97db009b6a213",
+    "contracts": "c0e25a916e7d7fdaa3b4036fc6af8ca78f94437374a0dff08191f1247b6fc9cb",
+    "domain_exports": "8888a165e92a191f87c871d35062857cca18c95accae11672b8a0d314e637603",
+    "tests": "6248619a00d866069d769bda1c06f55ab2dc5e2a9b05842e50879f52db86e073",
+    "runner": "4aeec5a8f85bcb82bccb2c020167481a26913b5ec7d4e8956ae8f9c3e28fb1b5",
+    "result": "f13814dee86a98d75c28b6dc697f29d8b1185208501bd46996f47376abe7c87d",
+    "evidence": "567af2ea7a9669ccbec54b8d667de0be0b56569072697725be4ccacbb32d176f",
+    "protocol_observations": "c212cef6e12fa962f3447ec992840551516281cd90f5af4c08d2f27b556030db",
+    "status": "3dbb09345be9cb74bf1f10a973e1198e377b58b6267a3ae07235616f1d16eee0",
+    "flake_lock": "615cdc38dd9d049eee8775ac67c8297cfd6b362ea044fb446d0a0d84579b7bbe",
+    "pyproject": "aa948b7b9d463cbb0d4fa43a3590593539043ab14608990a95be7ca0bf9050be"
+  },
+  "open_notes": [
+    {
+      "id": "UNICODEDATA_ALLOWLIST",
+      "status": "OPEN_TOOLING_NOTE",
+      "impact_on_H0003": "NON_BLOCKING",
+      "scope": "P1_CLOCK_ENFORCEMENT",
+      "impact_before_P1_PASS": "BLOCKING_UNTIL_ALLOWLIST_DECISION"
+    }
+  ],
+  "claims_not_proven": [
+    "P1_PASS",
+    "spot_ledger_valid",
+    "short_ledger_p1_conformant",
+    "clock_enforcement_valid",
+    "replay_valid",
+    "exchange_fidelity"
+  ]
+}
