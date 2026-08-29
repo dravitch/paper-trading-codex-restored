@@ -1,0 +1,72 @@
+{
+  "claims_not_proven": [
+    "P1_PASS",
+    "long_or_spot_accounting",
+    "partial_close_accounting",
+    "liquidation_or_funding",
+    "multi_position_accounting",
+    "exchange_fidelity"
+  ],
+  "comparisons": {
+    "canonical_ledger_equals_independent_oracle_for_all_cases": true,
+    "executable_oracle_equals_preregistered_expectations": true
+  },
+  "first_run_record_commit": "9eec77fb4cdeb58b16f579959c22003fa734fdf8",
+  "hypothesis_id": "H0002",
+  "inherited_ledger_sha256": "b917433de9661896a1ac0ec74e9c7b2fb2d8a64864736e48d1ae4161286cf6bc",
+  "ledger_modified_for_h0002": false,
+  "oracle_forbidden_input": "ORACLE_EXPECTATIONS.json",
+  "oracle_input": "SCENARIO_FAMILY.json",
+  "preregistration_commit": "1d63024aee44e56c236d5bc67b3128f03994aa92",
+  "producer_code_commit": "da720db01f0a10554efc3dc75185d9d804899c68",
+  "scenario_count": 5,
+  "scenario_projection_sha256": "3db37271090c2eb96ee33875dac59cdfe4c64cc1dff369ee676c1e93249ef36b",
+  "scenario_projections": {
+    "FLAT_HIGH_FEES": {
+      "entry_fee_usd": "3/5",
+      "exit_fee_usd": "6/5",
+      "final_collateral_sol": "4991/500",
+      "gross_pnl_usd": "0",
+      "margin_usd": "300",
+      "net_pnl_usd": "-6/5",
+      "quantity_sol": "6"
+    },
+    "LARGE_WIN": {
+      "entry_fee_usd": "3/5",
+      "exit_fee_usd": "33/10",
+      "final_collateral_sol": "47923/2200",
+      "gross_pnl_usd": "200",
+      "margin_usd": "960",
+      "net_pnl_usd": "1967/10",
+      "quantity_sol": "20"
+    },
+    "LOSS_STANDARD": {
+      "entry_fee_usd": "3/10",
+      "exit_fee_usd": "63/100",
+      "final_collateral_sol": "67937/7000",
+      "gross_pnl_usd": "-30",
+      "margin_usd": "300",
+      "net_pnl_usd": "-3063/100",
+      "quantity_sol": "6"
+    },
+    "SMALL_FRACTIONAL": {
+      "entry_fee_usd": "3/40",
+      "exit_fee_usd": "12/35",
+      "final_collateral_sol": "137301/14000",
+      "gross_pnl_usd": "-15",
+      "margin_usd": "150",
+      "net_pnl_usd": "-537/35",
+      "quantity_sol": "3"
+    },
+    "WIN_STANDARD": {
+      "entry_fee_usd": "3/10",
+      "exit_fee_usd": "27/50",
+      "final_collateral_sol": "31973/3000",
+      "gross_pnl_usd": "60",
+      "margin_usd": "300",
+      "net_pnl_usd": "2973/50",
+      "quantity_sol": "6"
+    }
+  },
+  "schema_version": 1
+}
