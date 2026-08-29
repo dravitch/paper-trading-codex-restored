@@ -5,7 +5,7 @@
   "base_commit": "7c322a812cc7308d1045c53bd34fa854d0e5bbb4",
   "hypothesis_commit": "39932a964391388ef815143c462428d9b1676a2f",
   "producer_code_commit": "2ae00f9d4405cfcbdfee5bf9c2187bf572b7dca4",
-  "producer_evidence_commit": null,
+  "producer_evidence_commit": "f49d0c15cb9b36523cda6e6d6e2885f88c6917f7",
   "inputs": [
     {
       "path": "docs/fusion/hypotheses/H0001/HYPOTHESIS.md",

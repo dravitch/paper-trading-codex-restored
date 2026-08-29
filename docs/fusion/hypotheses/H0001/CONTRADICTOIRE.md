@@ -3,5 +3,5 @@
 `NOT_STARTED`
 
 Le premier verdict sera produit dans un contexte indépendant sur le commit Producteur
-`a207dd8318360e759c32442223641e7c2d0b3895`, sans lecture du verdict Critique. Aucun
+`f49d0c15cb9b36523cda6e6d6e2885f88c6917f7`, sans lecture du verdict Critique. Aucun
 verdict n'est préattribué.

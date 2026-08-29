@@ -38,8 +38,8 @@ La reprise contrôlée `REV11bis`, scientifiquement identique à la version fina
 H0001 part du handoff post-P0 `7c322a8`. L'hypothèse et l'oracle ont précédé le code. Le
 Producteur observe une égalité rationnelle exacte sur six états, une concordance séparée
 avec la projection P0, sept mutants rejetés, 80 tests globaux et 89,53 % de couverture. Le
-dossier Producteur actualisé reste `IN_REVIEW`; ce résultat ne vaut ni validation H0001 ni
-`P1 PASS`.
+dossier Producteur actualisé est figé au commit `f49d0c1` et reste `IN_REVIEW`; ce résultat
+ne vaut ni validation H0001 ni `P1 PASS`.
 
 ## État des branches
 
@@ -57,7 +57,7 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 
 ## Prochaine étape contrôlée
 
-1. transmettre le commit Producteur `a207dd8` séparément à la Critique puis à la Contradictoire, sans revue intermédiaire;
+1. transmettre le commit Producteur `f49d0c1` séparément à la Critique puis à la Contradictoire, sans revue intermédiaire;
 2. soumettre les deux verdicts et leurs limites à l'admission humaine;
 3. ne pas ouvrir H0002, P2 ou reprendre P6 dans la mission H0001.
 
