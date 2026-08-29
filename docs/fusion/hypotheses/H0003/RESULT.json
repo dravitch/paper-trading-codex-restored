@@ -35,11 +35,22 @@
       "sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"
     }
   },
+  "correction_regressions": {
+    "C4_DURATION_BOOL": true,
+    "C4_INSTANT_STR": true,
+    "F1_FEE_BOOL": true,
+    "F1_MULTIPLIER_BOOL": true,
+    "F1_PRICE_BINARY64": true,
+    "F1_QUANTITY_BINARY64": true,
+    "F2_MARKET_PRICE_OFF_GRID": true
+  },
+  "human_rejection_decision_commit": "426781e",
   "hypothesis_id": "H0003",
   "normative_addendum_commit": "d817a1642f7123ac367f7b0b7c03186b2d161925",
   "normative_decision_commit": "0fe56109974790792eeaf39e341386164af36822",
   "previous_blocked_preregistration": "ed2731da82326cf938b3634670e7cd1f6e50445f",
-  "producer_code_commit": "9a8f318c60e82d97eff74a3fb36f532780a718bf",
+  "producer_code_commit": "729a138a6db010ac320ff9d056e9591f336f8575",
   "ready_preregistration_commit": "be6678a562f77587af6f52ee7607d1a89fa674c1",
+  "rejected_packet_commit": "44893b0061f13e8a03c4a27f4d299b8b65b5943c",
   "schema_version": 1
 }

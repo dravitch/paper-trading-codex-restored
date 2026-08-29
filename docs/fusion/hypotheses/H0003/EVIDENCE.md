@@ -65,7 +65,7 @@ rejette le surrogate avec `UNICODE_SURROGATE_INVALID` et les collisions NFC avec
 Cette correction implémente une règle canonique déjà normative; elle n'ajoute aucune
 convention H0003.
 
-## Résultat matérialisé
+## Premier résultat matérialisé — paquet rejeté
 
 ```text
 nix develop --command python -m tests.hypotheses.H0003.run_experiment \
@@ -74,17 +74,51 @@ sha256sum docs/fusion/hypotheses/H0003/RESULT.json
 → f13814dee86a98d75c28b6dc697f29d8b1185208501bd46996f47376abe7c87d
 ```
 
-`RESULT.json` référence le code exécuté
+Ce résultat est désormais conservé sans modification dans
+`RESULT_REJECTED_44893B0.json`. Il référence le code exécuté
 `9a8f318c60e82d97eff74a3fb36f532780a718bf`. Les cinq JSON/hashes et les cinq
-round-trips concordent exactement.
+round-trips concordent exactement, mais les deux revues ont rejeté le paquet `44893b0` :
+les validations temporelles n'étaient pas exécutables, `bool`/binary64 étaient coercis
+en rationnels et le prix de `MarketEvent` n'était pas validé contre la grille instrument.
+
+## Cycle correctif admis R1–R3
+
+La décision humaine `426781e` admet les deux `REJECT` sans classer l'hypothèse
+existentielle comme réfutée. Le correctif `34dc2b7` reste strictement dans H0003 :
+
+- `InstantNs` et `DurationNs` sont des types d'exécution rejetant toute valeur dont
+  `type(value) != int`;
+- les rationnels publics acceptent seulement les valeurs exactes `int` ou `Fraction`;
+- `validate_market_event_compatibility` vérifie identité d'instrument et `tick_size`.
+
+Les contre-exemples exacts des rapports sont devenus des régressions permanentes :
+`InstantNs("not-an-int")`, `DurationNs(True)`, multiplicateur booléen, quantité `0.1`,
+prix `100.005`, frais `False` et prix événement `20001/200` contre un tick `1/100`.
+
+Le runner `729a138` exécute également ces sept régressions et échoue si l'une d'elles ne
+produit pas son code de rejet attendu. L'ancien résultat reste bit-exact :
+
+```text
+sha256sum RESULT_REJECTED_44893B0.json
+→ f13814dee86a98d75c28b6dc697f29d8b1185208501bd46996f47376abe7c87d
+```
+
+Le nouveau résultat est produit depuis `729a138` :
+
+```text
+nix develop --command python -m tests.hypotheses.H0003.run_experiment \
+  --output docs/fusion/hypotheses/H0003/RESULT.json
+sha256sum docs/fusion/hypotheses/H0003/RESULT.json
+→ 7acb225a68c0d77ba4ed42dd3f435e1bc93ee24d1a32a66b22fc593c01ef5dd2
+```
 
 ## Non-régression globale
 
 ```text
 nix develop --command just check
 → Ruff OK
-→ 125 passed
-→ couverture globale 90,92 %
+→ 135 passed
+→ couverture globale 90,97 %
 → contracts.py 95 %
 → ledger.py 100 %
 
@@ -113,7 +147,8 @@ réouverture du résultat comptable H0001/H0002.
 ## Verdict Producteur
 
 ```text
-H0003 = PASS_PENDING_INDEPENDENT_REVIEW
+H0003 = CORRECTED_PACKET_PASS_PENDING_NEW_INDEPENDENT_REVIEW
+rejected_packet_44893b0 = REJECTED
 P1 = NOT_PASSED
 spot_ledger = NOT_PROVEN
 short_ledger_P1_conformance = NOT_PROVEN
