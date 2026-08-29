@@ -13,6 +13,7 @@
 | Préenregistrement précédent | `ed2731da82326cf938b3634670e7cd1f6e50445f` |
 | Statut précédent | `BLOCKED_SPEC_AMBIGUITY` |
 | Décision normative B1–B8 | `0fe56109974790792eeaf39e341386164af36822` |
+| Addendum normatif B5a | `d817a1642f7123ac367f7b0b7c03186b2d161925` |
 | Statut de préimplémentation | `READY_FOR_IMPLEMENTATION` |
 | Code H0003 lors de cet énoncé | aucun |
 
@@ -52,8 +53,8 @@ décision.
 - SHA-256 des sérialisations canoniques d'`InstrumentSpec` et `ReferenceSpec`;
 - unités, devises et discriminants obligatoires;
 - `InstantNs`/`DurationNs` comme entiers signés;
-- ordre local `(event_time, sequence, source_id, event_id)` lorsque ces quatre champs sont
-  définis par le contrat;
+- ordre local `(event_time, sequence, source_id, object_id)`, avec `object_id` défini par
+  B6 selon le type;
 - rejet d'une séquence absente;
 - détection d'identités dupliquées au contenu divergent;
 - A8 : quantités/prix/notionnels/marges/frais non négatifs, mouvements/PnL/deltas signés;
@@ -100,6 +101,7 @@ La décision humaine séparée `0fe5610` les ferme sans effacer cet état histor
 | B6 | `RESOLVED` | ordre local | clé par type; aucun ordre inter-types P1 |
 | B7 | `RESOLVED` | doublons | identité typée, collection explicite, idempotence/divergence fermées |
 | B8 | `RESOLVED` | rationnels JSON | chaîne irréductible `numerator/denominator`, dénominateur positif |
+| B5a | `RESOLVED` | compatibilité de devise des frais | fill = référentiel; référentiel ∈ devises de l'instrument |
 
 Les règles complètes font autorité dans `P1_CANONICAL_CONTRACT_DECISIONS.md`. Aucun code
 n'a été écrit entre la détection et leur décision.
@@ -110,7 +112,8 @@ n'a été écrit entre la détection et leur décision.
 previous_preregistration = ed2731da82326cf938b3634670e7cd1f6e50445f
 previous_status = BLOCKED_SPEC_AMBIGUITY
 normative_decision_commit = 0fe56109974790792eeaf39e341386164af36822
-B1-B8 = RESOLVED
+normative_addendum_commit = d817a1642f7123ac367f7b0b7c03186b2d161925
+B1-B8+B5a = RESOLVED
 implementation_started = false
 oracle_vectors_frozen = true
 oracle_vectors = ORACLE_VECTORS.json
