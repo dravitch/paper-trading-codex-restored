@@ -64,14 +64,17 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `work/continuation-2026-08-28` | dette documentaire P6 | REV13/T1–T3 figés; revue différée avant P6 |
 | `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | H0001 validée avec limites publiées; non fusionnée; P1 non passé |
 | `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
+| `work/p1-capability-gap` | diagnostic documentaire P1 | capability map et gap-to-gate établis; aucune H0003 attribuée |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. créer une branche de travail distincte `work/p1-capability-gap` depuis le commit d'admission H0002;
-2. produire une capability map limitée à P1 à partir des preuves admises H0001 + H0002;
-3. identifier le manque qui bloque réellement P1 avant d'attribuer H0003;
-4. ne pas fusionner H0001/H0002 ni reprendre P2/P6 par contamination de scope.
+1. faire décider le profil minimal P1 exécutable : types requis, portée RFC-005 et questions `UNKNOWN` à trancher;
+2. transformer ce profil en liste fermée de critères et réfutations du gate P1;
+3. attribuer H0003 seulement à l'écart falsifiable prioritaire qui en résulte;
+4. ne pas coder, fusionner H0001/H0002 ni reprendre P2/P6 avant cette décision.
+
+Le diagnostic courant est publié dans [`docs/fusion/P1_CAPABILITY_GAP.md`](docs/fusion/P1_CAPABILITY_GAP.md). Il classe le noyau short full-close `DEMONSTRATED_LIMITED`, mais constate `InstrumentSpec`, événements canoniques, ledger spot, `Clock`, contrôle temporel et preuve intégrée P1 absents. La cause synthétique est `MISSING_EXECUTABLE_CANONICAL_CONTRACTS_AND_SPOT_LEDGER`.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
