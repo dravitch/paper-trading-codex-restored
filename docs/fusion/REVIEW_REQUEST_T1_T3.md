@@ -6,7 +6,7 @@ Le Producteur renseignera ici le commit figé de `REV13.md` avant transmission. 
 porte exclusivement sur ce commit et son delta par rapport à son premier parent.
 
 ```text
-PRODUCTEUR_COMMIT=PENDING
+PRODUCTEUR_COMMIT=01b138eb672882f14a6801c31886bcdca34ef36c
 branche=work/continuation-2026-08-28
 ```
 
@@ -42,4 +42,3 @@ avec commit exact, modèle/session, commandes et codes de sortie, contre-exemple
 verdict unique (`ACCEPT`, `ACCEPT_WITH_LIMITS`, `REJECT` ou `NON_TESTABLE`) et effet
 explicite sur les gates. La Contradictoire fige son premier verdict sans lire celui de la
 Critique. L'admission reste une décision humaine explicite.
-

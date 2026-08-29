@@ -38,9 +38,9 @@ La reprise contrôlée `REV11bis`, scientifiquement identique à la version fina
 La réponse Producteur T1–T3 est maintenant documentée dans `REV13.md` : engagement
 pré-run séparé du manifeste post-run, contrôle de tous les merges transparents sur la
 première parenté et index injectif de consommation des décisions. Son statut est
-`RESOLVED_SPEC_PENDING_REVIEW`; la demande `REVIEW_REQUEST_T1_T3.md` doit être figée sur le
-commit Producteur puis confiée séparément aux rôles Critique et Contradictoire. Aucun gate
-n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
+`RESOLVED_SPEC_PENDING_REVIEW`; la demande `REVIEW_REQUEST_T1_T3.md` est figée sur le commit
+Producteur `01b138e` et doit être confiée séparément aux rôles Critique et Contradictoire.
+Aucun gate n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
 
 ## État des branches
 
@@ -57,9 +57,8 @@ Quatre branches réelles existent localement et sur le dépôt distant :
 
 ## Prochaine étape contrôlée
 
-1. figer le commit Producteur de `REV13.md` dans `REVIEW_REQUEST_T1_T3.md`;
-2. obtenir séparément les verdicts Critique et Contradictoire sur T1–T3, puis l'admission humaine;
-3. attribuer `H0001`, écrire son énoncé préalable et ouvrir seulement alors la branche `hypothesis/H0001-*`;
-4. implémenter tests, oracles et manifestes avant toute revendication de `PASS`.
+1. obtenir séparément les verdicts Critique et Contradictoire sur T1–T3, puis l'admission humaine;
+2. attribuer `H0001`, écrire son énoncé préalable et ouvrir seulement alors la branche `hypothesis/H0001-*`;
+3. implémenter tests, oracles et manifestes avant toute revendication de `PASS`.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.

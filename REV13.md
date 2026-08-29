@@ -70,4 +70,3 @@ P6 n'existe pas.
 - T3 : `RESOLVED_SPEC_PENDING_REVIEW`;
 - P6 : `BLOCKED_IMMUTABILITY`;
 - gates franchis par cette réponse : aucun.
-
