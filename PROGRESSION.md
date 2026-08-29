@@ -1,6 +1,6 @@
 # Progression de la fusion contrôlée
 
-## Situation au 2026-08-28
+## Situation au 2026-08-29
 
 Les dépôts `paper-trading-codex-restored` et `bitget-paper-trading` ont été comparés. La fusion directe a été rejetée au profit d'une plateforme de paper trading indépendante des fournisseurs, fondée sur des contrats canoniques, un replay déterministe, des oracles indépendants et une cartographie du risque sans promesse de performance.
 
@@ -19,7 +19,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 | Gate | Objet | État |
 |---|---|---|
 | P0 | baselines | `CLOSED_WITH_DEBT` — rescoping immuabilité vers P6/P7; 68/68 restored, 9/9 bitget, revues admises; dette : preuve d'immuabilité distante et oracles O2/O4/O7 (scope P6/P7) |
-| P1 | domaine canonique et ledgers | H0001 validée avec limites; H0002 Producteur complète sur cinq shorts, revues non commencées; gate non franchi |
+| P1 | domaine canonique et ledgers | H0001 et H0002 validées avec limites publiées; capability map requise; gate non franchi |
 | P2 | replay unique déterministe | non commencé |
 | P3 | portage contrôlé des stratégies | non commencé |
 | P4 | adaptateurs fournisseurs | non commencé |
@@ -48,28 +48,30 @@ et ses attendus rationnels ont été préenregistrés au commit `1d63024`. Le le
 inchangé (`b917433d…f6bc`), a passé directement le premier run `7/7`; après ajout des
 falsifications, le paquet Producteur rapporte `16/16`, cinq corruptions comptables et trois
 dérives de plan rejetées, puis `96/96` tests globaux et 89,53 % de couverture. Le résultat
-reste `PASS_PENDING_INDEPENDENT_REVIEW`; H0002 n'est ni admise ni une preuve de `P1 PASS`.
+avait le statut Producteur `PASS_PENDING_INDEPENDENT_REVIEW`. Les deux revues séparées ont
+conclu `ACCEPT_WITH_LIMITS` et sont ancrées au commit `5658a8b`, puis admises humainement.
+H0002 est `VALIDATED_WITH_PUBLISHED_LIMITS`; elle n'est pas une preuve de `P1 PASS`.
 
 ## État des branches
 
 La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 
-| Branche | Rôle | État au 2026-08-28 |
+| Branche | Rôle | État au 2026-08-29 |
 |---|---|---|
 | `main` | baseline publiable | aucune fusion contrôlée reçue |
 | `fusion/controlled-merger` | destination d'intégration | attend la fermeture des gates requis |
 | `correction/reconcile-l1-l12` | consolidation documentaire achevée | cycle S1–S4 cloturé; dettes T1/T2/T3 ouvertes pour contrôleur futur |
 | `work/continuation-2026-08-28` | dette documentaire P6 | REV13/T1–T3 figés; revue différée avant P6 |
 | `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | H0001 validée avec limites publiées; non fusionnée; P1 non passé |
-| `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | paquet Producteur complet; premier run sans correction; revues non commencées |
+| `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. geler le paquet Producteur H0002 sans corriger le ledger après résultat;
-2. transmettre ce paquet séparément à la Critique puis à la Contradictoire seulement après décision explicite;
-3. après admission éventuelle, refaire une capability map P1 avant de choisir H0003;
-4. ne pas confondre H0002 avec `P1 PASS` ni reprendre P2/P6 par contamination de scope.
+1. créer une branche de travail distincte `work/p1-capability-gap` depuis le commit d'admission H0002;
+2. produire une capability map limitée à P1 à partir des preuves admises H0001 + H0002;
+3. identifier le manque qui bloque réellement P1 avant d'attribuer H0003;
+4. ne pas fusionner H0001/H0002 ni reprendre P2/P6 par contamination de scope.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
