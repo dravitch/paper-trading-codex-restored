@@ -1,0 +1,99 @@
+{
+  "chain": [
+    "independent_fraction_oracle",
+    "pre_registered_expectations",
+    "canonical_ledger",
+    "exact_comparison",
+    "separate_p0_projection_comparison"
+  ],
+  "claims_not_proven": [
+    "P1_PASS",
+    "strategy_equivalence",
+    "exchange_fidelity",
+    "multi_period_replay",
+    "financial_performance"
+  ],
+  "comparisons": {
+    "canonical_ledger_equals_independent_oracle": true,
+    "h0001_projection_matches_p0_observation": true,
+    "p0_projection_abs_tol": "5e-13"
+  },
+  "exact_projection": {
+    "entry_fee_usd": "3/10",
+    "exit_fee_usd": "63/100",
+    "final_collateral_sol": "67937/7000",
+    "gross_pnl_usd": "-30",
+    "margin_usd": "300",
+    "net_pnl_usd": "-3063/100",
+    "quantity_sol": "6",
+    "total_fees_usd": "93/100"
+  },
+  "hypothesis_id": "H0001",
+  "oracle_forbidden_input": "P0_OBSERVED_PROJECTION.json",
+  "oracle_input": "SCENARIO.json",
+  "producer_code_commit": "19a565a5728656afb929a385a85c9ef4e2ea5d95",
+  "schema_version": 1,
+  "state_projection": [
+    {
+      "active_positions": 0,
+      "collateral_sol": "10",
+      "event_kind": "INITIALIZE_COLLATERAL",
+      "fees_usd": "0",
+      "position_margin_usd": "0",
+      "position_quantity_sol": "0",
+      "realized_price_pnl_usd": "0",
+      "sequence": 1
+    },
+    {
+      "active_positions": 1,
+      "collateral_sol": "9997/1000",
+      "event_kind": "OPEN_SHORT",
+      "fees_usd": "3/10",
+      "position_margin_usd": "300",
+      "position_quantity_sol": "6",
+      "realized_price_pnl_usd": "0",
+      "sequence": 2
+    },
+    {
+      "active_positions": 1,
+      "collateral_sol": "9997/1000",
+      "event_kind": "OBSERVE",
+      "fees_usd": "3/10",
+      "position_margin_usd": "300",
+      "position_quantity_sol": "6",
+      "realized_price_pnl_usd": "0",
+      "sequence": 3
+    },
+    {
+      "active_positions": 1,
+      "collateral_sol": "9997/1000",
+      "event_kind": "OBSERVE",
+      "fees_usd": "3/10",
+      "position_margin_usd": "300",
+      "position_quantity_sol": "6",
+      "realized_price_pnl_usd": "0",
+      "sequence": 4
+    },
+    {
+      "active_positions": 1,
+      "collateral_sol": "9997/1000",
+      "event_kind": "OBSERVE",
+      "fees_usd": "3/10",
+      "position_margin_usd": "300",
+      "position_quantity_sol": "6",
+      "realized_price_pnl_usd": "0",
+      "sequence": 5
+    },
+    {
+      "active_positions": 0,
+      "collateral_sol": "67937/7000",
+      "event_kind": "CLOSE_MTM",
+      "fees_usd": "93/100",
+      "position_margin_usd": "0",
+      "position_quantity_sol": "0",
+      "realized_price_pnl_usd": "-30",
+      "sequence": 6
+    }
+  ],
+  "state_projection_sha256": "0eb6f0b5f5785b5807e3a7e2d6b68eeae1c99ac28fb9de596860d618ccf7dbf5"
+}

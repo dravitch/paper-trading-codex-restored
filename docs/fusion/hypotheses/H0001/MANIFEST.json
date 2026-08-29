@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0001",
+  "branch": "hypothesis/H0001-canonical-ledger-equivalence",
+  "base_commit": "7c322a812cc7308d1045c53bd34fa854d0e5bbb4",
+  "hypothesis_commit": "39932a964391388ef815143c462428d9b1676a2f",
+  "producer_code_commit": "19a565a5728656afb929a385a85c9ef4e2ea5d95",
+  "producer_evidence_commit": null,
+  "inputs": [
+    {
+      "path": "docs/fusion/hypotheses/H0001/HYPOTHESIS.md",
+      "sha256": "2ea862f09b4cd17f9c9be69a621ad17b9c87881e5ab580f4150f24c45a4e77f5"
+    },
+    {
+      "path": "docs/fusion/hypotheses/H0001/SCENARIO.json",
+      "sha256": "1fa9e1c064e573985852764e4aadc55fe705cb6f13f1472ee6504507116176cc"
+    }
+  ],
+  "historical_comparison": {
+    "path": "docs/fusion/hypotheses/H0001/P0_OBSERVED_PROJECTION.json",
+    "sha256": "b479c9d6a3c9384e71dd7553538b92ac02291409138eefbcb0bd8c8ecc00e94b",
+    "p0_result_sha256": "fc3531b6e5f02ec9461126ed1e29451192d0478b29b976b58a6633c00c585491"
+  },
+  "code": [
+    {
+      "path": "paper_trading_codex/domain/ledger.py",
+      "sha256": "cc036dc576550e33e3762fd0f4ba8a24c8613701023ea44244d9483e2e9f5c83"
+    },
+    {
+      "path": "tests/hypotheses/H0001/oracle.py",
+      "sha256": "18cad81f91bcd2202a9202df9362b0306d6f7e2e8fd3d64fb6001c7ce6ac6fb4"
+    },
+    {
+      "path": "tests/hypotheses/H0001/test_canonical_ledger_equivalence.py",
+      "sha256": "d0b869944bfc592574b3a5d1dccb7d5ebbefbb0c45991c91cbd422e6c805724e"
+    },
+    {
+      "path": "tests/hypotheses/H0001/run_experiment.py",
+      "sha256": "cdb907f934e87308c8c1cb58760cf330ee8d8496656c7ff02a4416eff48dda38"
+    }
+  ],
+  "environment": {
+    "kind": "nix-flake",
+    "python": "3.12.12",
+    "pytest": "8.4.2",
+    "pytest_cov_plugin": "6.2.1",
+    "coverage": "7.13.2",
+    "ruff": "0.15.0",
+    "flake_lock_sha256": "615cdc38dd9d049eee8775ac67c8297cfd6b362ea044fb446d0a0d84579b7bbe",
+    "pyproject_sha256": "aa948b7b9d463cbb0d4fa43a3590593539043ab14608990a95be7ca0bf9050be"
+  },
+  "commands": [
+    "nix develop --command pytest tests/hypotheses/H0001 -vv",
+    "nix develop --command python -m tests.hypotheses.H0001.run_experiment --producer-code-commit 19a565a5728656afb929a385a85c9ef4e2ea5d95 --output docs/fusion/hypotheses/H0001/RESULT.json",
+    "nix develop --command just check",
+    "nix develop --command python scripts/update_status.py --check"
+  ],
+  "result": {
+    "status": "PASS_PENDING_INDEPENDENT_REVIEW",
+    "h0001_tests": 10,
+    "full_tests": 78,
+    "full_coverage_percent": "89.43",
+    "required_mutants_rejected": 6,
+    "result_path": "docs/fusion/hypotheses/H0001/RESULT.json",
+    "result_sha256": "caccc8bc9252027f0a23a15e498d1d2083349cd0b238fb81d44b76db99b42981"
+  },
+  "gate_effect": {
+    "P1": "NOT_PASSED",
+    "P6": "OUT_OF_SCOPE"
+  }
+}
