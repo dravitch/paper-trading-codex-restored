@@ -78,9 +78,37 @@ Cette erreur survient avant allocation de `occurrence_id`, `cycle_id`, famille o
 
 #### Rapport de validation d'entrée
 
-Chaque run écrit exactement un artefact `reports/input_validation/<run_id>.json`, où `run_id` est l'identifiant déterministe préenregistré dans le manifeste avant exécution et satisfait `^RUN-[0-9a-f]{16}$`. La racine contient exactement `{schema_version,run_id,rejections}` avec `schema_version: 1`. Chaque rejet contient exactement `{input_sha256,code}`; `input_sha256` est le SHA-256 des octets reçus avant décodage et `code` vaut ici `NON_CANONICAL_CAUSAL_JSON`. Les rejets sont triés par `input_sha256`, sans doublon. Les octets rejetés, leur décodage et toute donnée sensible sont absents du rapport.
+Chaque run possède d'abord un engagement pré-run immuable
+`reports/runs/<run_id>/PRE_RUN.json`. Il est créé et ancré dans un commit Git strictement
+antérieur à l'exécution. Sa racine fermée contient exactement
+`{schema_version,run_id,evaluated_commit,input_manifest_sha256,config_sha256,seed}` avec
+`schema_version: 1`; `run_id` satisfait `^RUN-[0-9a-f]{16}$`, `evaluated_commit` satisfait
+`[0-9a-f]{40}`, les deux empreintes satisfont `[0-9a-f]{64}` et `seed` est un entier JSON.
+`run_id` est constitué des 16 premiers caractères du SHA-256 de la sérialisation canonique
+des cinq autres champs. Une collision avec un run déjà ancré rend le nouveau run
+`NON_TESTABLE`; aucun suffixe opportuniste n'est permis.
 
-Le manifeste du run contient le chemin et le SHA-256 de ce rapport, y compris lorsque `rejections` est vide. Une reproduction avec mêmes octets d'entrée et même manifeste doit produire le même rapport octet pour octet. Chemin absent, hash divergent, champ inconnu, doublon, mauvais ordre ou contenu brut recopié rend le run `NON_TESTABLE` avec `INPUT_VALIDATION_REPORT_INVALID`; cet échec de preuve ne crée pas un cycle métier.
+L'exécution écrit ensuite exactement un artefact
+`reports/input_validation/<run_id>.json`. La racine contient exactement
+`{schema_version,run_id,rejections}` avec `schema_version: 1`. Chaque rejet contient
+exactement `{input_sha256,code}`; `input_sha256` est le SHA-256 des octets reçus avant
+décodage et `code` vaut ici `NON_CANONICAL_CAUSAL_JSON`. Les rejets sont triés par
+`input_sha256`, sans doublon. Les octets rejetés, leur décodage et toute donnée sensible
+sont absents du rapport.
+
+Après exécution, `reports/runs/<run_id>/MANIFEST.json` contient exactement
+`{schema_version,run_id,pre_run_path,pre_run_sha256,input_validation_path,input_validation_sha256}`
+avec `schema_version: 1`. Les chemins sont exactement ceux définis ci-dessus et les hashes
+portent sur leurs octets. Ce manifeste est une annexe post-run : il ne prétend jamais avoir
+existé avant le rapport. Le manifeste P6 référence son chemin et son SHA-256; il référence
+aussi le commit d'ancrage et le SHA-256 de `PRE_RUN.json`. Modifier ou créer
+`PRE_RUN.json` après le début du run, omettre un des deux manifestes, ou faire diverger un
+chemin/hash rend le run `NON_TESTABLE` avec `INPUT_VALIDATION_REPORT_INVALID`.
+
+Une reproduction avec mêmes octets d'entrée et même engagement pré-run doit produire le
+même rapport octet pour octet. Chemin absent, hash divergent, champ inconnu, doublon,
+mauvais ordre ou contenu brut recopié rend le run `NON_TESTABLE` avec
+`INPUT_VALIDATION_REPORT_INVALID`; cet échec de preuve ne crée pas un cycle métier.
 
 La priorité est fermée lorsque plusieurs défauts semblent applicables :
 
@@ -98,7 +126,7 @@ Les deux occurrences existent, sont distinctes et `replacement_occurrence_id` es
 
 La source machine des décisions est [`OPERATOR_SUPERSESSION_DECISIONS.json`](OPERATOR_SUPERSESSION_DECISIONS.json). Elle contient exactement `{schema_version:1,records:[...]}`. Chaque record contient exactement `{decision_id,action,superseded_occurrence_id,reason_code}`; `decision_id` suit `^DEC-[0-9]{6}$`, domaine `DEC-000001`–`DEC-999999`, séquence contiguë sans trou ni doublon; `action` vaut exactement `APPROVE_SUPERSESSION`; l'occurrence et la raison suivent les domaines définis ici. Les records sont append-only et immuables.
 
-Au `decision_commit`, le contrôleur exige que le diff avec son premier parent ajoute exactement le record invoqué sans modifier ni retirer un record antérieur. Ce record doit nommer le même `superseded_occurrence_id` et le même `reason_code` que la supersession. Il ne peut être consommé que par une supersession. Commit sans ajout, décision située seulement dans un message Git ou un Markdown, action différente, raison divergente, occurrence divergente, réutilisation ou mutation ultérieure produit `REGISTRY_HISTORY_VIOLATION`. L'identité humaine qui autorise le commit reste une preuve procédurale externe; le JSON prouve seulement la décision versionnée et son contenu mécanique.
+Au `decision_commit`, le contrôleur exige que le diff avec son premier parent ajoute exactement le record invoqué sans modifier ni retirer un record antérieur. Ce record doit nommer le même `superseded_occurrence_id` et le même `reason_code` que la supersession. Il ne peut être consommé que par une supersession. Le contrôleur construit sur l'ensemble du tableau `supersessions` un index `decision_commit → supersession_id` et exige qu'il soit injectif : deux supersessions référençant le même `decision_commit` sont invalides, même si leurs occurrences ou raisons diffèrent. Commit sans ajout, décision située seulement dans un message Git ou un Markdown, action différente, raison divergente, occurrence divergente, réutilisation ou mutation ultérieure produit `REGISTRY_HISTORY_VIOLATION`. L'identité humaine qui autorise le commit reste une preuve procédurale externe; le JSON prouve seulement la décision versionnée et son contenu mécanique.
 
 L'ancienne occurrence demeure immuable dans `occurrences`, compte toujours dans `len(occurrences)` et son statut dérivé est terminal `SUPERSEDED`. Une occurrence possède au plus une supersession entrante et une sortante; la chaîne est acyclique. Le remplacement a son propre hash et ne masque aucun cycle. Supprimer l'événement, réutiliser un ID, référencer une occurrence absente ou créer une branche/cycle produit `REGISTRY_HISTORY_VIOLATION`.
 

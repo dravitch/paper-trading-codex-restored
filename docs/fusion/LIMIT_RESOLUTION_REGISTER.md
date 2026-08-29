@@ -206,3 +206,15 @@ Voir [`REV11.md`](../../REV11.md). Aucun contrôleur n'est implémenté.
 | S4 | registre machine des décisions de supersession et croisement occurrence/raison | `RESOLVED_SPEC_PENDING_REVIEW` |
 
 Voir [`REV12.md`](../../REV12.md). Aucun contrôleur n'est implémenté et P6 reste `BLOCKED_IMMUTABILITY`.
+
+## Constats T1–T3 sur la réponse S1–S4
+
+| Constat | Réponse Producteur | Statut |
+|---|---|---|
+| T1 | engagement `PRE_RUN.json` ancré avant exécution; manifeste post-run séparé et référencé par P6 | `RESOLVED_SPEC_PENDING_REVIEW` |
+| T2 | contrôle de tous les merges first-parent genesis→E, y compris merge transparent `-s ours` divergent | `RESOLVED_SPEC_PENDING_REVIEW` |
+| T3 | index injectif `decision_commit → supersession_id` sur toutes les supersessions | `RESOLVED_SPEC_PENDING_REVIEW` |
+
+Voir [`REV13.md`](../../REV13.md). Ces corrections sont documentaires; aucun contrôleur
+n'est implémenté, aucun mutant n'a encore été exécuté et P6 reste
+`BLOCKED_IMMUTABILITY`.

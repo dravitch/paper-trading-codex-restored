@@ -78,4 +78,6 @@ Avant ce contrôle, une preuve d'immuabilité conforme au registre d'admission d
 
 Mutations obligatoires : élever pending vers accepté sans rapport; substituer le rapport d'un autre oracle; modifier un octet du rapport; recalculer seulement le hash courant; changer le commit examiné ou d'admission; transformer `REJECT`/`NON_TESTABLE` en accepté. Chacune doit échouer.
 
-Tout run P6 référence également le rapport de validation d'entrée, même vide, défini dans `CAUSAL_ID_REGISTRY.md`. Toute supersession référence un record exact de `OPERATOR_SUPERSESSION_DECISIONS.json` ajouté dans un commit strictement antérieur. Une preuve seulement narrative ou située dans le même commit que la supersession est invalide.
+Tout run P6 référence également l'engagement `PRE_RUN.json`, son commit d'ancrage strictement antérieur à l'exécution, le manifeste post-run et le rapport de validation d'entrée, même vide, définis dans `CAUSAL_ID_REGISTRY.md`. Toute supersession référence un record exact de `OPERATOR_SUPERSESSION_DECISIONS.json` ajouté dans un commit strictement antérieur, et aucun `decision_commit` ne peut être consommé par deux supersessions. Une preuve seulement narrative ou située dans le même commit que la supersession est invalide.
+
+Le contrôleur parcourt tous les merges de la première parenté depuis la genesis de chaque registre machine jusqu'au commit évalué, et pas seulement les commits retournés par un historique limité au chemin. Un merge transparent dont un parent secondaire porte un blob divergent bloque P6.

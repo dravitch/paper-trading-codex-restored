@@ -1,6 +1,6 @@
 # Progression de la fusion contrôlée
 
-## Situation au 2026-08-19
+## Situation au 2026-08-28
 
 Les dépôts `paper-trading-codex-restored` et `bitget-paper-trading` ont été comparés. La fusion directe a été rejetée au profit d'une plateforme de paper trading indépendante des fournisseurs, fondée sur des contrats canoniques, un replay déterministe, des oracles indépendants et une cartographie du risque sans promesse de performance.
 
@@ -33,25 +33,33 @@ Aucun gate et aucune hypothèse métier ne sont validés. Le code de fusion n'es
 
 La réponse Producteur Q1–Q4 est ancrée au commit `3876fce`. La première tentative d'admission de `REV11` (`a837cea`) est invalide : l'opérateur avait admis les hashes intermédiaires R1–R4, alors que le commit contenait les blobs finaux S1–S4. L'invalidation est documentée par `3415cb3`; aucune admission REV11 invalide n'a été ajoutée au registre.
 
-La reprise contrôlée `REV11bis`, scientifiquement identique à la version finale S1–S4, a reçu un addendum Contradictoire indépendant et l'admission explicite de l'opérateur. Elle est ancrée au commit `102ce6a`, puis indexée séparément au commit `d8bc959`. Son verdict est `ACCEPT_WITH_LIMITS`. La réponse Producteur S1–S4 (`REV12.md`) a été commitée au `777fc23` et la revue Contradictoire (`CONTRADICTOIRE_DELTA_REV12.md`) a reçu `ACCEPT_WITH_LIMITS` avec trois réserves T1 (manifeste de run), T2 (merge transparent divergent), T3 (unicité de consommation décision). Le cycle S1–S4 est maintenant cloturé. Aucun gate n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
+La reprise contrôlée `REV11bis`, scientifiquement identique à la version finale S1–S4, a reçu un addendum Contradictoire indépendant et l'admission explicite de l'opérateur. Elle est ancrée au commit `102ce6a`, puis indexée séparément au commit `d8bc959`. Son verdict est `ACCEPT_WITH_LIMITS`. La réponse Producteur S1–S4 (`REV12.md`) a été commitée au `777fc23` et la revue Contradictoire (`CONTRADICTOIRE_DELTA_REV12.md`) a reçu `ACCEPT_WITH_LIMITS` avec trois réserves T1 (manifeste de run), T2 (merge transparent divergent), T3 (unicité de consommation décision). Le cycle S1–S4 est clos.
+
+La réponse Producteur T1–T3 est maintenant documentée dans `REV13.md` : engagement
+pré-run séparé du manifeste post-run, contrôle de tous les merges transparents sur la
+première parenté et index injectif de consommation des décisions. Son statut est
+`RESOLVED_SPEC_PENDING_REVIEW`; la demande `REVIEW_REQUEST_T1_T3.md` doit être figée sur le
+commit Producteur puis confiée séparément aux rôles Critique et Contradictoire. Aucun gate
+n'est franchi et P6 reste `BLOCKED_IMMUTABILITY`.
 
 ## État des branches
 
-Trois branches réelles existent localement et sur le dépôt distant :
+Quatre branches réelles existent localement et sur le dépôt distant :
 
 | Branche | Rôle | État au 2026-08-07 |
 |---|---|---|
 | `main` | baseline publiable | aucune fusion contrôlée reçue |
 | `fusion/controlled-merger` | destination d'intégration | attend la fermeture des gates requis |
-| `correction/reconcile-l1-l12` | consolidation documentaire achevée | cycle S1–S4 cloturé; dettes T1/T2/T3 ouvertes pour contrôleur futur |
+| `correction/reconcile-l1-l12` | consolidation documentaire achevée | cycle S1–S4 clos; point de départ de la continuation |
+| `work/continuation-2026-08-28` | réponse documentaire post-REV12 | T1/T2/T3 spécifiées, revue indépendante en attente |
 
-`origin` est un pointeur symbolique vers `origin/main`, pas une quatrième branche. Le dossier non suivi `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
+`origin` est un pointeur symbolique vers `origin/main`, pas une cinquième branche. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. intégrer explicitement les limites S1–S4 dans la spécification ou les classer comme exigences de l'implémentation future;
-2. ouvrir une branche `hypothesis/HNNN-*` pour la première hypothèse exécutable;
-3. implémenter tests, oracles et manifestes avant toute revendication de `PASS`;
-4. obtenir séparément les verdicts Critique et Contradictoire, puis l'admission humaine.
+1. figer le commit Producteur de `REV13.md` dans `REVIEW_REQUEST_T1_T3.md`;
+2. obtenir séparément les verdicts Critique et Contradictoire sur T1–T3, puis l'admission humaine;
+3. attribuer `H0001`, écrire son énoncé préalable et ouvrir seulement alors la branche `hypothesis/H0001-*`;
+4. implémenter tests, oracles et manifestes avant toute revendication de `PASS`.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
