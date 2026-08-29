@@ -9,6 +9,7 @@
 | ID | Branche | Énoncé court | Gate | Critique | Contradictoire | Statut | Commit de fusion |
 |---|---|---|---|---|---|---|---|
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
+| H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | — | — | `DRAFT` | — |
 
 ## Règle
 

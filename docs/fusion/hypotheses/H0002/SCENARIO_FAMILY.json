@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0002",
+  "base_commit": "de946c1aa1a9190aebbd1bcba3116cf9be6d521e",
+  "units": {
+    "capital_and_fees": "USD",
+    "price": "USD/SOL",
+    "collateral_and_quantity": "SOL"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "WIN_STANDARD",
+      "inputs": {"initial_capital_usd":"1000","initial_price_usd_per_sol":"100","margin_fraction":"3/10","leverage":"2","maker_fee_rate":"1/2000","taker_fee_rate":"1/1000","prices_usd_per_sol":["100","97","90"]},
+      "ordered_events": [
+        {"sequence":1,"kind":"INITIALIZE_COLLATERAL","price_usd_per_sol":"100"},
+        {"sequence":2,"kind":"OPEN_SHORT","price_usd_per_sol":"100"},
+        {"sequence":3,"kind":"OBSERVE","price_usd_per_sol":"97"},
+        {"sequence":4,"kind":"OBSERVE","price_usd_per_sol":"90"},
+        {"sequence":5,"kind":"CLOSE_MTM","price_usd_per_sol":"90"}
+      ]
+    },
+    {
+      "scenario_id": "LOSS_STANDARD",
+      "inputs": {"initial_capital_usd":"1000","initial_price_usd_per_sol":"100","margin_fraction":"3/10","leverage":"2","maker_fee_rate":"1/2000","taker_fee_rate":"1/1000","prices_usd_per_sol":["100","102","99","105"]},
+      "ordered_events": [
+        {"sequence":1,"kind":"INITIALIZE_COLLATERAL","price_usd_per_sol":"100"},
+        {"sequence":2,"kind":"OPEN_SHORT","price_usd_per_sol":"100"},
+        {"sequence":3,"kind":"OBSERVE","price_usd_per_sol":"102"},
+        {"sequence":4,"kind":"OBSERVE","price_usd_per_sol":"99"},
+        {"sequence":5,"kind":"OBSERVE","price_usd_per_sol":"105"},
+        {"sequence":6,"kind":"CLOSE_MTM","price_usd_per_sol":"105"}
+      ]
+    },
+    {
+      "scenario_id": "FLAT_HIGH_FEES",
+      "inputs": {"initial_capital_usd":"1000","initial_price_usd_per_sol":"100","margin_fraction":"3/10","leverage":"2","maker_fee_rate":"1/1000","taker_fee_rate":"1/500","prices_usd_per_sol":["100","103","100"]},
+      "ordered_events": [
+        {"sequence":1,"kind":"INITIALIZE_COLLATERAL","price_usd_per_sol":"100"},
+        {"sequence":2,"kind":"OPEN_SHORT","price_usd_per_sol":"100"},
+        {"sequence":3,"kind":"OBSERVE","price_usd_per_sol":"103"},
+        {"sequence":4,"kind":"OBSERVE","price_usd_per_sol":"100"},
+        {"sequence":5,"kind":"CLOSE_MTM","price_usd_per_sol":"100"}
+      ]
+    },
+    {
+      "scenario_id": "SMALL_FRACTIONAL",
+      "inputs": {"initial_capital_usd":"750","initial_price_usd_per_sol":"75","margin_fraction":"1/5","leverage":"3/2","maker_fee_rate":"1/3000","taker_fee_rate":"1/700","prices_usd_per_sol":["75","77","80"]},
+      "ordered_events": [
+        {"sequence":1,"kind":"INITIALIZE_COLLATERAL","price_usd_per_sol":"75"},
+        {"sequence":2,"kind":"OPEN_SHORT","price_usd_per_sol":"75"},
+        {"sequence":3,"kind":"OBSERVE","price_usd_per_sol":"77"},
+        {"sequence":4,"kind":"OBSERVE","price_usd_per_sol":"80"},
+        {"sequence":5,"kind":"CLOSE_MTM","price_usd_per_sol":"80"}
+      ]
+    },
+    {
+      "scenario_id": "LARGE_WIN",
+      "inputs": {"initial_capital_usd":"2400","initial_price_usd_per_sol":"120","margin_fraction":"2/5","leverage":"5/2","maker_fee_rate":"1/4000","taker_fee_rate":"3/2000","prices_usd_per_sol":["120","125","115","110"]},
+      "ordered_events": [
+        {"sequence":1,"kind":"INITIALIZE_COLLATERAL","price_usd_per_sol":"120"},
+        {"sequence":2,"kind":"OPEN_SHORT","price_usd_per_sol":"120"},
+        {"sequence":3,"kind":"OBSERVE","price_usd_per_sol":"125"},
+        {"sequence":4,"kind":"OBSERVE","price_usd_per_sol":"115"},
+        {"sequence":5,"kind":"OBSERVE","price_usd_per_sol":"110"},
+        {"sequence":6,"kind":"CLOSE_MTM","price_usd_per_sol":"110"}
+      ]
+    }
+  ]
+}

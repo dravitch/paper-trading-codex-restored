@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H0002",
+  "arithmetic": "irreducible rational strings",
+  "oracle_must_not_read_this_file": true,
+  "expectations": {
+    "WIN_STANDARD": {"initial_collateral_sol":"10","margin_usd":"300","quantity_sol":"6","entry_fee_usd":"3/10","open_collateral_sol":"9997/1000","gross_pnl_usd":"60","exit_fee_usd":"27/50","net_pnl_usd":"2973/50","close_collateral_delta_sol":"991/1500","final_collateral_sol":"31973/3000"},
+    "LOSS_STANDARD": {"initial_collateral_sol":"10","margin_usd":"300","quantity_sol":"6","entry_fee_usd":"3/10","open_collateral_sol":"9997/1000","gross_pnl_usd":"-30","exit_fee_usd":"63/100","net_pnl_usd":"-3063/100","close_collateral_delta_sol":"-1021/3500","final_collateral_sol":"67937/7000"},
+    "FLAT_HIGH_FEES": {"initial_collateral_sol":"10","margin_usd":"300","quantity_sol":"6","entry_fee_usd":"3/5","open_collateral_sol":"4997/500","gross_pnl_usd":"0","exit_fee_usd":"6/5","net_pnl_usd":"-6/5","close_collateral_delta_sol":"-3/250","final_collateral_sol":"4991/500"},
+    "SMALL_FRACTIONAL": {"initial_collateral_sol":"10","margin_usd":"150","quantity_sol":"3","entry_fee_usd":"3/40","open_collateral_sol":"9999/1000","gross_pnl_usd":"-15","exit_fee_usd":"12/35","net_pnl_usd":"-537/35","close_collateral_delta_sol":"-537/2800","final_collateral_sol":"137301/14000"},
+    "LARGE_WIN": {"initial_collateral_sol":"20","margin_usd":"960","quantity_sol":"20","entry_fee_usd":"3/5","open_collateral_sol":"3999/200","gross_pnl_usd":"200","exit_fee_usd":"33/10","net_pnl_usd":"1967/10","close_collateral_delta_sol":"1967/1100","final_collateral_sol":"47923/2200"}
+  }
+}
