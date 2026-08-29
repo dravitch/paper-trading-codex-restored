@@ -65,17 +65,16 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | H0001 validée avec limites publiées; non fusionnée; P1 non passé |
 | `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
-| `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté par les deux revues; `TESTING / CORRECTION_REQUIRED`; P1 non passé |
+| `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet R1–R3 corrigé gelé et `IN_REVIEW`; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. corriger strictement R1–R3 sur la branche H0003 sans changer B1–B8/B5a;
-2. transformer les contre-exemples publiés en régressions permanentes et conserver l'ancien résultat rejeté;
-3. produire et geler un nouveau paquet complet, puis le transmettre à deux nouvelles revues ayant les anciens `REJECT` comme contexte;
-4. conserver la note `unicodedata` pour le futur enforcement P1 sans la faire contaminer H0003;
-5. ne créer ni H0004 ni hypothèse ledger spot avant une nouvelle décision humaine sur H0003.
+1. transmettre le paquet H0003 corrigé aux deux nouvelles revues avec les anciens `REJECT` comme contexte;
+2. maintenir le nouveau Contradictoire aveugle au nouveau verdict Critique jusqu'à son premier verdict;
+3. conserver la note `unicodedata` pour le futur enforcement P1 sans la faire contaminer H0003;
+4. ne créer ni H0004 ni hypothèse ledger spot avant une nouvelle décision humaine sur H0003.
 
 Le diagnostic courant est publié dans [`docs/fusion/P1_CAPABILITY_GAP.md`](docs/fusion/P1_CAPABILITY_GAP.md). Il classe le noyau short full-close `DEMONSTRATED_LIMITED`, mais constate `InstrumentSpec`, événements canoniques, ledger spot, `Clock`, contrôle temporel et preuve intégrée P1 absents. La cause synthétique est `MISSING_EXECUTABLE_CANONICAL_CONTRACTS_AND_SPOT_LEDGER`.
 
