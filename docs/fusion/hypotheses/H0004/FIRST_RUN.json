@@ -1,0 +1,17 @@
+{
+  "classification": "PASS_BEFORE_MUTANT_INSTRUMENTATION",
+  "command": "nix develop --command pytest tests/hypotheses/H0004/test_minimal_spot_ledger_nominal.py -q",
+  "exit_code": 0,
+  "first_run_commit": "a1374912c4eb233f64566fcc2bc8a443167179ee",
+  "hypothesis_id": "H0004",
+  "implementation_modified_after_first_attempt": false,
+  "result": "2 passed in 0.05s",
+  "schema_version": 1,
+  "sha256": {
+    "independent_oracle": "a86ffe787b03d64d80d48b367cd8824e7baf328ab7e314a62852375f681de0e9",
+    "nominal_tests": "890785999395452176f03407cf5e4bd2ebecb7333ae9866ac7022702da3dd3f5",
+    "oracle_expectations": "b09694b7e556dde82a6eb3c144380afd588345649ca8538cd59f6ed42de9afff",
+    "scenario": "1c6c653a7527d2b377afd9c2e1227c145e057fc79eee9bb516cd46fec2aa9e4d",
+    "spot_ledger": "127dc566d1957863309a264e5960ef40680cfa3de9f153fe0e02a6b63fd8e929"
+  }
+}
