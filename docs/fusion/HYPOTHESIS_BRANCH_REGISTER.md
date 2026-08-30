@@ -11,7 +11,7 @@
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
-| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | correction `NOT_STARTED` | correction `NOT_STARTED` | `IN_REVIEW` | — |
+| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 
 ## Règle
 
@@ -57,3 +57,9 @@ est rejeté mais l'hypothèse de faisabilité reste corrigeable : H0004 revient 
 contre-exemples exacts sont figés dans un nouveau paquet Producteur dont le manifeste est
 ancré à `d60e96a`. H0004 retourne en `IN_REVIEW`; le paquet `5967ee0` reste rejeté et P1
 reste non passé.
+
+Les deux revues corrigées H0004, ancrées à `40ad46b`, ferment F1a/F1b/F2 avec
+`ACCEPT_WITH_LIMITS`. Leur admission est consignée dans
+[`HUMAN_ADMISSION.md`](hypotheses/H0004/HUMAN_ADMISSION.md). H0004 signifie
+`VALIDATED_WITH_PUBLISHED_LIMITS` pour le seul paquet corrigé `5f0253d`; le paquet
+`5967ee0` reste rejeté. Cette admission ne vaut pas `P1 PASS`.

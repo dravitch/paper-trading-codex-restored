@@ -67,15 +67,15 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
 | `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | diagnostic achevé au `9c3b758`; H0004 en descend sans fusion |
-| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | paquet `5967ee0` rejeté; paquet corrigé gelé et `IN_REVIEW`; P1 non passé |
+| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | paquet `5967ee0` rejeté; paquet corrigé `5f0253d` validé avec limites; fermé, non fusionné; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. soumettre le paquet H0004 corrigé aux deux revues séparées;
-2. vérifier explicitement la fermeture F1/F2 sans réhabiliter `5967ee0`;
-3. attendre l'admission humaine des nouveaux rapports avant tout changement de statut;
+1. recalculer la capability map P1 depuis H0001–H0004 admises;
+2. identifier le prochain bloqueur autonome sans créer H0005;
+3. conserver `5967ee0` comme paquet rejeté et les limites H0004 publiées;
 4. conserver la note `unicodedata` dans le futur enforcement P1 et hors H0004.
 
 Le diagnostic courant est publié dans
