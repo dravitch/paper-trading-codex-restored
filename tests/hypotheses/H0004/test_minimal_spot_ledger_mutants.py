@@ -65,8 +65,11 @@ def test_m5_instrument_and_reference_incompatibility_is_rejected():
     instrument, reference, state, fills = _context()
     _code("FILL_INSTRUMENT_INCOMPATIBLE", lambda: apply_fill(
         state, replace(fills[0], instrument_id="BTC-USD-SPOT"), instrument, reference))
+    invalid_reference = replace(reference, instrument_spec_sha256="b" * 64)
+    state_for_invalid_reference = replace(
+        state, reference_spec_sha256=invalid_reference.canonical_sha256())
     _code("REFERENCE_INSTRUMENT_HASH_MISMATCH", lambda: apply_fill(
-        state, fills[0], instrument, replace(reference, instrument_spec_sha256="b" * 64)))
+        state_for_invalid_reference, fills[0], instrument, invalid_reference))
 
 
 def test_m6_m11_omitted_or_doubled_event_breaks_conservation():
@@ -187,6 +190,7 @@ def test_m19_structurally_valid_base_fee_is_spot_unsupported():
     base_reference = replace(reference, fee_settlement_currency="SOL")
     base_fee_fill = replace(fills[0], fee_currency="SOL")
     validate_fill_compatibility(base_fee_fill, instrument, base_reference)
+    state = replace(state, reference_spec_sha256=base_reference.canonical_sha256())
     _code("SPOT_FEE_CURRENCY_UNSUPPORTED", lambda: apply_fill(
         state, base_fee_fill, instrument, base_reference))
 
@@ -197,3 +201,50 @@ def test_contract_inputs_are_canonical_roundtrips():
             contract = _contract(kind, value)
             assert kind.from_canonical_bytes(contract.canonical_bytes()) == contract
             assert canonical_json_bytes(contract.to_canonical_dict()) == contract.canonical_bytes()
+
+
+def test_reviewer_f1a_foreign_coherent_specs_cannot_mutate_state():
+    _, _, state, _ = _context()
+    btc_instrument = _contract(InstrumentSpec, {
+        **SCENARIO["instrument_spec"], "instrument_id": "BTC-USD-SPOT", "base": "BTC",
+    })
+    btc_reference = _contract(ReferenceSpec, {
+        **SCENARIO["reference_spec"],
+        "instrument_id": "BTC-USD-SPOT",
+        "instrument_spec_sha256": btc_instrument.canonical_sha256(),
+    })
+    btc_fill = _contract(Fill, {
+        **SCENARIO["fills"][0], "instrument_id": "BTC-USD-SPOT", "fill_id": "btc-fill",
+        "order_id": "btc-order", "quantity": "1/1", "fee_amount": "0/1",
+    })
+    before = state
+    _code("SPOT_STATE_INSTRUMENT_MISMATCH", lambda: apply_fill(
+        state, btc_fill, btc_instrument, btc_reference))
+    assert state == before
+
+
+def test_reviewer_f1b_alternate_reference_cannot_mutate_state():
+    instrument, reference, state, fills = _context()
+    alternate_reference = replace(reference, numeraire="EUR")
+    before = state
+    _code("SPOT_STATE_REFERENCE_MISMATCH", lambda: apply_fill(
+        state, fills[0], instrument, alternate_reference))
+    assert state == before
+
+
+def test_reviewer_f1_initialization_binds_available_instrument():
+    instrument, _, state, _ = _context()
+    foreign = replace(instrument, instrument_id="BTC-USD-SPOT", base="BTC")
+    event = _contract(AccountEvent, SCENARIO["initialization_events"][0])
+    before = state
+    _code("SPOT_STATE_INSTRUMENT_MISMATCH", lambda: apply_initialization(state, event, foreign))
+    assert state == before
+
+
+def test_reviewer_f2_spot_multiplier_two_is_unsupported():
+    instrument, reference, _, _ = _context()
+    multiplier_two = replace(instrument, contract_multiplier=Fraction(2))
+    matching_reference = replace(
+        reference, instrument_spec_sha256=multiplier_two.canonical_sha256())
+    _code("SPOT_CONTRACT_MULTIPLIER_UNSUPPORTED", lambda: create_spot_account(
+        multiplier_two, matching_reference))

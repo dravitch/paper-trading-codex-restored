@@ -50,6 +50,10 @@ def create_spot_account(
 ) -> SpotAccountState:
     validate_instrument_reference(instrument, reference)
     _require(instrument.instrument_type == "SPOT", "SPOT_INSTRUMENT_TYPE_REQUIRED")
+    _require(
+        instrument.contract_multiplier == 1,
+        "SPOT_CONTRACT_MULTIPLIER_UNSUPPORTED",
+    )
     return SpotAccountState(
         account_model="SPOT_CASH_V1",
         instrument_spec_sha256=instrument.canonical_sha256(),
@@ -79,6 +83,10 @@ def apply_initialization(
     state: SpotAccountState, event: AccountEvent, instrument: InstrumentSpec
 ) -> SpotAccountState:
     _require(state.account_model == "SPOT_CASH_V1", "SPOT_ACCOUNT_MODEL_REQUIRED")
+    _require(
+        state.instrument_spec_sha256 == instrument.canonical_sha256(),
+        "SPOT_STATE_INSTRUMENT_MISMATCH",
+    )
     _require(event.account_model == "SPOT_CASH_V1", "SPOT_ACCOUNT_MODEL_REQUIRED")
     _require(event.kind == "INITIALIZE", "SPOT_INITIALIZATION_EVENT_REQUIRED")
     _require(
@@ -147,13 +155,25 @@ def apply_fill(
 ) -> tuple[SpotAccountState, tuple[AccountEvent, ...]]:
     _validate_fill_progression(state, fill)
     _require(state.account_model == "SPOT_CASH_V1", "SPOT_ACCOUNT_MODEL_REQUIRED")
+    _require(
+        state.instrument_spec_sha256 == instrument.canonical_sha256(),
+        "SPOT_STATE_INSTRUMENT_MISMATCH",
+    )
+    _require(
+        state.reference_spec_sha256 == reference.canonical_sha256(),
+        "SPOT_STATE_REFERENCE_MISMATCH",
+    )
+    _require(
+        instrument.contract_multiplier == 1,
+        "SPOT_CONTRACT_MULTIPLIER_UNSUPPORTED",
+    )
     validate_fill_compatibility(fill, instrument, reference)
     _require(
         fill.fee_currency == instrument.quote,
         "SPOT_FEE_CURRENCY_UNSUPPORTED",
     )
 
-    trade_quote = fill.quantity * fill.price * instrument.contract_multiplier
+    trade_quote = fill.quantity * fill.price
     if fill.side == "BUY":
         base_delta = fill.quantity
         quote_trade_delta = -trade_quote
