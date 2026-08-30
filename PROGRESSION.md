@@ -68,23 +68,22 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
 | `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | diagnostic achevé au `9c3b758`; H0004 en descend sans fusion |
 | `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | paquet `5967ee0` rejeté; paquet corrigé `5f0253d` validé avec limites; fermé, non fusionné; P1 non passé |
+| `work/p1-capability-gap-after-h0004` | recalibration documentaire P1 | diagnostic post-H0004 en cours; aucune H0005 créée |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. recalculer la capability map P1 depuis H0001–H0004 admises;
-2. identifier le prochain bloqueur autonome sans créer H0005;
+1. soumettre à décision humaine le candidat `CANONICAL_SHORT_MODEL_COMPLETION`;
+2. ne créer une nouvelle hypothèse qu'après attribution explicite;
 3. conserver `5967ee0` comme paquet rejeté et les limites H0004 publiées;
 4. conserver la note `unicodedata` dans le futur enforcement P1 et hors H0004.
 
 Le diagnostic courant est publié dans
-[`docs/fusion/P1_CAPABILITY_GAP_AFTER_H0003.md`](docs/fusion/P1_CAPABILITY_GAP_AFTER_H0003.md).
-Il classe `InstrumentSpec`, `ReferenceSpec`, `MarketEvent`, `Fill`, `InstantNs`,
-`DurationNs` et la sérialisation rationnelle canonique `DEMONSTRATED`; `AccountEvent`, le
-modèle short canonique et le port `Clock` restent `PARTIAL`. Le ledger spot, l'enforcement
-temporel et la preuve intégrée P1 restent `ABSENT`. Le premier bloqueur autonome identifié,
-`MINIMAL_SPOT_LEDGER`, est désormais attribué à H0004; son préenregistrement a découvert
-S1–S7 et interdit le code jusqu'à décision normative humaine.
+[`docs/fusion/P1_CAPABILITY_GAP_AFTER_H0004.md`](docs/fusion/P1_CAPABILITY_GAP_AFTER_H0004.md).
+Il classe désormais le socle canonique et `SPOT_CASH_V1` `DEMONSTRATED` dans leurs scopes
+admis. Le modèle short canonique et le port `Clock` restent `PARTIAL`; injection temporelle,
+enforcement AST et preuve intégrée P1 restent `ABSENT`. Le premier bloqueur autonome
+identifié est `CANONICAL_SHORT_MODEL_COMPLETION`; aucune H0005 n'est créée par ce diagnostic.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
