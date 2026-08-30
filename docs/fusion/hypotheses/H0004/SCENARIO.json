@@ -1,0 +1,61 @@
+{
+  "account_model": "SPOT_CASH_V1",
+  "fills": [
+    {
+      "event_time": 2000000000,
+      "fee_amount": "1/10",
+      "fee_currency": "USD",
+      "fill_id": "fill-buy-1",
+      "instrument_id": "SOL-USD-SPOT",
+      "liquidity_role": "TAKER",
+      "order_id": "order-buy-1",
+      "price": "20/1",
+      "quantity": "999/200",
+      "sequence": 1,
+      "side": "BUY",
+      "source_id": "h0004-scenario"
+    },
+    {
+      "event_time": 3000000000,
+      "fee_amount": "999/10000",
+      "fee_currency": "USD",
+      "fill_id": "fill-sell-1",
+      "instrument_id": "SOL-USD-SPOT",
+      "liquidity_role": "TAKER",
+      "order_id": "order-sell-1",
+      "price": "20/1",
+      "quantity": "999/200",
+      "sequence": 2,
+      "side": "SELL",
+      "source_id": "h0004-scenario"
+    }
+  ],
+  "initial_balances": {
+    "base": "0/1",
+    "quote": "100/1"
+  },
+  "instrument_spec": {
+    "base": "SOL",
+    "contract_multiplier": "1/1",
+    "instrument_id": "SOL-USD-SPOT",
+    "instrument_type": "SPOT",
+    "lot_size": "1/1000",
+    "quote": "USD",
+    "rounding_policy": "REJECT_OFF_GRID",
+    "settlement": "USD",
+    "tick_size": "1/100"
+  },
+  "instrument_spec_sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4",
+  "reference_spec": {
+    "fee_settlement_currency": "USD",
+    "instrument_id": "SOL-USD-SPOT",
+    "instrument_spec_sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4",
+    "numeraire": "USD",
+    "numeric_policy": "EXACT_RATIONAL",
+    "rounding_policy": "REJECT_OFF_GRID",
+    "valuation_price": "EVENT_PRICE"
+  },
+  "scenario_id": "SPOT_ROUND_TRIP_CONSTANT_PRICE",
+  "schema_version": 1,
+  "valuation_price": "20/1"
+}

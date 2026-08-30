@@ -1,0 +1,37 @@
+{
+  "account_event_identity_and_order": "UNRESOLVED_SPEC_S1_S2_S3_S5",
+  "after_buy": {
+    "base_balance": "999/200",
+    "equity_quote": "999/10",
+    "quote_balance": "0/1"
+  },
+  "after_sell": {
+    "base_balance": "0/1",
+    "equity_quote": "998001/10000",
+    "quote_balance": "998001/10000"
+  },
+  "event_deltas_determined": {
+    "buy": [
+      {"account": "BASE", "currency": "SOL", "delta": "999/200", "kind": "TRADE"},
+      {"account": "QUOTE", "currency": "USD", "delta": "-999/10", "kind": "TRADE"},
+      {"account": "QUOTE", "currency": "USD", "delta": "-1/10", "kind": "FEE"}
+    ],
+    "sell": [
+      {"account": "BASE", "currency": "SOL", "delta": "-999/200", "kind": "TRADE"},
+      {"account": "QUOTE", "currency": "USD", "delta": "999/10", "kind": "TRADE"},
+      {"account": "QUOTE", "currency": "USD", "delta": "-999/10000", "kind": "FEE"}
+    ]
+  },
+  "fees_by_currency_representation": "UNRESOLVED_SPEC_S4",
+  "fill_reapplication_semantics": "UNRESOLVED_SPEC_S6",
+  "fee_currency_scope": "UNRESOLVED_SPEC_S7",
+  "initial": {
+    "base_balance": "0/1",
+    "equity_quote": "100/1",
+    "quote_balance": "100/1"
+  },
+  "last_event_key": "UNRESOLVED_SPEC_S5",
+  "scenario_id": "SPOT_ROUND_TRIP_CONSTANT_PRICE",
+  "schema_version": 1,
+  "valuation_is_pure": true
+}

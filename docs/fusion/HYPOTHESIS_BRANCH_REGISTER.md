@@ -11,6 +11,7 @@
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
+| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | — | — | `DRAFT` | — |
 
 ## Règle
 
@@ -36,3 +37,9 @@ deux rapports `ACCEPT_WITH_LIMITS`, ancrés à `ec7ae4b`, sont admis dans
 [`HUMAN_ADMISSION.md`](hypotheses/H0003/HUMAN_ADMISSION.md). H0003 signifie donc
 `VALIDATED_WITH_PUBLISHED_LIMITS` pour le paquet corrigé seulement; elle ne vaut pas
 `P1 PASS`.
+
+Le préenregistrement H0004 part du diagnostic post-H0003 `9c3b758`. Les mathématiques et
+le scénario spot sont gelés avant code, mais S1–S7 empêchent encore de produire un état et
+des `AccountEvent` byte-exacts uniques. H0004 est donc `BLOCKED_SPEC_AMBIGUITY` sous le
+statut opérationnel `DRAFT`; aucune implémentation ni revue n'est autorisée avant décision
+humaine normative.

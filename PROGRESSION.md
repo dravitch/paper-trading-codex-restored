@@ -56,7 +56,7 @@ H0002 est `VALIDATED_WITH_PUBLISHED_LIMITS`; elle n'est pas une preuve de `P1 PA
 
 La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 
-| Branche | Rôle | État au 2026-08-29 |
+| Branche | Rôle | État au 2026-08-30 |
 |---|---|---|
 | `main` | baseline publiable | aucune fusion contrôlée reçue |
 | `fusion/controlled-merger` | destination d'intégration | attend la fermeture des gates requis |
@@ -66,24 +66,25 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
-| `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | capability map post-H0003; aucun code et aucune H0004 |
+| `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | diagnostic achevé au `9c3b758`; H0004 en descend sans fusion |
+| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | préenregistré sans code; `BLOCKED_SPEC_AMBIGUITY` S1–S7 |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. faire examiner humainement la capability map P1 post-H0003;
-2. conserver la note `unicodedata` dans le futur enforcement P1;
-3. si le diagnostic est admis, attribuer séparément la prochaine hypothèse au candidat
-   `MINIMAL_SPOT_LEDGER`;
-4. ne créer aucune nouvelle hypothèse avant cette décision.
+1. fermer humainement les ambiguïtés exécutables H0004 S1–S7 sans écrire de code;
+2. conserver le scénario et l'oracle numérique préenregistrés;
+3. reprendre H0004 sur la même branche seulement après ces décisions;
+4. conserver la note `unicodedata` dans le futur enforcement P1 et hors H0004.
 
 Le diagnostic courant est publié dans
 [`docs/fusion/P1_CAPABILITY_GAP_AFTER_H0003.md`](docs/fusion/P1_CAPABILITY_GAP_AFTER_H0003.md).
 Il classe `InstrumentSpec`, `ReferenceSpec`, `MarketEvent`, `Fill`, `InstantNs`,
 `DurationNs` et la sérialisation rationnelle canonique `DEMONSTRATED`; `AccountEvent`, le
 modèle short canonique et le port `Clock` restent `PARTIAL`. Le ledger spot, l'enforcement
-temporel et la preuve intégrée P1 restent `ABSENT`. Le premier bloqueur autonome identifié
-est `MINIMAL_SPOT_LEDGER`, sans hypothèse encore attribuée dans ce diagnostic.
+temporel et la preuve intégrée P1 restent `ABSENT`. Le premier bloqueur autonome identifié,
+`MINIMAL_SPOT_LEDGER`, est désormais attribué à H0004; son préenregistrement a découvert
+S1–S7 et interdit le code jusqu'à décision normative humaine.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
