@@ -11,7 +11,7 @@
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
-| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | `REJECT` | `REJECT` | `TESTING` | — |
+| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | correction `NOT_STARTED` | correction `NOT_STARTED` | `IN_REVIEW` | — |
 
 ## Règle
 
@@ -52,4 +52,8 @@ H0004 est désormais `IN_REVIEW`; `P1` reste non passé.
 Le paquet `5967ee0` a ensuite reçu deux verdicts `REJECT`, admis dans
 [`HUMAN_REJECTION_DECISION.md`](hypotheses/H0004/HUMAN_REJECTION_DECISION.md). Le paquet
 est rejeté mais l'hypothèse de faisabilité reste corrigeable : H0004 revient en
-`TESTING / CORRECTION_REQUIRED` pour F1/F2, sans effet sur P1.
+`TESTING / CORRECTION_REQUIRED` pour F1/F2, sans effet sur P1. La décision humaine
+`f2d45c9` borne ensuite le multiplicateur spot à `1/1`. Les corrections F1/F2 et les
+contre-exemples exacts sont figés dans un nouveau paquet Producteur dont le manifeste est
+ancré à `d60e96a`. H0004 retourne en `IN_REVIEW`; le paquet `5967ee0` reste rejeté et P1
+reste non passé.
