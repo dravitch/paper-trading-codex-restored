@@ -78,6 +78,12 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
    `MINIMAL_SPOT_LEDGER`;
 4. ne créer aucune nouvelle hypothèse avant cette décision.
 
-Le diagnostic courant est publié dans [`docs/fusion/P1_CAPABILITY_GAP.md`](docs/fusion/P1_CAPABILITY_GAP.md). Il classe le noyau short full-close `DEMONSTRATED_LIMITED`, mais constate `InstrumentSpec`, événements canoniques, ledger spot, `Clock`, contrôle temporel et preuve intégrée P1 absents. La cause synthétique est `MISSING_EXECUTABLE_CANONICAL_CONTRACTS_AND_SPOT_LEDGER`.
+Le diagnostic courant est publié dans
+[`docs/fusion/P1_CAPABILITY_GAP_AFTER_H0003.md`](docs/fusion/P1_CAPABILITY_GAP_AFTER_H0003.md).
+Il classe `InstrumentSpec`, `ReferenceSpec`, `MarketEvent`, `Fill`, `InstantNs`,
+`DurationNs` et la sérialisation rationnelle canonique `DEMONSTRATED`; `AccountEvent`, le
+modèle short canonique et le port `Clock` restent `PARTIAL`. Le ledger spot, l'enforcement
+temporel et la preuve intégrée P1 restent `ABSENT`. Le premier bloqueur autonome identifié
+est `MINIMAL_SPOT_LEDGER`, sans hypothèse encore attribuée dans ce diagnostic.
 
 Une revue documentaire ne peut jamais attribuer `PASS` à P1 ou P6. La fusion vers `fusion/controlled-merger`, puis vers `main`, reste interdite tant que les gates correspondants ne sont pas démontrés.
