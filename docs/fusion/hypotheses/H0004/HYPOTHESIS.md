@@ -13,6 +13,63 @@
 | statut | `BLOCKED_SPEC_AMBIGUITY` |
 | P1 | `NOT_PASSED` |
 
+## Troisième préenregistrement après décision humaine S8
+
+```text
+previous_preregistration = 56c5e54ada0e90d449329bf2b3fa4d927d9e947e
+previous_status = BLOCKED_SPEC_AMBIGUITY
+previous_blocker = S8
+normative_decision_S1_S7 = 8aa05bc80416b00a0f66c30f1d3f5238c135ed96
+normative_decision_S8 = cef58c5ad5e81e897148e7786fe80a74eb824c85
+S1-S8 = RESOLVED
+implementation_started = false
+status = READY_FOR_IMPLEMENTATION
+P1 = NOT_PASSED
+```
+
+Histoire préservée :
+
+```text
+044406f → BLOCKED S1–S7
+8aa05bc → S1–S7 décidées
+56c5e54 → BLOCKED S8
+cef58c5 → S8 décidée
+H0004-v3 → READY_FOR_IMPLEMENTATION
+```
+
+S8 retient `STRICTLY_INCREASING_FILL_LOCAL_KEY`. Le premier fill est accepté après les
+inputs `ACCOUNT_EVENT` sans comparaison inter-types. Ensuite le ledger compare uniquement
+les clés locales `Fill` B6 et exige `current > stored`; l'égalité produit
+`SPOT_FILL_REAPPLICATION`, une clé inférieure produit `SPOT_FILL_OUT_OF_ORDER`. Le ledger
+ne trie, ne mémorise et ne réordonne rien.
+
+Le scénario nominal est inchangé : la clé SELL est strictement supérieure à la clé BUY.
+Les six écritures, IDs, balances et fractions restent inchangés. Dans
+`ORACLE_EXPECTATIONS.json`, seule la sémantique S8 remplace le marqueur bloqué. Les tableaux
+d'écritures sont ordonnés par leur clé locale B6 (`account_event_id` départage ici les
+champs temps/séquence/source identiques); cette normalisation applique H0003 et n'ajoute
+aucun ordre économique.
+
+### M18 finalisé avant code
+
+| ID | Falsification | Attendu |
+|---|---|---|
+| M18a | réappliquer immédiatement le dernier fill | `SPOT_FILL_REAPPLICATION` avant toute vérification de balance |
+| M18b | après SELL, soumettre un BUY inédit de `1/1 SOL` à `20/1 USD/SOL`, frais `1/10 USD`, clé `(2500000000, 99, h0004-scenario, fill-old-applicable)` | `SPOT_FILL_OUT_OF_ORDER`; le compte possède `998001/10000 USD`, donc le fill est économiquement applicable et le rejet isole S8 |
+| M18c | trier silencieusement une collection de fills hors ordre | `FAIL` |
+| M18d | ajouter `seen_fill_ids`, cache, singleton ou registre caché | `FAIL` |
+| M18e | remplacer `last_event_key` par une écriture dérivée et perdre la comparaison du fill suivant | `FAIL` |
+
+### Audit final de suffisance
+
+Les balances, écritures, IDs, provenances, ordre local des collections, état sérialisé,
+devise de frais, initialisation, cumul des frais, valorisation, consommation monotone et
+rejets S8 sont désormais déterminés par le profil P1, H0003 et S1–S8. Aucun S9 modifiant
+ces observables n'est nécessaire pour commencer l'implémentation minimale.
+
+Ce statut autorise seulement la future phase Producteur H0004. Il ne constitue ni une
+exécution, ni une revue, ni `P1 PASS`.
+
 ## Second préenregistrement après décision humaine S1–S7
 
 ```text

@@ -11,7 +11,7 @@
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
-| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | — | — | `DRAFT` | — |
+| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | — | — | `TESTING` | — |
 
 ## Règle
 
@@ -42,5 +42,7 @@ Le préenregistrement H0004 part du diagnostic post-H0003 `9c3b758`. Les mathém
 le scénario spot ont été gelés avant code à `044406f`. La décision humaine `8aa05bc` ferme
 S1–S7 et permet de regeler les écritures et états exacts, mais le second préenregistrement
 identifie S8 : détecter toute réapplication sans mémoire cachée exige une règle de
-progression des fills encore absente. H0004 reste `BLOCKED_SPEC_AMBIGUITY` sous le statut
-opérationnel `DRAFT`; aucune implémentation ni revue n'est autorisée avant décision S8.
+progression des fills. La décision humaine `cef58c5` ferme S8 par progression strictement
+croissante des clés locales `Fill`. Le troisième préenregistrement est
+`READY_FOR_IMPLEMENTATION`; H0004 passe au statut opérationnel `TESTING`, sans code encore
+écrit et sans effet sur `P1`.

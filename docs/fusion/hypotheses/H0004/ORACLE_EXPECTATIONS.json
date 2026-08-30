@@ -1,17 +1,21 @@
 {
   "derived_account_events": {
     "buy": [
+      {"account":"QUOTE","account_event_id":"ae:69bb064bc3efb845df508d3ecaee35f408dca0070f0d9670dfa4d87b9f6ff194","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-1/10","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"FEE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"},
       {"account":"BASE","account_event_id":"ae:aae619c61eca7c5eaf6e3f2bd24cdec9ddbaf1eb788db38eaf72eb8f72e8d11c","account_model":"SPOT_CASH_V1","currency":"SOL","delta":"999/200","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"},
-      {"account":"QUOTE","account_event_id":"ae:c7acc51b499706b6b4903ff9309d937cbd07194bfc7f53730f28299147dd9b4b","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-999/10","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"},
-      {"account":"QUOTE","account_event_id":"ae:69bb064bc3efb845df508d3ecaee35f408dca0070f0d9670dfa4d87b9f6ff194","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-1/10","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"FEE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"}
+      {"account":"QUOTE","account_event_id":"ae:c7acc51b499706b6b4903ff9309d937cbd07194bfc7f53730f28299147dd9b4b","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-999/10","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"}
     ],
     "sell": [
-      {"account":"BASE","account_event_id":"ae:33327144299a6e7994c26bf9788b1ebeb1b58afd184e0216173f635497009b08","account_model":"SPOT_CASH_V1","currency":"SOL","delta":"-999/200","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"},
       {"account":"QUOTE","account_event_id":"ae:133177b3e3e604a49bffa57fa5a8da64ebf1e2c32318ce5a2afab2a687a5571f","account_model":"SPOT_CASH_V1","currency":"USD","delta":"999/10","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"},
+      {"account":"BASE","account_event_id":"ae:33327144299a6e7994c26bf9788b1ebeb1b58afd184e0216173f635497009b08","account_model":"SPOT_CASH_V1","currency":"SOL","delta":"-999/200","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"},
       {"account":"QUOTE","account_event_id":"ae:b768176752110bd61d668a616e7a8e045cc1c68ee20fb2fe8d16ee7d47d98c35","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-999/10000","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"FEE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"}
     ]
   },
-  "fill_reapplication_semantics": "BLOCKED_SPEC_S8_MECHANICAL_ORDER_RULE",
+  "fill_reapplication_semantics": {
+    "equal_key_rejection": "SPOT_FILL_REAPPLICATION",
+    "lesser_key_rejection": "SPOT_FILL_OUT_OF_ORDER",
+    "rule": "STRICTLY_INCREASING_FILL_LOCAL_KEY"
+  },
   "scenario_id": "SPOT_ROUND_TRIP_CONSTANT_PRICE",
   "schema_version": 2,
   "states": {
