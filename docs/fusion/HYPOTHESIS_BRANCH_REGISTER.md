@@ -39,7 +39,8 @@ deux rapports `ACCEPT_WITH_LIMITS`, ancrés à `ec7ae4b`, sont admis dans
 `P1 PASS`.
 
 Le préenregistrement H0004 part du diagnostic post-H0003 `9c3b758`. Les mathématiques et
-le scénario spot sont gelés avant code, mais S1–S7 empêchent encore de produire un état et
-des `AccountEvent` byte-exacts uniques. H0004 est donc `BLOCKED_SPEC_AMBIGUITY` sous le
-statut opérationnel `DRAFT`; aucune implémentation ni revue n'est autorisée avant décision
-humaine normative.
+le scénario spot ont été gelés avant code à `044406f`. La décision humaine `8aa05bc` ferme
+S1–S7 et permet de regeler les écritures et états exacts, mais le second préenregistrement
+identifie S8 : détecter toute réapplication sans mémoire cachée exige une règle de
+progression des fills encore absente. H0004 reste `BLOCKED_SPEC_AMBIGUITY` sous le statut
+opérationnel `DRAFT`; aucune implémentation ni revue n'est autorisée avant décision S8.

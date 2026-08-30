@@ -13,6 +13,88 @@
 | statut | `BLOCKED_SPEC_AMBIGUITY` |
 | P1 | `NOT_PASSED` |
 
+## Second préenregistrement après décision humaine S1–S7
+
+```text
+previous_preregistration = 044406f38116658864ebe07ce3fa14a3a08d5f20
+previous_status = BLOCKED_SPEC_AMBIGUITY
+normative_decision_commit = 8aa05bc80416b00a0f66c30f1d3f5238c135ed96
+S1-S7 = RESOLVED
+implementation_started = false
+status = BLOCKED_SPEC_AMBIGUITY
+P1 = NOT_PASSED
+```
+
+Le blocage initial ci-dessous reste l'histoire du premier préenregistrement. La décision
+humaine distincte `P1_SPOT_LEDGER_DECISIONS.md` ferme S1–S7 et permet de figer les
+initialisations, les six écritures dérivées, leurs IDs/provenances, les trois états, les
+clés de dernier input et le cumul de frais. Elle ne suffit toutefois pas à rendre S6
+mécaniquement exécutable sans une règle supplémentaire S8.
+
+### S8 — Progression des fills et détection sans mémoire cachée
+
+Contre-exemple : appliquer `fill A`, puis `fill B`, puis tenter de réappliquer `fill A`.
+Après B, l'état autorisé par S5 ne conserve que la clé de B. Sans registre caché, le ledger
+peut reconnaître A comme déjà ancien uniquement s'il impose une progression strictement
+croissante des clés locales `Fill` B6 et rejette toute clé inférieure ou égale à la
+dernière clé Fill.
+
+Cette règle n'est pas contenue explicitement dans S5 ou S6. Elle change aussi le traitement
+d'un fill inédit reçu hors ordre. Il faut donc décider :
+
+```text
+S8 option A:
+  après le premier Fill, toute nouvelle clé Fill doit être strictement supérieure
+  rejet <= last Fill key avec un code stable nommé
+
+S8 option B:
+  ajouter à l'état sérialisé une mémoire explicite bornée des identités consommées
+
+S8 option C:
+  borner la garantie de réapplication au seul Fill égal à last_event_key
+```
+
+Les options B et C changent respectivement le schéma d'état ou la force de S6. Aucun choix
+n'est fait par le Producteur. H0004 reste bloquée avant code.
+
+### Attendus regelés
+
+`SCENARIO.json` versionne maintenant les deux `AccountEvent(INITIALIZE)` explicites.
+`ORACLE_EXPECTATIONS.json` v2 fige les six IDs S1, tous les champs S2, les états complets
+après initialisation/BUY/SELL, les clés S5, le cumul de frais `1999/10000`, le terminal
+`0/1 SOL` et `998001/10000 USD`, ainsi que les projections pures à 20 USD/SOL.
+
+Seule la sémantique mécanique de réapplication reste marquée
+`BLOCKED_SPEC_S8_MECHANICAL_ORDER_RULE`.
+
+### Mutants ajoutés avant code
+
+| ID | Falsification issue de S1–S7 |
+|---|---|
+| M12 | ID d'écriture dépendant d'un compteur, RNG ou ordre d'exécution |
+| M13 | provenance/temps/séquence différents du `Fill` |
+| M14 | deuxième initialisation acceptée après le début des fills |
+| M15 | cumul de frais signé négativement |
+| M16 | frais déduit une seconde fois lors de la conservation |
+| M17 | `last_event_key` remplacé par une écriture dérivée ou utilisé comme ordre inter-types |
+| M18 | fill déjà appliqué silencieusement réappliqué ou traité en no-op, à finaliser après S8 |
+| M19 | frais en BASE accepté par `SPOT_CASH_V1` |
+
+### Arrêt du second préenregistrement
+
+```text
+implementation_started = false
+S1-S7 = RESOLVED
+S8 = UNRESOLVED_SPEC
+scenario_and_determined_oracle = FROZEN
+H0004 = BLOCKED_SPEC_AMBIGUITY
+P1 = NOT_PASSED
+```
+
+Aucune modification de `paper_trading_codex/` ou `tests/hypotheses/H0004/` n'est
+autorisée. La prochaine opération est une décision humaine S8, puis un troisième ancrage
+pré-implémentation sur la même branche.
+
 ## Énoncé candidat
 
 > À partir d'un `InstrumentSpec`, d'un `ReferenceSpec` et de `Fill` canoniques conformes

@@ -67,15 +67,15 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
 | `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | diagnostic achevé au `9c3b758`; H0004 en descend sans fusion |
-| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | préenregistré sans code; `BLOCKED_SPEC_AMBIGUITY` S1–S7 |
+| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | S1–S7 décidés; second préenregistrement sans code; `BLOCKED_SPEC_AMBIGUITY` S8 |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. fermer humainement les ambiguïtés exécutables H0004 S1–S7 sans écrire de code;
-2. conserver le scénario et l'oracle numérique préenregistrés;
-3. reprendre H0004 sur la même branche seulement après ces décisions;
+1. fermer humainement l'ambiguïté mécanique H0004 S8 sans écrire de code;
+2. conserver le scénario, les écritures et les états exacts préenregistrés;
+3. reprendre H0004 sur la même branche seulement après cette décision;
 4. conserver la note `unicodedata` dans le futur enforcement P1 et hors H0004.
 
 Le diagnostic courant est publié dans

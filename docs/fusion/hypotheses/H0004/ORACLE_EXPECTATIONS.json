@@ -1,37 +1,26 @@
 {
-  "account_event_identity_and_order": "UNRESOLVED_SPEC_S1_S2_S3_S5",
-  "after_buy": {
-    "base_balance": "999/200",
-    "equity_quote": "999/10",
-    "quote_balance": "0/1"
-  },
-  "after_sell": {
-    "base_balance": "0/1",
-    "equity_quote": "998001/10000",
-    "quote_balance": "998001/10000"
-  },
-  "event_deltas_determined": {
+  "derived_account_events": {
     "buy": [
-      {"account": "BASE", "currency": "SOL", "delta": "999/200", "kind": "TRADE"},
-      {"account": "QUOTE", "currency": "USD", "delta": "-999/10", "kind": "TRADE"},
-      {"account": "QUOTE", "currency": "USD", "delta": "-1/10", "kind": "FEE"}
+      {"account":"BASE","account_event_id":"ae:aae619c61eca7c5eaf6e3f2bd24cdec9ddbaf1eb788db38eaf72eb8f72e8d11c","account_model":"SPOT_CASH_V1","currency":"SOL","delta":"999/200","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"},
+      {"account":"QUOTE","account_event_id":"ae:c7acc51b499706b6b4903ff9309d937cbd07194bfc7f53730f28299147dd9b4b","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-999/10","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"},
+      {"account":"QUOTE","account_event_id":"ae:69bb064bc3efb845df508d3ecaee35f408dca0070f0d9670dfa4d87b9f6ff194","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-1/10","event_time":2000000000,"instrument_id":"SOL-USD-SPOT","kind":"FEE","sequence":1,"source_event_id":"fill-buy-1","source_id":"h0004-scenario"}
     ],
     "sell": [
-      {"account": "BASE", "currency": "SOL", "delta": "-999/200", "kind": "TRADE"},
-      {"account": "QUOTE", "currency": "USD", "delta": "999/10", "kind": "TRADE"},
-      {"account": "QUOTE", "currency": "USD", "delta": "-999/10000", "kind": "FEE"}
+      {"account":"BASE","account_event_id":"ae:33327144299a6e7994c26bf9788b1ebeb1b58afd184e0216173f635497009b08","account_model":"SPOT_CASH_V1","currency":"SOL","delta":"-999/200","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"},
+      {"account":"QUOTE","account_event_id":"ae:133177b3e3e604a49bffa57fa5a8da64ebf1e2c32318ce5a2afab2a687a5571f","account_model":"SPOT_CASH_V1","currency":"USD","delta":"999/10","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"TRADE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"},
+      {"account":"QUOTE","account_event_id":"ae:b768176752110bd61d668a616e7a8e045cc1c68ee20fb2fe8d16ee7d47d98c35","account_model":"SPOT_CASH_V1","currency":"USD","delta":"-999/10000","event_time":3000000000,"instrument_id":"SOL-USD-SPOT","kind":"FEE","sequence":2,"source_event_id":"fill-sell-1","source_id":"h0004-scenario"}
     ]
   },
-  "fees_by_currency_representation": "UNRESOLVED_SPEC_S4",
-  "fill_reapplication_semantics": "UNRESOLVED_SPEC_S6",
-  "fee_currency_scope": "UNRESOLVED_SPEC_S7",
-  "initial": {
-    "base_balance": "0/1",
-    "equity_quote": "100/1",
-    "quote_balance": "100/1"
-  },
-  "last_event_key": "UNRESOLVED_SPEC_S5",
+  "fill_reapplication_semantics": "BLOCKED_SPEC_S8_MECHANICAL_ORDER_RULE",
   "scenario_id": "SPOT_ROUND_TRIP_CONSTANT_PRICE",
-  "schema_version": 1,
-  "valuation_is_pure": true
+  "schema_version": 2,
+  "states": {
+    "after_buy": {"account_model":"SPOT_CASH_V1","base_balance":"999/200","fees_by_currency":{"USD":"1/10"},"instrument_spec_sha256":"e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4","last_event_key":["FILL",2000000000,1,"h0004-scenario","fill-buy-1"],"quote_balance":"0/1","reference_spec_sha256":"f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"},
+    "after_initialization": {"account_model":"SPOT_CASH_V1","base_balance":"0/1","fees_by_currency":{},"instrument_spec_sha256":"e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4","last_event_key":["ACCOUNT_EVENT",1000000000,0,"h0004-scenario","init-quote-1"],"quote_balance":"100/1","reference_spec_sha256":"f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"},
+    "after_sell": {"account_model":"SPOT_CASH_V1","base_balance":"0/1","fees_by_currency":{"USD":"1999/10000"},"instrument_spec_sha256":"e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4","last_event_key":["FILL",3000000000,2,"h0004-scenario","fill-sell-1"],"quote_balance":"998001/10000","reference_spec_sha256":"f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"}
+  },
+  "valuations": {
+    "after_buy_at_20": {"balances_unchanged":true,"equity_quote":"999/10"},
+    "after_sell_at_20": {"balances_unchanged":true,"equity_quote":"998001/10000"}
+  }
 }

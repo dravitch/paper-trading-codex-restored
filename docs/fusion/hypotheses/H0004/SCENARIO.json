@@ -34,6 +34,34 @@
     "base": "0/1",
     "quote": "100/1"
   },
+  "initialization_events": [
+    {
+      "account": "BASE",
+      "account_event_id": "init-base-1",
+      "account_model": "SPOT_CASH_V1",
+      "currency": "SOL",
+      "delta": "0/1",
+      "event_time": 1000000000,
+      "instrument_id": "SOL-USD-SPOT",
+      "kind": "INITIALIZE",
+      "sequence": 0,
+      "source_event_id": "initial-state-1",
+      "source_id": "h0004-scenario"
+    },
+    {
+      "account": "QUOTE",
+      "account_event_id": "init-quote-1",
+      "account_model": "SPOT_CASH_V1",
+      "currency": "USD",
+      "delta": "100/1",
+      "event_time": 1000000000,
+      "instrument_id": "SOL-USD-SPOT",
+      "kind": "INITIALIZE",
+      "sequence": 0,
+      "source_event_id": "initial-state-1",
+      "source_id": "h0004-scenario"
+    }
+  ],
   "instrument_spec": {
     "base": "SOL",
     "contract_multiplier": "1/1",
@@ -55,6 +83,7 @@
     "rounding_policy": "REJECT_OFF_GRID",
     "valuation_price": "EVENT_PRICE"
   },
+  "reference_spec_sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde",
   "scenario_id": "SPOT_ROUND_TRIP_CONSTANT_PRICE",
   "schema_version": 1,
   "valuation_price": "20/1"
