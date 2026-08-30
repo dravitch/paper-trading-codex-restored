@@ -10,7 +10,9 @@
 | commit de base documentaire | `9c3b758547c332c1721aa13c17f51ba3c772f46f` |
 | dépendance admise | H0003 corrigée, admission `6313afc` |
 | code H0004 lors de cet énoncé | aucun |
-| statut | `BLOCKED_SPEC_AMBIGUITY` |
+| current_status | `READY_FOR_IMPLEMENTATION` |
+| implementation_started | `false` |
+| décisions | `S1-S8 = RESOLVED` |
 | P1 | `NOT_PASSED` |
 
 ## Troisième préenregistrement après décision humaine S8
@@ -274,24 +276,25 @@ Un crash générique ne compte pas comme détection.
 
 H0004 pourra seulement soutenir `PASS_PENDING_INDEPENDENT_REVIEW` si l'oracle rationnel
 indépendant égale le ledger, si chaque variation est expliquée exactement, si la
-valorisation est pure, si M1–M11 sont détectés, si aucun solde négatif n'est accepté, si
-toutes les validations relationnelles H0003 sont appelées et si aucune convention P1
-nouvelle n'apparaît pendant le code.
+valorisation est pure, si toutes les falsifications préenregistrées M1–M19 — y compris
+M18a–M18e — satisfont leur rejet ou invariant attendu, si aucun solde négatif n'est
+accepté, si toutes les validations relationnelles H0003 sont appelées et si aucune
+convention P1 nouvelle n'apparaît pendant le code.
 
 Même alors, H0004 ne signifiera ni `P1 PASS`, ni modèle short conforme, ni enforcement
 temporel démontré.
 
-## Condition d'arrêt atteinte
+## Condition d'arrêt du troisième préenregistrement
 
 ```text
 implementation_started = false
 scenario_frozen = true
 numeric_oracle_frozen = true
-S1-S7 = UNRESOLVED_SPEC
-H0004 = BLOCKED_SPEC_AMBIGUITY
+S1-S8 = RESOLVED
+S9 = NOT_REQUIRED
+H0004 = READY_FOR_IMPLEMENTATION
 P1 = NOT_PASSED
 ```
 
-La prochaine opération autorisée est une décision normative humaine S1–S7, enregistrée
-séparément. Il ne faut lancer ni code ni revues Critique/Contradictoire sur ce paquet
-bloqué.
+La prochaine opération autorisée est l'implémentation Producteur minimale sur cette branche.
+Les revues Critique/Contradictoire ne commencent qu'après gel du paquet Producteur complet.
