@@ -44,6 +44,7 @@ from .spot_ledger import (
     apply_initialization as apply_spot_initialization,
     create_spot_account,
     equity_quote as spot_equity_quote,
+    validate_transition_conservation as validate_spot_transition_conservation,
 )
 
 __all__ = [
@@ -84,4 +85,5 @@ __all__ = [
     "apply_spot_initialization",
     "create_spot_account",
     "spot_equity_quote",
+    "validate_spot_transition_conservation",
 ]

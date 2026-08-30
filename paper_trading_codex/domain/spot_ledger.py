@@ -209,8 +209,7 @@ def apply_fill(
 
     fees = dict(state.fees_by_currency)
     fees[fill.fee_currency] = fees.get(fill.fee_currency, Fraction(0)) + fill.fee_amount
-    return (
-        SpotAccountState(
+    new_state = SpotAccountState(
             account_model=state.account_model,
             instrument_spec_sha256=state.instrument_spec_sha256,
             reference_spec_sha256=state.reference_spec_sha256,
@@ -218,8 +217,22 @@ def apply_fill(
             quote_balance=new_quote,
             fees_by_currency=tuple(sorted(fees.items())),
             last_event_key=_fill_key(fill),
-        ),
-        events,
+    )
+    validate_transition_conservation(state, new_state, events)
+    return new_state, events
+
+
+def validate_transition_conservation(
+    old_state: SpotAccountState,
+    new_state: SpotAccountState,
+    events: tuple[AccountEvent, ...],
+) -> None:
+    base_delta = sum((event.delta for event in events if event.account == "BASE"), Fraction())
+    quote_delta = sum((event.delta for event in events if event.account == "QUOTE"), Fraction())
+    _require(
+        new_state.base_balance == old_state.base_balance + base_delta
+        and new_state.quote_balance == old_state.quote_balance + quote_delta,
+        "SPOT_BALANCE_MOVEMENT_UNEXPLAINED",
     )
 
 
