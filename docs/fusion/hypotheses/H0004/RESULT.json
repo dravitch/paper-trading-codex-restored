@@ -1,0 +1,173 @@
+{
+  "all_frozen_expectations_exact": true,
+  "claims_not_proven": [
+    "P1_PASS",
+    "canonical_short_model",
+    "temporal_enforcement",
+    "integrated_P1_proof"
+  ],
+  "correction_regressions": {
+    "F1a_foreign_coherent_specs": true,
+    "F1b_alternate_reference": true,
+    "F2_multiplier_two": true
+  },
+  "derived_account_events": {
+    "buy": [
+      {
+        "account": "QUOTE",
+        "account_event_id": "ae:69bb064bc3efb845df508d3ecaee35f408dca0070f0d9670dfa4d87b9f6ff194",
+        "account_model": "SPOT_CASH_V1",
+        "currency": "USD",
+        "delta": "-1/10",
+        "event_time": 2000000000,
+        "instrument_id": "SOL-USD-SPOT",
+        "kind": "FEE",
+        "sequence": 1,
+        "source_event_id": "fill-buy-1",
+        "source_id": "h0004-scenario"
+      },
+      {
+        "account": "BASE",
+        "account_event_id": "ae:aae619c61eca7c5eaf6e3f2bd24cdec9ddbaf1eb788db38eaf72eb8f72e8d11c",
+        "account_model": "SPOT_CASH_V1",
+        "currency": "SOL",
+        "delta": "999/200",
+        "event_time": 2000000000,
+        "instrument_id": "SOL-USD-SPOT",
+        "kind": "TRADE",
+        "sequence": 1,
+        "source_event_id": "fill-buy-1",
+        "source_id": "h0004-scenario"
+      },
+      {
+        "account": "QUOTE",
+        "account_event_id": "ae:c7acc51b499706b6b4903ff9309d937cbd07194bfc7f53730f28299147dd9b4b",
+        "account_model": "SPOT_CASH_V1",
+        "currency": "USD",
+        "delta": "-999/10",
+        "event_time": 2000000000,
+        "instrument_id": "SOL-USD-SPOT",
+        "kind": "TRADE",
+        "sequence": 1,
+        "source_event_id": "fill-buy-1",
+        "source_id": "h0004-scenario"
+      }
+    ],
+    "sell": [
+      {
+        "account": "QUOTE",
+        "account_event_id": "ae:133177b3e3e604a49bffa57fa5a8da64ebf1e2c32318ce5a2afab2a687a5571f",
+        "account_model": "SPOT_CASH_V1",
+        "currency": "USD",
+        "delta": "999/10",
+        "event_time": 3000000000,
+        "instrument_id": "SOL-USD-SPOT",
+        "kind": "TRADE",
+        "sequence": 2,
+        "source_event_id": "fill-sell-1",
+        "source_id": "h0004-scenario"
+      },
+      {
+        "account": "BASE",
+        "account_event_id": "ae:33327144299a6e7994c26bf9788b1ebeb1b58afd184e0216173f635497009b08",
+        "account_model": "SPOT_CASH_V1",
+        "currency": "SOL",
+        "delta": "-999/200",
+        "event_time": 3000000000,
+        "instrument_id": "SOL-USD-SPOT",
+        "kind": "TRADE",
+        "sequence": 2,
+        "source_event_id": "fill-sell-1",
+        "source_id": "h0004-scenario"
+      },
+      {
+        "account": "QUOTE",
+        "account_event_id": "ae:b768176752110bd61d668a616e7a8e045cc1c68ee20fb2fe8d16ee7d47d98c35",
+        "account_model": "SPOT_CASH_V1",
+        "currency": "USD",
+        "delta": "-999/10000",
+        "event_time": 3000000000,
+        "instrument_id": "SOL-USD-SPOT",
+        "kind": "FEE",
+        "sequence": 2,
+        "source_event_id": "fill-sell-1",
+        "source_id": "h0004-scenario"
+      }
+    ]
+  },
+  "first_run_commit": "a1374912c4eb233f64566fcc2bc8a443167179ee",
+  "first_run_record_commit": "ffed088f41be0954bcc4a685660dc77f6341227f",
+  "human_rejection_decision_commit": "830c0c0",
+  "hypothesis_id": "H0004",
+  "independent_oracle_equal": true,
+  "multiplier_decision_commit": "f2d45c9",
+  "normative_decision_S1_S7": "8aa05bc80416b00a0f66c30f1d3f5238c135ed96",
+  "normative_decision_S8": "cef58c5ad5e81e897148e7786fe80a74eb824c85",
+  "producer_code_commit": "e5f87b3b7567be048d7c77479e3c96339dcaa56e",
+  "ready_preregistration_commit": "f3c68116d3c4e19c657689e473d796b8560accc8",
+  "rejected_packet_commit": "5967ee0",
+  "rejected_result_sha256": "cb6582a112e577b0508c39f15c2c2dc5107af7a11bd9124d6a76db3051402594",
+  "rejected_reviews_commit": "6f12875",
+  "schema_version": 1,
+  "states": {
+    "after_buy": {
+      "account_model": "SPOT_CASH_V1",
+      "base_balance": "999/200",
+      "fees_by_currency": {
+        "USD": "1/10"
+      },
+      "instrument_spec_sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4",
+      "last_event_key": [
+        "FILL",
+        2000000000,
+        1,
+        "h0004-scenario",
+        "fill-buy-1"
+      ],
+      "quote_balance": "0/1",
+      "reference_spec_sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"
+    },
+    "after_initialization": {
+      "account_model": "SPOT_CASH_V1",
+      "base_balance": "0/1",
+      "fees_by_currency": {},
+      "instrument_spec_sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4",
+      "last_event_key": [
+        "ACCOUNT_EVENT",
+        1000000000,
+        0,
+        "h0004-scenario",
+        "init-quote-1"
+      ],
+      "quote_balance": "100/1",
+      "reference_spec_sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"
+    },
+    "after_sell": {
+      "account_model": "SPOT_CASH_V1",
+      "base_balance": "0/1",
+      "fees_by_currency": {
+        "USD": "1999/10000"
+      },
+      "instrument_spec_sha256": "e0400eeb2ebd95e4ee69884796d18113f05557ed326b1b7bbb49164362a886b4",
+      "last_event_key": [
+        "FILL",
+        3000000000,
+        2,
+        "h0004-scenario",
+        "fill-sell-1"
+      ],
+      "quote_balance": "998001/10000",
+      "reference_spec_sha256": "f56b0b9f915427b0260dc450798d396519ebddeb8ca6567b94bc7a738e0febde"
+    }
+  },
+  "valuations": {
+    "after_buy_at_20": {
+      "balances_unchanged": true,
+      "equity_quote": "999/10"
+    },
+    "after_sell_at_20": {
+      "balances_unchanged": true,
+      "equity_quote": "998001/10000"
+    }
+  }
+}

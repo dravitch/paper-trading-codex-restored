@@ -10,6 +10,13 @@
    des événements : cela rend omission et double comptage directement falsifiables.
 5. Un cumul informatif de frais doit rester séparé des écritures de balance pour éviter une
    double comptabilisation silencieuse.
+6. Une conservation interne exacte ne prouve pas que l'état est muté sous le contexte
+   contractuel qu'il annonce : les hashes sérialisés doivent être vérifiés à chaque frontière.
+7. Une valeur neutralisée dans l'oracle (`contract_multiplier = 1`) peut masquer une
+   convention ajoutée par le code; la faire varier reste une attaque nécessaire même lorsque
+   tous les mutants préenregistrés passent.
+8. Le premier paquet rejeté et son résultat doivent rester adressables séparément du candidat
+   corrigé; la correction ne change ni le verdict historique ni l'antériorité du premier run.
 
 Ces observations ne formalisent aucun protocole général et n'attribuent aucune hypothèse
 suivante.
