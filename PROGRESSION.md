@@ -66,15 +66,17 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
+| `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | capability map post-H0003; aucun code et aucune H0004 |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. quitter la branche H0003 fermée après son commit d'admission;
-2. recalculer la capability map P1 sur une branche documentaire distincte;
-3. conserver la note `unicodedata` dans le futur enforcement P1;
-4. identifier le premier gap falsifiable sans créer H0004.
+1. faire examiner humainement la capability map P1 post-H0003;
+2. conserver la note `unicodedata` dans le futur enforcement P1;
+3. si le diagnostic est admis, attribuer séparément la prochaine hypothèse au candidat
+   `MINIMAL_SPOT_LEDGER`;
+4. ne créer aucune nouvelle hypothèse avant cette décision.
 
 Le diagnostic courant est publié dans [`docs/fusion/P1_CAPABILITY_GAP.md`](docs/fusion/P1_CAPABILITY_GAP.md). Il classe le noyau short full-close `DEMONSTRATED_LIMITED`, mais constate `InstrumentSpec`, événements canoniques, ledger spot, `Clock`, contrôle temporel et preuve intégrée P1 absents. La cause synthétique est `MISSING_EXECUTABLE_CANONICAL_CONTRACTS_AND_SPOT_LEDGER`.
 
