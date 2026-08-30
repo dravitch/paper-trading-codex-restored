@@ -67,15 +67,15 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
 | `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | diagnostic achevé au `9c3b758`; H0004 en descend sans fusion |
-| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | S1–S8 décidés; troisième préenregistrement sans code; `READY_FOR_IMPLEMENTATION` |
+| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | paquet Producteur complet, premier run pré-mutants conservé; `IN_REVIEW`; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. conserver le troisième préenregistrement H0004 comme ancre antérieure au code;
-2. commencer ensuite l'implémentation Producteur minimale sur la même branche;
-3. exécuter l'oracle et M1–M19 avant tout gel/revue;
+1. transmettre le même paquet H0004 gelé à deux revues séparées;
+2. maintenir le Contradictoire aveugle au verdict Critique jusqu'à son premier verdict;
+3. ne plus corriger le Producteur pendant les revues;
 4. conserver la note `unicodedata` dans le futur enforcement P1 et hors H0004.
 
 Le diagnostic courant est publié dans

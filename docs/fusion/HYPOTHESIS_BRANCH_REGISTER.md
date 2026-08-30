@@ -11,7 +11,7 @@
 | H0001 | `hypothesis/H0001-canonical-ledger-equivalence` | équivalence comptable canonique du scénario P0 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0002 | `hypothesis/H0002-short-ledger-generalization` | conservation comptable du short sur une famille préenregistrée | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
 | H0003 | `hypothesis/H0003-canonical-contract-foundation` | suffisance exécutable du socle canonique P1 | P1 | `ACCEPT_WITH_LIMITS` | `ACCEPT_WITH_LIMITS` | `VALIDATED` | — |
-| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | — | — | `TESTING` | — |
+| H0004 | `hypothesis/H0004-minimal-spot-ledger` | conservation comptable d'un compte spot cash canonique | P1 | — | — | `IN_REVIEW` | — |
 
 ## Règle
 
@@ -45,4 +45,6 @@ identifie S8 : détecter toute réapplication sans mémoire cachée exige une r�
 progression des fills. La décision humaine `cef58c5` ferme S8 par progression strictement
 croissante des clés locales `Fill`. Le troisième préenregistrement est
 `READY_FOR_IMPLEMENTATION`; H0004 passe au statut opérationnel `TESTING`, sans code encore
-écrit et sans effet sur `P1`.
+écrit et sans effet sur `P1`. Le Producteur a ensuite gelé un premier run nominal antérieur
+aux mutants, un paquet complet M1–M19 et un résultat `PASS_PENDING_INDEPENDENT_REVIEW`.
+H0004 est désormais `IN_REVIEW`; `P1` reste non passé.
