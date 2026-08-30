@@ -19,7 +19,7 @@ Chaque cycle sépare l'admission du rapport, la réponse Producteur et la nouvel
 | Gate | Objet | État |
 |---|---|---|
 | P0 | baselines | `CLOSED_WITH_DEBT` — rescoping immuabilité vers P6/P7; 68/68 restored, 9/9 bitget, revues admises; dette : preuve d'immuabilité distante et oracles O2/O4/O7 (scope P6/P7) |
-| P1 | domaine canonique et ledgers | H0001 et H0002 validées avec limites publiées; premier paquet H0003 rejeté et en correction; gate non franchi |
+| P1 | domaine canonique et ledgers | H0001, H0002 et paquet corrigé H0003 validés avec limites publiées; gate non franchi |
 | P2 | replay unique déterministe | non commencé |
 | P3 | portage contrôlé des stratégies | non commencé |
 | P4 | adaptateurs fournisseurs | non commencé |
@@ -65,16 +65,16 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `hypothesis/H0001-canonical-ledger-equivalence` | première hypothèse P1 | H0001 validée avec limites publiées; non fusionnée; P1 non passé |
 | `hypothesis/H0002-short-ledger-generalization` | généralisation short P1 | validée avec limites publiées; non fusionnée; P1 non passé |
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
-| `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet R1–R3 corrigé gelé et `IN_REVIEW`; P1 non passé |
+| `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. transmettre le paquet H0003 corrigé aux deux nouvelles revues avec les anciens `REJECT` comme contexte;
-2. maintenir le nouveau Contradictoire aveugle au nouveau verdict Critique jusqu'à son premier verdict;
-3. conserver la note `unicodedata` pour le futur enforcement P1 sans la faire contaminer H0003;
-4. ne créer ni H0004 ni hypothèse ledger spot avant une nouvelle décision humaine sur H0003.
+1. quitter la branche H0003 fermée après son commit d'admission;
+2. recalculer la capability map P1 sur une branche documentaire distincte;
+3. conserver la note `unicodedata` dans le futur enforcement P1;
+4. identifier le premier gap falsifiable sans créer H0004.
 
 Le diagnostic courant est publié dans [`docs/fusion/P1_CAPABILITY_GAP.md`](docs/fusion/P1_CAPABILITY_GAP.md). Il classe le noyau short full-close `DEMONSTRATED_LIMITED`, mais constate `InstrumentSpec`, événements canoniques, ledger spot, `Clock`, contrôle temporel et preuve intégrée P1 absents. La cause synthétique est `MISSING_EXECUTABLE_CANONICAL_CONTRACTS_AND_SPOT_LEDGER`.
 
