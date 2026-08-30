@@ -67,15 +67,15 @@ La roadmap est volontairement séparée entre la dette P6 et l'hypothèse P1 :
 | `work/p1-capability-gap` | diagnostic documentaire P1 | diagnostic achevé au `56e770a`; H0003 en descend sans fusion |
 | `hypothesis/H0003-canonical-contract-foundation` | socle canonique P1 | paquet `44893b0` rejeté; paquet corrigé `d3134e6` validé avec limites; fermé, non fusionné; P1 non passé |
 | `work/p1-capability-gap-after-h0003` | recalibration documentaire P1 | diagnostic achevé au `9c3b758`; H0004 en descend sans fusion |
-| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | paquet Producteur complet, premier run pré-mutants conservé; `IN_REVIEW`; P1 non passé |
+| `hypothesis/H0004-minimal-spot-ledger` | ledger spot minimal P1 | paquet `5967ee0` rejeté; F1/F2 admis; `TESTING / CORRECTION_REQUIRED`; P1 non passé |
 
 `origin` est un pointeur symbolique vers `origin/main`, pas une branche de travail. Le dossier ignoré `docs/deepsearch/` appartient à un autre périmètre et n'a pas été modifié.
 
 ## Prochaine étape contrôlée
 
-1. transmettre le même paquet H0004 gelé à deux revues séparées;
-2. maintenir le Contradictoire aveugle au verdict Critique jusqu'à son premier verdict;
-3. ne plus corriger le Producteur pendant les revues;
+1. décider humainement la sémantique F2 du multiplicateur spot avant code;
+2. corriger strictement F1/F2 et conserver les contre-exemples exacts en régression;
+3. produire un nouveau paquet H0004 sans réécrire le paquet rejeté;
 4. conserver la note `unicodedata` dans le futur enforcement P1 et hors H0004.
 
 Le diagnostic courant est publié dans
