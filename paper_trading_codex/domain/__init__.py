@@ -37,6 +37,15 @@ from .ledger import (
     replay_ledger,
 )
 
+from .spot_ledger import (
+    SpotAccountState,
+    SpotLedgerInvariantError,
+    apply_fill as apply_spot_fill,
+    apply_initialization as apply_spot_initialization,
+    create_spot_account,
+    equity_quote as spot_equity_quote,
+)
+
 __all__ = [
     "AccountEvent",
     "Clock",
@@ -69,4 +78,10 @@ __all__ = [
     "validate_fill_compatibility",
     "validate_instrument_reference",
     "validate_market_event_compatibility",
+    "SpotAccountState",
+    "SpotLedgerInvariantError",
+    "apply_spot_fill",
+    "apply_spot_initialization",
+    "create_spot_account",
+    "spot_equity_quote",
 ]
